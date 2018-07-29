@@ -11,8 +11,7 @@ import java.util.Date;
 public class UploadService {
 
     public void saveFile(CommonsMultipartFile file) throws IOException {
-        String realPath = this.getClass().getClassLoader().getResource("/").getPath()+"../";
-        String path = realPath + "docs/" + new Date().getTime() + file.getOriginalFilename();
+        String path = "D:/Documents/TositTeachUploadFiles/" + new Date().getTime() + file.getOriginalFilename();
         File newFile = new File(path);
         file.transferTo(newFile);
     }

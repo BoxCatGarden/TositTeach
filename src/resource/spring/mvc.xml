@@ -68,5 +68,5 @@
     </bean>
 
     <!-- 指定静态文件夹 -->
-    <mvc:resources mapping="/static/**" location="/static/"/>
+    <!-- mvc:resources mapping="/static/**" location="/static/"/ -->
 </beans>
