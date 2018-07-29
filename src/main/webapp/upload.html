@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <title>上传文件Demo</title>
 
-    <script src="/script/jquery/jquery-3.3.1.min.js"></script>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="/util/jquery/jquery-3.3.1.min.js" type="application/javascript"></script>
 
     <script src="/script/req.js"></script>
 
-    <link rel="stylesheet" href="/script/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/util/layui-2.3.0/css/layui.css" type="text/css" media="all">
 </head>
 <body>
+<div id="upload">
+    <button type="button" class="layui-btn" id="selectFilesDiv">
+        <i class="layui-icon">&#xe67c;</i>选择文件
+    </button>
+    <span>文件数：{{fileNum}}</span>
+    <button type="button" class="layui-btn" id="cfmUploadBtn">确认上传</button>
 
+</div>
+
+<script type="application/javascript" src="/script/upload.js"></script>
 </body>
 </html>
