@@ -21,16 +21,24 @@
     <button type="button" class="layui-btn" id="cfmUploadBtn">确认上传</button>
 </div>
 
-<div id="paging">
-    <button type="button" @click="prev">上一页</button>
-    {{currPage}}/{{totalPage}}
-    <button type="button" @click="next">下一页</button>
+<!--<div id="paging">
+    <form>
+        <button type="button" @click="prev">上一页</button>
+        {{currPage}}/{{totalPage}}
+        <button type="button" @click="next">下一页</button>
+        <label for="ps">每页条数</label>
+        <input id="ps" pattern="[0-9]+" v-model="pageSize">
+        <button type="button" @click="update">刷新</button>
+    </form>
+
     <ul>
         <li v-for="doc in docs">
-            <a :href="doc.url">{{doc.id}} {{doc.url.substring()}}</a>
+            <a :href="doc.url" target="_blank" :title="doc.url.substring(37)">{{doc.docId}}<span style="padding-left: 10px">{{doc.url.substring(37)}}</span></a>
         </li>
     </ul>
-</div>
+</div>-->
+
+<table id="doctable" lay-filter="doctable"></table>
 
 <script type="application/javascript" src="/script/upload.js"></script>
 </body>

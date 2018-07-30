@@ -33,9 +33,13 @@ public class EngDocServiceImpl implements EngDocService {
     }
 
     @Override
-    public int add(CommonsMultipartFile file) throws IOException {
+    public int add(CommonsMultipartFile file, String proId, String userId) throws IOException {
+        String url = uploadService.saveFile(file);
+        if (url == null) return 0;
         EngDoc engDoc = new EngDoc();
-        engDoc.setUrl(uploadService.saveFile(file));
+        engDoc.setUrl(url);
+        engDoc.setProId(proId);
+        engDoc.setUserId(userId);
         synchronized (this) {
             String id = YearIdBuilder.build(engDocMapper.getMaxEngDocId());
             engDoc.setDocId(id);
@@ -48,24 +52,24 @@ public class EngDocServiceImpl implements EngDocService {
         return engDocMapper.updateEngDoc(doc);
     }
 
-    // WAIT TO CHECK
-    // WAIT TO CHECK
-    // WAIT TO CHECK
     @Override
     public int reupload(String doc_id, CommonsMultipartFile file) throws IOException {
-        //delete file
-        EngDoc doc = engDocMapper.getEngDoc(doc_id);
-        if (doc == null || !uploadService.removeFile(doc.getUrl())) return 0;
-        //save new file
-        doc.setUrl(uploadService.saveFile(file));
-        //update record
-        return engDocMapper.updateEngDoc(doc);
+//        String url = uploadService.saveFile(file);
+//        if (url == null) return 0;
+//        EngDoc doc = engDocMapper.getEngDoc(doc_id);
+//        if (doc == null || !uploadService.removeFile(doc.getUrl())) return 0;
+//        doc.setUrl(url);
+//        if (engDocMapper.updateEngDoc(doc) != 1) {
+//            engDocMapper.delEngDoc(doc_id);
+//            uploadService.removeFile(url);
+//            return 0;
+//        }
+        return 1;
     }
 
     @Override
     public int del(String doc_id) throws IOException {
         EngDoc doc = engDocMapper.getEngDoc(doc_id);
-        if (doc == null || !uploadService.removeFile(doc.getUrl())) return 0;
-        return engDocMapper.delEngDoc(doc_id);
+        return (doc == null || engDocMapper.delEngDoc(doc_id) == 0 || !uploadService.removeFile(doc.getUrl())) ? 0 : 1;
     }
 }

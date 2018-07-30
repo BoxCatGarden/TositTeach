@@ -17,7 +17,9 @@ public class UploadServiceImpl implements UploadService {
     private String realPath = "D:/Documents/TositTeachUploadFiles/";
     private String virPath = "/doc/";
 
+    /* return the url of the file, or null if the file size is 0*/
     public String saveFile(CommonsMultipartFile file) throws IOException {
+        if (file.getSize() == 0) return null;
         String name = UUID.randomUUID().toString().replace("-","") + file.getOriginalFilename();
         String path = realPath + name;
         File newFile = new File(path);

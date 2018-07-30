@@ -28,7 +28,7 @@
             join project on doc_engineer.pro_id=project.pro_id
             where pro_name like #{"%" + pn + "%"}
         </if>
-        limit #{st},#{nm}
+        order by doc_id limit #{st},#{nm}
     </select>
 
     <!--上传新的教师文档-->
