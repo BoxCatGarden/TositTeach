@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.tositteach.domain.mapper.TestMapper">
+    <resultMap id="stuMap" type="com.tositteach.domain.entity.Stu">
+        <!--<id column="user_id" property="studUser" jdbcType="VARCHAR"/>
+         <result column="year" property="studYear" jdbcType="VARCHAR"/>
+         <result column="school" property="studScho" jdbcType=""/>
+         <result column="id" property="studId" jdbcType=""/>
+         <result column="name" property="studName" jdbcType=""/>
+         <result column="sex" property="studSex" jdbcType=""/>
+         <result column="grade" property="studGrad" jdbcType=""/>
+         <result column="cla_id" property="studClas" jdbcType=""/>
+         <result column="gro_id" property="studGrou" jdbcType=""/>-->
+
+    </resultMap>
+    <select id="selectAll"  resultMap = "stuMap">
+        SELECT * FROM student;
+    </select>
+    <insert id = "">
+
+    </insert>
+</mapper>
