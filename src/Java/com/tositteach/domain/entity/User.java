@@ -1,31 +1,33 @@
 package com.tositteach.domain.entity;
 
 public class User {
-    private String user_id;
-    private String pwd;
-    private short type;
+    private String userId;
+    private String userPwd;
+    private Byte userType;
 
-    public String getUser_id() {
-        return user_id;
+
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getUserPwd() {
+        return userPwd;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
-    public short getType() {
-        return type;
+    public Byte getUserType() {
+        return userType;
     }
 
-    public void setType(short type) {
-        this.type = type;
+    public void setUserType(Byte userType) {
+        this.userType = userType;
     }
 }
+

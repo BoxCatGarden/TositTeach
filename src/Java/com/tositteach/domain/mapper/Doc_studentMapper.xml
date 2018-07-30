@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tositteach.domain.mapper.Doc_studentMapper">
+    <resultMap id="doc_studentMap" type="com.tositteach.domain.entity.Doc_student">
+        <id column="doc_id" property="docsId" jdbcType="VARCHAR"/>
+        <result column="doc_name" property="docsName" jdbcType="VARCHAR"/>
+        <result column="url" property="docsUrl" jdbcType="VARCHAR"/>
+        <result column="score" property="docsScor" jdbcType="TINYINT"/>
+        <result column="time" property="docsTime" jdbcType="TIMESTAMP"/>
+        <result column="disp" property="docsDisp" jdbcType="LONGVARCHAR"/>
+        <result column="cla_id" property="docsClaId" jdbcType="VARCHAR"/>
+        <result column="gro_id" property="docsGroId" jdbcType="VARCHAR"/>
+        <result column="pro_id" property="docsProId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--增删改查待写-->
+
+    <!--查询doc_student表中所有信息-->
+    <select id="selectAllDoc_student" resultMap="doc_studentMap">
+        SELECT * FROM doc_student
+    </select>
+
+    <!--按文档名称搜索，列出信息-->
+    <select id="selectDoc_studentName" resultMap="doc_studentMap" parameterType="string">
+        SELECT * FROM doc_student
+        WHERE doc_name=#{docsName}
+    </select>
+
+    <!--按项目名称搜索，列出信息-->
+    <!--这里是根据项目id来选择，需要根据项目名称联系到项目id（project表）-->
+    <!--<select id="selectDoc_studentProj" resultMap="doc_studentMap" parameterType="string">-->
+        <!--SELECT * FROM doc_student-->
+        <!--WHERE pro_id=#{docsProId}-->
+    <!--</select>-->
+
+    <!--按小组名称搜索，列出信息-->
+    <!--这里根据gro_id和cla_id来选择，需要根据小组名称联系到小组id（gp表）-->
+    <select id="selectDoc_studentByGpName" resultMap="doc_studentMap" parameterType="string">
+        SELECT * FROM doc_student
+        WHERE gro_id=#{docsGroId} AND cla_id=#{docsClaId}
+    </select>
+
+    <!--下载获取url-->
+    <select id="selectDoc_student" resultMap="doc_studentMap" parameterType="string">
+        SELECT url FROM doc_student
+        WHERE doc_id=#{docsId}
+    </select>
+
+    <!--删除文档-->
+    <delete id="deleteDoc_student" parameterType="string">
+        DELETE FROM doc_student WHERE doc_id=#{docsId}
+    </delete>
+
+    <!--修改文档分数-->
+    <update id="updateDoc_studentScore" parameterType="com.tositteach.domain.entity.Doc_student">
+        UPDATE
+        doc_student SET score=#{docsScor}
+        WHERE doc_id=#{docsId}
+    </update>
+
+    <!--修改已上传文档-->
+    <update id="updateDoc_studentUrl" parameterType="com.tositteach.domain.entity.Doc_student">
+        UPDATE
+        doc_student SET url=#{docsUrl}
+        WHERE doc_id=#{docsId}
+    </update>
+
+    <!--文档添加-->
+    <insert id="insertDoc_student" parameterType="com.tositteach.domain.entity.Doc_student">
+        INSERT INTO doc_student(doc_id,doc_name,url,score,time,disp,cla_id,gro_id,pro_id)
+        VALUES
+        (#{docsId},#{docsName},#{docsUrl},#{docsScor},
+        #{docsTime},#{docsDisp},#{docsClaId},#{docsGroId},#{docsProId})
+    </insert>
+
+    <!--初次上传文档-->
+    <update id="updateDoc_studentFurl" parameterType="com.tositteach.domain.entity.Doc_student">
+        UPDATE
+        doc_student SET url=#{docsUrl}
+        WHERE doc_name=#{docsName}
+    </update>
+
+</mapper>

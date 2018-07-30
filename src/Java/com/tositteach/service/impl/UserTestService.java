@@ -1,4 +1,4 @@
-package com.tositteach.service;
+package com.tositteach.service.impl;
 
 import com.tositteach.domain.mapper.*;
 import com.tositteach.domain.entity.User;

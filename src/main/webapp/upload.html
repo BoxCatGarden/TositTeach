@@ -10,6 +10,7 @@
 
     <script src="/script/req.js"></script>
 
+    <script type="application/javascript" src="/util/layui-2.3.0/layui.js"></script>
     <link rel="stylesheet" href="/util/layui-2.3.0/css/layui.css" type="text/css" media="all">
 </head>
 <body>
@@ -17,9 +18,18 @@
     <button type="button" class="layui-btn" id="selectFilesDiv">
         <i class="layui-icon">&#xe67c;</i>选择文件
     </button>
-    <span>文件数：{{fileNum}}</span>
     <button type="button" class="layui-btn" id="cfmUploadBtn">确认上传</button>
+</div>
 
+<div id="paging">
+    <button type="button" @click="prev">上一页</button>
+    {{currPage}}/{{totalPage}}
+    <button type="button" @click="next">下一页</button>
+    <ul>
+        <li v-for="doc in docs">
+            <a :href="doc.url">{{doc.id}} {{doc.url.substring()}}</a>
+        </li>
+    </ul>
 </div>
 
 <script type="application/javascript" src="/script/upload.js"></script>

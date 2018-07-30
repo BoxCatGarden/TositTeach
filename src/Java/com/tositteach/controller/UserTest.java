@@ -1,7 +1,7 @@
 package com.tositteach.controller;
 
 import com.tositteach.domain.entity.User;
-import com.tositteach.service.UserTestService;
+import com.tositteach.service.impl.UserTestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
