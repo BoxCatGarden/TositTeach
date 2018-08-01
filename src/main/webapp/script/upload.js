@@ -77,7 +77,7 @@ layui.use('table', function () {
             limitName:'nm'
         },
         response: {
-            statusCode: 200
+            statusCode: 0
         },
         page: true,
         limit: 20,

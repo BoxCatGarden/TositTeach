@@ -27,6 +27,22 @@ public class EngDocController {
         return null;
     }
 
+    /* return the recordset*/
+    @RequestMapping(value = "/layui", method = RequestMethod.GET)
+    @ResponseBody
+    public PagingBody getListLayui(@RequestParam(value = "pn", required = false, defaultValue = "") String pn,
+                                   @RequestParam(value = "pg", required = false, defaultValue = "1") int pg,
+                                   @RequestParam(value = "nm", required = false, defaultValue = "10") int nm) {
+        if (pn.equals("")) pn = null;
+        if (pg < 1) pg = 1;
+        if (nm < 0) nm = 10;
+        int total = engDocService.total(pn);
+        List<EngDoc> data = engDocService.query(pn, (pg-1)*nm, nm);
+        PagingBody body = new PagingBody();
+        body.setData(data);
+        return body;
+    }
+
     /* upload the doc file,
      *  return: 0, fail;
      *          1, succeed;
