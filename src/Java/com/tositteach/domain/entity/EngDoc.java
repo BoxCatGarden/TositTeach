@@ -6,6 +6,25 @@ public class EngDoc {
     private String proId;
     private String userId;
 
+    private Project pro;
+    private Engineer eng;
+
+    public Project getPro() {
+        return pro;
+    }
+
+    public void setPro(Project pro) {
+        this.pro = pro;
+    }
+
+    public Engineer getEng() {
+        return eng;
+    }
+
+    public void setEng(Engineer eng) {
+        this.eng = eng;
+    }
+
     public String getDocId() {
         return docId;
     }

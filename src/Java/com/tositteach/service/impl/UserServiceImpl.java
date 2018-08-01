@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         user.setUserPwd("123");
        /* user.setUserId(UUIDUtil.getUUID());*/
         getRightId(user);
-        user.setUserType((byte) 1);
+        user.setType((byte) 1);
         Integer res = userMapper.insertUser(user);
         return user.getUserId();
     }

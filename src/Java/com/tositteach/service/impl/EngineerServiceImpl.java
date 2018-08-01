@@ -1,7 +1,6 @@
 package com.tositteach.service.impl;
 
 import com.tositteach.domain.mapper.EngineerMapper;
-import com.tositteach.domain.mapper.ProjectMapper;
 import com.tositteach.domain.entity.Engineer;
 import com.tositteach.domain.entity.Project;
 import com.tositteach.service.EngineerService;
@@ -9,7 +8,6 @@ import com.tositteach.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.ws.Action;
 import java.util.List;
 @Service
 public class EngineerServiceImpl implements EngineerService {
@@ -25,7 +23,7 @@ public class EngineerServiceImpl implements EngineerService {
     public Engineer queryById(String id) {
         List<Engineer> engineers = engineerMapper.selectAllEngineer();
         for(Engineer engineer:engineers){
-            if(engineer.getEngiId().equals(id)){
+            if(engineer.getUserId().equals(id)){
                 return engineer;
             }
         }
@@ -46,7 +44,7 @@ public class EngineerServiceImpl implements EngineerService {
     @Override
     public Engineer queryByProId(String proid) {
         Project project = projectService.queryById(proid);
-        Engineer engineer = engineerMapper.selectEngineerById(project.getProjUserId());
+        Engineer engineer = engineerMapper.selectEngineerById(project.getUserId());
         return engineer;
     }
 }

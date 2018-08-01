@@ -2,7 +2,7 @@ package com.tositteach.domain.entity;
 
 import java.sql.Timestamp;
 
-public class Doc_student {
+public class StuDoc {
     private String docsId;
     private String docsName;
     private String docsUrl;

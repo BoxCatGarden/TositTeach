@@ -4,21 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.tositteach.domain.mapper.EngineerMapper">
     <resultMap id="EngineerMap" type="com.tositteach.domain.entity.Engineer">
-        <id column="user_id" property="engiId" jdbcType="VARCHAR"/>
-        <result column="name" property="engiName" jdbcType="VARCHAR"/>
-        <result column="sex" property="engiSex" jdbcType="TINYINT"/>
+        <id column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="name" property="engName" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="TINYINT"/>
     </resultMap>
 
     <select id="selectAllEngineer" resultMap="EngineerMap">
         select * from engineer;
     </select>
     <select id="selectEngineerById" resultMap="EngineerMap" parameterType="String">
-        select * from engineer where user_id = #{engiId};
+        select * from engineer where user_id = #{userId};
     </select>
     <select id="selectEngineerByName" resultMap="EngineerMap" parameterType="String">
-        select * from engineer where name = #{engiName};
+        select * from engineer where name = #{engName};
     </select>
     <insert id="insertEngineer" parameterType="com.tositteach.domain.entity.Engineer">
-        insert into engineer(user_id,name,sex) values (#{engiId},#{engiName},#{engiSex});
+        insert into engineer(user_id,name,sex) values (#{userId},#{engName},#{sex});
     </insert>
 </mapper>

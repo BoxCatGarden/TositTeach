@@ -1,87 +1,101 @@
 package com.tositteach.domain.entity;
 
 
-import java.util.List;
-
 public class Project {
-    private String projId;
-    private String projName;
-    private String projStti;
-    private String projEdti;
-    private String projDisp;
-    private Byte projStat;
-    private String projTime;
-    private String projUserId;
+    private String proId;
+    private String proName;
+    private String stTime;
+    private String edTime;
+    private String disp;
+    private Byte state;
+    private String time;
+    private String userId;  //publisher
 
     private Engineer eng;
-    private List<EngDoc> engDocs;
+    private EngDoc doc;
 
-    public String getProjStti() {
-        return projStti;
+    public Engineer getEng() {
+        return eng;
     }
 
-    public void setProjStti(String projStti) {
-        this.projStti = projStti;
+    public void setEng(Engineer eng) {
+        this.eng = eng;
     }
 
-    public String getProjEdti() {
-        return projEdti;
+    public EngDoc getDoc() {
+        return doc;
     }
 
-    public void setProjEdti(String projEdti) {
-        this.projEdti = projEdti;
+    public void setDoc(EngDoc doc) {
+        this.doc = doc;
     }
 
-    public String getProjTime() {
-        return projTime;
+    public String getStTime() {
+        return stTime;
     }
 
-    public void setProjTime(String projTime) {
-        this.projTime = projTime;
+    public void setStTime(String stTime) {
+        this.stTime = stTime;
     }
 
-
-    public String getProjId() {
-        return projId;
+    public String getEdTime() {
+        return edTime;
     }
 
-    public void setProjId(String projId) {
-        this.projId = projId;
+    public void setEdTime(String edTime) {
+        this.edTime = edTime;
     }
 
-    public String getProjName() {
-        return projName;
+    public String getTime() {
+        return time;
     }
 
-    public void setProjName(String projName) {
-        this.projName = projName;
-    }
-
-
-
-    public String getProjDisp() {
-        return projDisp;
-    }
-
-    public void setProjDisp(String projDisp) {
-        this.projDisp = projDisp;
-    }
-
-    public Byte getProjStat() {
-        return projStat;
-    }
-
-    public void setProjStat(Byte projStat) {
-        this.projStat = projStat;
+    public void setTime(String time) {
+        this.time = time;
     }
 
 
-
-    public String getProjUserId() {
-        return projUserId;
+    public String getProId() {
+        return proId;
     }
 
-    public void setProjUserId(String projUserId) {
-        this.projUserId = projUserId;
+    public void setProId(String proId) {
+        this.proId = proId;
+    }
+
+    public String getProName() {
+        return proName;
+    }
+
+    public void setProName(String proName) {
+        this.proName = proName;
+    }
+
+
+
+    public String getDisp() {
+        return disp;
+    }
+
+    public void setDisp(String disp) {
+        this.disp = disp;
+    }
+
+    public Byte getState() {
+        return state;
+    }
+
+    public void setState(Byte state) {
+        this.state = state;
+    }
+
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

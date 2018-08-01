@@ -2,9 +2,16 @@ package com.tositteach.domain.entity;
 
 public class User {
     private String userId;
-    private String userPwd;
-    private Byte userType;
+    private String name;
+    private Byte type;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getUserId() {
         return userId;
@@ -14,20 +21,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUserPwd() {
-        return userPwd;
+    public Byte getType() {
+        return type;
     }
 
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
-    }
-
-    public Byte getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Byte userType) {
-        this.userType = userType;
+    public void setType(Byte type) {
+        this.type = type;
     }
 }
 

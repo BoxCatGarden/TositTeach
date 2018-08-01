@@ -1,7 +1,7 @@
 package com.tositteach.service.impl;
 
+import com.tositteach.domain.entity.StuDoc;
 import com.tositteach.domain.mapper.Doc_studentMapper;
-import com.tositteach.domain.entity.Doc_student;
 import com.tositteach.service.Doc_studentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,20 +17,20 @@ public class Doc_studentServiceImpl implements Doc_studentService {
 
     //查询doc_student表中所有信息
     @Override
-    public List<Doc_student> queryAllDoc_student() {
+    public List<StuDoc> queryAllDoc_student() {
         return doc_studentMapper.selectAllDoc_student();
     }
 
     //按文档名称搜索，列出信息
     @Override
-    public List<Doc_student> queryDoc_studentName(String docsName) {
+    public List<StuDoc> queryDoc_studentName(String docsName) {
         return doc_studentMapper.selectDoc_studentName(docsName);
     }
 
     //按小组名称搜索，列出信息
     //这里根据小组id来选择，需要根据小组名称联系到小组id（gp表）
     @Override
-    public List<Doc_student> queryDoc_studentByGpName(String docsGroId, String docsClaId) {
+    public List<StuDoc> queryDoc_studentByGpName(String docsGroId, String docsClaId) {
         return doc_studentMapper.selectDoc_studentByGpName(docsGroId, docsClaId);
     }
 
@@ -61,8 +61,8 @@ public class Doc_studentServiceImpl implements Doc_studentService {
 
     //文档添加
     @Override
-    public Integer addDoc_student(Doc_student doc_student) {
-        return doc_studentMapper.insertDoc_student(doc_student);
+    public Integer addDoc_student(StuDoc stuDoc) {
+        return doc_studentMapper.insertDoc_student(stuDoc);
     }
 
     //初次上传文档
@@ -72,28 +72,28 @@ public class Doc_studentServiceImpl implements Doc_studentService {
     }
 
     @Override
-    public void getRightId(Doc_student doc_student) {
-        List<Doc_student> doc_students = doc_studentMapper.selectAllDoc_student();
-        if(doc_students.size()==0){
-            doc_student.setDocsId("1");
+    public void getRightId(StuDoc stuDoc) {
+        List<StuDoc> stuDocs = doc_studentMapper.selectAllDoc_student();
+        if(stuDocs.size()==0){
+            stuDoc.setDocsId("1");
         }
         else {
             ArrayList<Integer> iid = new ArrayList<Integer>();
             //最后一个元素
-            for (Doc_student doc_student1 : doc_students) {
-                iid.add(new Integer(doc_student1.getDocsId()));
+            for (StuDoc stuDoc : stuDocs) {
+                iid.add(new Integer(stuDoc.getDocsId()));
             }
             //排序从小到大
             Collections.sort(iid);
             int id1 = iid.get(iid.size() - 1) + 1;
             System.out.println(id1 + "\n\n\n\n\n\n");
             String id = String.valueOf(id1);
-            doc_student.setDocsId(id);
+            stuDoc.setDocsId(id);
         }
     }
 
     @Override
-    public Doc_student queryAllByDocsId(String docsId) {
+    public StuDoc queryAllByDocsId(String docsId) {
         return doc_studentMapper.selectAllByDocsId(docsId);
     }
 }

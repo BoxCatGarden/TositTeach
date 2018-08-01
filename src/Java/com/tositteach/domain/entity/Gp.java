@@ -1,40 +1,50 @@
 package com.tositteach.domain.entity;
 
 public class Gp {
-    private String gpClaId;
-    private String gpGroId;
-    private String gpGroName;
-    private String gpProId;
+    private String claId;
+    private String groId;
+    private String groName;
+    private String proId;
 
-    public String getGpClaId() {
-        return gpClaId;
+    private Project pro;
+
+    public Project getPro() {
+        return pro;
     }
 
-    public void setGpClaId(String gpClaId) {
-        this.gpClaId = gpClaId;
+    public void setPro(Project pro) {
+        this.pro = pro;
     }
 
-    public String getGpGroId() {
-        return gpGroId;
+    public String getClaId() {
+        return claId;
     }
 
-    public void setGpGroId(String gpGroId) {
-        this.gpGroId = gpGroId;
+    public void setClaId(String claId) {
+        this.claId = claId;
     }
 
-    public String getGpGroName() {
-        return gpGroName;
+    public String getGroId() {
+        return groId;
     }
 
-    public void setGpGroName(String gpGroName) {
-        this.gpGroName = gpGroName;
+    public void setGroId(String groId) {
+        this.groId = groId;
     }
 
-    public String getGpProId() {
-        return gpProId;
+    public String getGroName() {
+        return groName;
     }
 
-    public void setGpProId(String gpProId) {
-        this.gpProId = gpProId;
+    public void setGroName(String groName) {
+        this.groName = groName;
+    }
+
+    public String getProId() {
+        return proId;
+    }
+
+    public void setProId(String proId) {
+        this.proId = proId;
     }
 }

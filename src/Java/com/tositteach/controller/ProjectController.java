@@ -42,11 +42,11 @@ public class ProjectController {
         /*Project project = projectService.queryById(id);
         Engineer engineer = engineerService.queryByProId(id);
         Doc_engineer doc_engineer = doc_engineerService.queryAllByProjId(id);
-        String res = project.getProjName()+","
-                +engineer.getEngiName()+","
-                +project.getProjStti()+","
-                +project.getProjEdti()+","
-                +project.getProjDisp()+","
+        String res = project.getProName()+","
+                +engineer.getEngName()+","
+                +project.getStTime()+","
+                +project.getEdTime()+","
+                +project.getDisp()+","
                 +doc_engineer.getDoceUrl();
 */
         return null;
@@ -55,30 +55,63 @@ public class ProjectController {
     //添加新项目，返回项目id
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String add(@RequestBody Project project){
+    public String add(@RequestBody ProReqBody pro){
        return "id";
     }
 
     //删除项目
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
-    public int del(@RequestBody Project project){ //proId
+    public int del(@RequestBody ProReqBody pro){ //proId
         return 0;
     }
 
     //审批项目
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public int check(@RequestBody Project pro){ //pro_id,state
-        if (pro.getProjId() == null || pro.getProjStat() < 1 || 2 < pro.getProjStat()) return 0;
+    public int check(@RequestBody ProReqBody pro){ //pro_id,state
+        if (pro.pi == null || pro.s < 1 || 2 < pro.s) return 0;
         return 0;
     }
 
     //修改项目信息
     @RequestMapping(value = "/mod", method = RequestMethod.POST)
     @ResponseBody
-    public int mod(@RequestBody Project pro){
+    public int mod(@RequestBody ProReqBody pro){
         return 0;
     }
 
+}
+
+class ProReqBody {
+    String pi;
+    String pn;
+    String stt;
+    String edt;
+    String dp;
+    Byte s;
+
+    public void setPi(String pi) {
+        this.pi = pi;
+    }
+
+    public void setPn(String pn) {
+        this.pn = pn;
+    }
+
+    public void setStt(String stt) {
+        this.stt = stt;
+    }
+
+    public void setEdt(String edt) {
+        this.edt = edt;
+    }
+
+    public void setDp(String dp) {
+        this.dp = dp;
+    }
+
+    public void setS(Byte s) {
+        this.s = s;
+    }
 }

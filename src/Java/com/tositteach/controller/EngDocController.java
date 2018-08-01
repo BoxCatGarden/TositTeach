@@ -11,6 +11,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,16 +20,11 @@ import java.util.List;
 public class EngDocController {
     @Resource
     EngDocService engDocService;
-
-    //获取项目的文档
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    @ResponseBody
-    public EngDoc get(@RequestParam(value = "pi") String proId) {
-        return null;
-    }
+    @Resource
+    HttpSession session;
 
     /* return the recordset*/
-    @RequestMapping(value = "/layui", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/layui", method = RequestMethod.GET)
     @ResponseBody
     public PagingBody getListLayui(@RequestParam(value = "pn", required = false, defaultValue = "") String pn,
                                    @RequestParam(value = "pg", required = false, defaultValue = "1") int pg,
@@ -41,7 +37,7 @@ public class EngDocController {
         PagingBody body = new PagingBody();
         body.setData(data);
         return body;
-    }
+    }*/
 
     /* upload the doc file,
      *  return: 0, fail;
@@ -49,10 +45,9 @@ public class EngDocController {
      *          2, duplicate doc_id*/
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public int upload(@RequestParam("file") CommonsMultipartFile file,
-                      @RequestParam(value = "pi") String pi,
-                      HttpServletRequest request) throws IOException {
-        User user = (User) request.getSession().getAttribute("user");
+    public int upload(@RequestParam("pi") String pi,
+                      @RequestParam("file") CommonsMultipartFile file) throws IOException {
+        User user = (User) session.getAttribute("user");
         if (pi.equals("")) pi = null;
         return engDocService.add(file, pi, user != null ? user.getUserId() : null);
     }
@@ -68,7 +63,7 @@ public class EngDocController {
      *  if succeed, return 1; else 0*/
     @RequestMapping(value = "/reupload", method = RequestMethod.POST)
     @ResponseBody
-    public int reupload(@RequestParam(value = "di", required = true) String di,
+    public int reupload(@RequestParam("di") String di,
                         @RequestParam("file") CommonsMultipartFile file) throws IOException {
         return engDocService.reupload(di, file);
     }

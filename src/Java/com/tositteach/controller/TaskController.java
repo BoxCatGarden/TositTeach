@@ -64,8 +64,8 @@ public class TaskController {
     @ResponseBody
     public String getENameByTaskId(String taskId){
         Task task = taskService.queryOneTaskById(taskId);
-        String engiId = task.getTaskUser();
+        String engiId = task.getUserId();
         Engineer engineer = engineerService.queryById(engiId);
-        return engineer.getEngiName();
+        return engineer.getEngName();
     }*/
 }

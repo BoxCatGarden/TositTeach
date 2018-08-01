@@ -4,76 +4,85 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Task {
-    private String taskId;
-    private String taskName;
-    private Date taskStti;
-    private Date taskEdti;
-    private String taskDisp;
-    private String taskPlan;
-    private Timestamp taskTime;
-    private String taskUser;
+    private String tasId;
+    private String tasName;
+    private String stTime;
+    private String edTime;
+    private String disp;
+    private String plan;
+    private String time;
+    private String userId;
+    private Engineer eng;
 
-    public String getTaskId() {
-        return taskId;
+    public String getTasId() {
+        return tasId;
     }
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+    public void setTasId(String tasId) {
+        this.tasId = tasId;
     }
 
-    public String getTaskName() {
-        return taskName;
+    public String getTasName() {
+        return tasName;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
+    public void setTasName(String tasName) {
+        this.tasName = tasName;
     }
 
-    public Date getTaskStti() {
-        return taskStti;
+    public String getDisp() {
+        return disp;
     }
 
-    public void setTaskStti(Date taskStti) {
-        this.taskStti = taskStti;
+    public void setDisp(String disp) {
+        this.disp = disp;
     }
 
-    public Date getTaskEdti() {
-        return taskEdti;
+    public String getPlan() {
+        return plan;
     }
 
-    public void setTaskEdti(Date taskEdti) {
-        this.taskEdti = taskEdti;
+    public void setPlan(String plan) {
+        this.plan = plan;
     }
 
-    public String getTaskDisp() {
-        return taskDisp;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setTaskDisp(String taskDisp) {
-        this.taskDisp = taskDisp;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getTaskPlan() {
-        return taskPlan;
+    public String getStTime() {
+        return stTime;
     }
 
-    public void setTaskPlan(String taskPlan) {
-        this.taskPlan = taskPlan;
+    public void setStTime(String stTime) {
+        this.stTime = stTime;
     }
 
-    public Timestamp getTaskTime() {
-        return taskTime;
+    public String getEdTime() {
+        return edTime;
     }
 
-    public void setTaskTime(Timestamp taskTime) {
-        this.taskTime = taskTime;
+    public void setEdTime(String edTime) {
+        this.edTime = edTime;
     }
 
-    public String getTaskUser() {
-        return taskUser;
+    public String getTime() {
+        return time;
     }
 
-    public void setTaskUser(String taskUser) {
-        this.taskUser = taskUser;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Engineer getEng() {
+        return eng;
+    }
+
+    public void setEng(Engineer eng) {
+        this.eng = eng;
     }
 }

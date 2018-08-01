@@ -6,7 +6,7 @@
     <resultMap id="UserMap" type="com.tositteach.domain.entity.User">
         <id column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="pwd" property="userPwd" jdbcType="VARCHAR" />
-        <result column="type" property="userType" jdbcType="TINYINT"/>
+        <result column="type" property="type" jdbcType="TINYINT"/>
     </resultMap>
     <select id="selectAllUser" resultMap="UserMap">
         select * from user;

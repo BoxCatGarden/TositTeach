@@ -36,20 +36,20 @@ public class TaskServiceImpl implements TaskService{
     public void getRightId(Task task){
         List<Task> tasks = taskMapper.selectAllTasks();
         if(tasks.size()==0){
-            task.setTaskId("1");
+            task.setTasId("1");
         }
         else {
             ArrayList<Integer> iid = new ArrayList<Integer>();
             //最后一个元素
             for (Task task1 : tasks) {
-                iid.add(new Integer(task1.getTaskId()));
+                iid.add(new Integer(task1.getTasId()));
             }
             //排序从小到大
             Collections.sort(iid);
             int id1 = iid.get(iid.size() - 1) + 1;
             System.out.println(id1 + "\n\n\n\n\n\n");
             String id = String.valueOf(id1);
-            task.setTaskId(id);
+            task.setTasId(id);
         }
     }
 

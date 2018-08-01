@@ -42,7 +42,7 @@ public class ProjectServiceImpl implements ProjectService {
         List<Project> projects = projectMapper.selectAllProjectT();
         List<Project> selected = new ArrayList<>();
         for(Project project:projects){
-            if(project.getProjName().equals(name)){
+            if(project.getProName().equals(name)){
                 selected.add(project);
             }
         }
@@ -52,7 +52,7 @@ public class ProjectServiceImpl implements ProjectService {
     public Project queryById (String id) {
         List<Project> projects = projectMapper.selectAllProjectT();
         for(Project project:projects){
-            if(project.getProjName().equals(id)){
+            if(project.getProName().equals(id)){
                 return project;
             }
         }
@@ -86,7 +86,7 @@ public class ProjectServiceImpl implements ProjectService {
         List<Project> selected = new ArrayList<Project>();
         for(Project project1:projects){
             for(Engineer engineer1:engineers){
-                if(engineer1.getEngiId().equals(project1.getProjUserId())){
+                if(engineer1.getUserId().equals(project1.getUserId())){
                     selected.add(project1);
                 }
             }
@@ -109,20 +109,20 @@ public class ProjectServiceImpl implements ProjectService {
     private void getRightId(Project project){
         List<Project> projects = projectMapper.selectAllProject();
         if(projects.size()==0){
-            project.setProjId("1");
+            project.setProId("1");
         }
         else {
             ArrayList<Integer> iid = new ArrayList<Integer>();
             //最后一个元素
             for (Project project1 : projects) {
-                iid.add(new Integer(project1.getProjId()));
+                iid.add(new Integer(project1.getProId()));
             }
             //排序从小到大
             Collections.sort(iid);
             int id1 = iid.get(iid.size() - 1) + 1;
 
             String id = String.valueOf(id1);
-            project.setProjId(id);
+            project.setProId(id);
         }
 
     }

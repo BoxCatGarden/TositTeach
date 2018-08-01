@@ -2,77 +2,96 @@ package com.tositteach.domain.entity;
 
 
 public class Student {
-    private String studUser;
-    private String studScho;
-    private String studId;
-    private String studName;
-    private Byte studSex;
-    private String studGrad;
-    private String studClas;
-    private Byte studGrou;
+    private String userId;
+    private String school;
+    private String id;
+    private String name;
+    private Byte sex;
+    private String grade;
+    private String claId;
+    private Byte groId;
 
-    public String getStudUser() {
-        return studUser;
+    private Clazz cla;
+    private Gp gp;
+
+    public Clazz getCla() {
+        return cla;
     }
 
-    public void setStudUser(String studUser) {
-        this.studUser = studUser;
+    public void setCla(Clazz cla) {
+        this.cla = cla;
     }
 
-    public String getStudScho() {
-        return studScho;
+    public Gp getGp() {
+        return gp;
     }
 
-    public void setStudScho(String studScho) {
-        this.studScho = studScho;
+    public void setGp(Gp gp) {
+        this.gp = gp;
     }
 
-    public String getStudId() {
-        return studId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setStudId(String studId) {
-        this.studId = studId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getStudName() {
-        return studName;
+    public String getSchool() {
+        return school;
     }
 
-    public void setStudName(String studName) {
-        this.studName = studName;
+    public void setSchool(String school) {
+        this.school = school;
     }
 
-    public Byte getStudSex() {
-        return studSex;
+    public String getId() {
+        return id;
     }
 
-    public void setStudSex(Byte studSex) {
-        this.studSex = studSex;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getStudGrad() {
-        return studGrad;
+    public String getName() {
+        return name;
     }
 
-    public void setStudGrad(String studGrad) {
-        this.studGrad = studGrad;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getStudClas() {
-        return studClas;
+    public Byte getSex() {
+        return sex;
     }
 
-    public void setStudClas(String studClas) {
-        this.studClas = studClas;
+    public void setSex(Byte sex) {
+        this.sex = sex;
     }
 
-    public Byte getStudGrou() {
-        return studGrou;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setStudGrou(Byte studGrou) {
-        this.studGrou = studGrou;
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getClaId() {
+        return claId;
+    }
+
+    public void setClaId(String claId) {
+        this.claId = claId;
+    }
+
+    public Byte getGroId() {
+        return groId;
+    }
+
+    public void setGroId(Byte groId) {
+        this.groId = groId;
     }
 }
 

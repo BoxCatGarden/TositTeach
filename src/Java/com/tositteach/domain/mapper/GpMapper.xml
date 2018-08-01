@@ -4,31 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.tositteach.domain.mapper.GpMapper">
     <resultMap id="groupMap" type="com.tositteach.domain.entity.Gp">
-        <id column="gro_id" property="gpGroId" jdbcType="VARCHAR"/>
-        <id column="cla_id" property="gpClaId" jdbcType="VARCHAR"/>
-        <result column="gro_name" property="gpGroName" jdbcType="VARCHAR"/>
-        <result column="pro_id" property="gpProId" jdbcType="VARCHAR"/>
+        <id column="gro_id" property="groId" jdbcType="VARCHAR"/>
+        <id column="cla_id" property="claId" jdbcType="VARCHAR"/>
+        <result column="gro_name" property="groName" jdbcType="VARCHAR"/>
+        <result column="pro_id" property="proId" jdbcType="VARCHAR"/>
     </resultMap>
     <select id="selectAllGp" resultMap="groupMap">
         select * from  gp;
     </select>
     <select id="selectByClaidName" resultMap="groupMap">
-        select * from  WHERE cla_id  = #{gpClaId}and gro_name = #{gpGroName};
+        select * from  WHERE cla_id  = #{claId}and gro_name = #{groName};
     </select>
     <select id="selectById" resultMap="groupMap">
-        select * from gp where cla_id = #{gpClaId} and gro_id = #{gpGroId};
+        select * from gp where cla_id = #{claId} and gro_id = #{groId};
     </select>
     <select id="selectByClaId" resultMap="groupMap">
-        select * from gp where cla_id = #{gpClaId};
+        select * from gp where cla_id = #{claId};
     </select>
     <select id="selectByName" resultMap="groupMap">
-        select * from gp where gro_name = #{gpGroName};
+        select * from gp where gro_name = #{groName};
     </select>
     <insert id="insertGroup" parameterType="com.tositteach.domain.entity.Gp">
-        insert into gp(gro_id,cla_id,gro_name,pro_id) values (#{gpGroId},#{gpClaId},#{gpGroName},#{gpProId});
+        insert into gp(gro_id,cla_id,gro_name,pro_id) values (#{groId},#{claId},#{groName},#{proId});
     </insert>
     <delete id="deleteByClaId" parameterType="String">
-        delete from gp where cla_id = #{gpClaId};
+        delete from gp where cla_id = #{claId};
     </delete>
 
 

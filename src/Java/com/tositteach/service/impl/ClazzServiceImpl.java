@@ -44,20 +44,20 @@ public class ClazzServiceImpl implements ClazzService{
 
             List<Clazz> clazzes = clazzMapper.selectAllClazz();
             if(clazzes.size()==0){
-                clazz.setClazId("1");
+                clazz.setClaId("1");
             }
             else{
                 ArrayList<Integer> iid = new ArrayList<Integer>();
                 //最后一个元素
                 for (Clazz clazz1 : clazzes){
-                    iid.add(new Integer(clazz1.getClazId()));
+                    iid.add(new Integer(clazz1.getClaId()));
                 }
                 //排序从小到大
                 Collections.sort(iid);
                 int id1 = iid.get(iid.size()-1)+1;
                 System.out.println(id1+"\n\n\n\n\n\n");
                 String id = String.valueOf(id1);
-                clazz.setClazId(id);
+                clazz.setClaId(id);
             }
 
     }

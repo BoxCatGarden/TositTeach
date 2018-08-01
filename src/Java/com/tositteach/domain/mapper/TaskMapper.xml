@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.tositteach.domain.mapper.TaskMapper">
     <resultMap id="taskMap" type="com.tositteach.domain.entity.Task">
-        <id column="task_id" property="taskId" jdbcType="VARCHAR"/>
-        <result column="task_name" property="taskName" jdbcType="VARCHAR" />
-        <result column="st_time" property="taskStti" jdbcType="DATE"/>
-        <result column="ed_time" property="taskEdti" jdbcType="DATE"/>
-        <result column="disp" property="taskDisp" jdbcType="VARCHAR"/>
-        <result column="plan" property="taskPlan" jdbcType="VARCHAR"/>
-        <result column="time" property="taskTime" jdbcType="TIMESTAMP"/>
-        <result column="user_id" property="taskUser" jdbcType="VARCHAR"/>
+        <id column="task_id" property="tasId" jdbcType="VARCHAR"/>
+        <result column="task_name" property="tasName" jdbcType="VARCHAR" />
+        <result column="st_time" property="stTime" jdbcType="DATE"/>
+        <result column="ed_time" property="edTime" jdbcType="DATE"/>
+        <result column="disp" property="disp" jdbcType="VARCHAR"/>
+        <result column="plan" property="plan" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="TIMESTAMP"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
     </resultMap>
     <select id="selectAllTask" resultMap="taskMap">
         select * from task;
@@ -20,12 +20,12 @@
         INSERT INTO task(task_id,task_name,
                       st_time,ed_time,disp,plan,time,user_id)
                       VALUES
-          (#{taskId},#{taskName},#{taskStti},#{taskEdti},
-          #{taskDisp},#{taskPlan},#{taskTime},#{taskUser})
+          (#{tasId},#{tasName},#{stTime},#{edTime},
+          #{disp},#{plan},#{time},#{userId})
     </select>
     <select id="selectOnetask" parameterType="String">
         SELECT * from task
-        WHERE task_id=#{taskId}
+        WHERE task_id=#{tasId}
     </select>
 
 </mapper>

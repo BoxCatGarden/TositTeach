@@ -1,31 +1,31 @@
 package com.tositteach.domain.entity;
 
 public class Engineer {
-    private String engiId;//user_id
-    private String engiName;
-    private Byte engiSex;
+    private String userId;//user_id
+    private String engName;
+    private Byte sex;
 
-    public String getEngiId() {
-        return engiId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setEngiId(String engiId) {
-        this.engiId = engiId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getEngiName() {
-        return engiName;
+    public String getEngName() {
+        return engName;
     }
 
-    public void setEngiName(String engiName) {
-        this.engiName = engiName;
+    public void setEngName(String engName) {
+        this.engName = engName;
     }
 
-    public Byte getEngiSex() {
-        return engiSex;
+    public Byte getSex() {
+        return sex;
     }
 
-    public void setEngiSex(Byte engiSex) {
-        this.engiSex = engiSex;
+    public void setSex(Byte sex) {
+        this.sex = sex;
     }
 }

@@ -1,40 +1,50 @@
 package com.tositteach.domain.entity;
 
 public class Clazz {
-    private String clazId;
-    private String clazName;
-    private String clazRoom;
-    private String clazUserId;
+    private String claId;
+    private String claName;
+    private String room;
+    private String userId;
 
-    public String getClazId() {
-        return clazId;
+    private Engineer eng;
+
+    public Engineer getEng() {
+        return eng;
     }
 
-    public void setClazId(String clazId) {
-        this.clazId = clazId;
+    public void setEng(Engineer eng) {
+        this.eng = eng;
     }
 
-    public String getClazName() {
-        return clazName;
+    public String getClaId() {
+        return claId;
     }
 
-    public void setClazName(String clazName) {
-        this.clazName = clazName;
+    public void setClaId(String claId) {
+        this.claId = claId;
     }
 
-    public String getClazRoom() {
-        return clazRoom;
+    public String getClaName() {
+        return claName;
     }
 
-    public void setClazRoom(String clazRoom) {
-        this.clazRoom = clazRoom;
+    public void setClaName(String claName) {
+        this.claName = claName;
     }
 
-    public String getClazUserId() {
-        return clazUserId;
+    public String getRoom() {
+        return room;
     }
 
-    public void setClazUserId(String clazUserId) {
-        this.clazUserId = clazUserId;
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

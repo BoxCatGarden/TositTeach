@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.tositteach.domain.mapper.StudentMapper">
     <resultMap id="studentMap" type="com.tositteach.domain.entity.Student">
-        <id column="user_id" property="studUser" jdbcType="VARCHAR"/>
-        <result column="school" property="studScho" jdbcType="VARCHAR" />
-        <result column="id" property="studId" jdbcType="VARCHAR"/>
-        <result column="name" property="studName" jdbcType="VARCHAR"/>
-        <result column="sex" property="studSex" jdbcType="TINYINT"/>
-        <result column="grade" property="studGrad" jdbcType="VARCHAR"/>
-        <result column="cla_id" property="studClas" jdbcType="VARCHAR"/>
-        <result column="gro_id" property="studGrou" jdbcType="TINYINT"/>
+        <id column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="school" property="school" jdbcType="VARCHAR" />
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="TINYINT"/>
+        <result column="grade" property="grade" jdbcType="VARCHAR"/>
+        <result column="cla_id" property="claId" jdbcType="VARCHAR"/>
+        <result column="gro_id" property="groId" jdbcType="TINYINT"/>
     </resultMap>
     <select id="selectAllStudents" resultMap="studentMap">
         SELECT * FROM student;
@@ -20,25 +20,25 @@
         INSERT INTO student(user_id,school,id,
                       name,sex,grade)
                       VALUES
-          (#{studUser},#{studScho},#{studId},#{studName},
-          #{studSex},#{studGrad})
+          (#{userId},#{school},#{id},#{name},
+          #{sex},#{grade})
     </insert>
 
     <update id="updateStudentClass" parameterType="com.tositteach.domain.entity.Student">
         UPDATE student
-        SET cla_id=#{studClas}
-        WHERE user_id= #{studUser}
+        SET cla_id=#{claId}
+        WHERE user_id= #{userId}
     </update>
 
     <update id="updateStudentGroup" parameterType="com.tositteach.domain.entity.Student">
         UPDATE student
         SET gro_id = #{studGroup}
-        WHERE user_id = #{studUser} AND cla_id = #{studClas}
+        WHERE user_id = #{userId} AND cla_id = #{claId}
     </update>
 
     <select id="selectStudentsByClassId" parameterType="String" resultMap="studentMap">
         SELECT * FROM student
-        WHERE cla_id= #{studClas}
+        WHERE cla_id= #{claId}
     </select>
 
     <select id="selectStudentNoClass" resultMap="studentMap">
@@ -51,8 +51,8 @@
         name,sex,grade)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.studUser}, #{item.studScho}, #{item.studId},#{item.studName},
-            #{item.studSex}, #{item.studGrad})
+            (#{item.userId}, #{item.school}, #{item.id},#{item.name},
+            #{item.sex}, #{item.grade})
         </foreach>
     </insert>
 

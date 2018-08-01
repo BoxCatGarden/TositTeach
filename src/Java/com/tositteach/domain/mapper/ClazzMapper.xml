@@ -5,10 +5,10 @@
 
 <mapper namespace="com.tositteach.domain.mapper.ClazzMapper">
     <resultMap id="clazzMap" type="com.tositteach.domain.entity.Clazz">
-        <id column="cla_id" property="clazId" jdbcType="VARCHAR"/>
-        <result column="cla_name" property="clazName" jdbcType="VARCHAR"/>
-        <result column="room" property="clazRoom" jdbcType="VARCHAR"/>
-        <result column="user_id" property="clazUserId" jdbcType="VARCHAR"/>
+        <id column="cla_id" property="claId" jdbcType="VARCHAR"/>
+        <result column="cla_name" property="claName" jdbcType="VARCHAR"/>
+        <result column="room" property="room" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询clazz表中的所有信息-->
@@ -19,19 +19,19 @@
     <!--根据班级id查询相关班级信息-->
     <select id="selectClazzById" resultMap="clazzMap" parameterType="string">
         SELECT * FROM clazz
-        WHERE cla_id=#{clazId}
+        WHERE cla_id=#{claId}
     </select>
 
     <!--根据选中班级的cla_id删除班级信息-->
     <delete id="deleteClazz" parameterType="string">
-        DELETE FROM clazz WHERE cla_id=#{clazId}
+        DELETE FROM clazz WHERE cla_id=#{claId}
     </delete>
 
     <!--增加新的班级及其信息-->
     <insert id="insertClazz" parameterType="com.tositteach.domain.entity.Clazz">
         INSERT INTO clazz(cla_id,cla_name,room,user_id)
         VALUES
-        (#{clazId},#{clazName},#{clazRoom},#{clazUserId})
+        (#{claId},#{claName},#{room},#{userId})
     </insert>
 
 </mapper>
