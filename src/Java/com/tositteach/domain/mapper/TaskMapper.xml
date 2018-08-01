@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.tositteach.domain.mapper.TaskMapper">
+    <resultMap id="taskMap" type="com.tositteach.domain.entity.Task">
+        <id column="task_id" property="taskId" jdbcType="VARCHAR"/>
+        <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+        <result column="st_time" property="taskStti" jdbcType="DATE"/>
+        <result column="ed_time" property="taskEdti" jdbcType="DATE"/>
+        <result column="disp" property="taskDisp" jdbcType="VARCHAR"/>
+        <result column="plan" property="taskPlan" jdbcType="VARCHAR"/>
+        <result column="time" property="taskTime" jdbcType="TIMESTAMP"/>
+        <result column="user_id" property="taskUser" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectAllTask" resultMap="taskMap">
+        select * from task;
+    </select>
+    <select id="insertTasks" parameterType="com.tositteach.domain.entity.Task">
+        INSERT INTO task(task_id,task_name,
+                      st_time,ed_time,disp,plan,time,user_id)
+                      VALUES
+          (#{taskId},#{taskName},#{taskStti},#{taskEdti},
+          #{taskDisp},#{taskPlan},#{taskTime},#{taskUser})
+    </select>
+    <select id="selectOnetask" parameterType="String">
+        SELECT * from task
+        WHERE task_id=#{taskId}
+    </select>
+
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.tositteach.domain.mapper.EngineerMapper">
+    <resultMap id="EngineerMap" type="com.tositteach.domain.entity.Engineer">
+        <id column="user_id" property="engiId" jdbcType="VARCHAR"/>
+        <result column="name" property="engiName" jdbcType="VARCHAR"/>
+        <result column="sex" property="engiSex" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <select id="selectAllEngineer" resultMap="EngineerMap">
+        select * from engineer;
+    </select>
+    <select id="selectEngineerById" resultMap="EngineerMap" parameterType="String">
+        select * from engineer where user_id = #{engiId};
+    </select>
+    <select id="selectEngineerByName" resultMap="EngineerMap" parameterType="String">
+        select * from engineer where name = #{engiName};
+    </select>
+    <insert id="insertEngineer" parameterType="com.tositteach.domain.entity.Engineer">
+        insert into engineer(user_id,name,sex) values (#{engiId},#{engiName},#{engiSex});
+    </insert>
+</mapper>

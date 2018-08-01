@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.tositteach.domain.mapper.GpMapper">
+    <resultMap id="groupMap" type="com.tositteach.domain.entity.Gp">
+        <id column="gro_id" property="gpGroId" jdbcType="VARCHAR"/>
+        <id column="cla_id" property="gpClaId" jdbcType="VARCHAR"/>
+        <result column="gro_name" property="gpGroName" jdbcType="VARCHAR"/>
+        <result column="pro_id" property="gpProId" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectAllGp" resultMap="groupMap">
+        select * from  gp;
+    </select>
+    <select id="selectByClaidName" resultMap="groupMap">
+        select * from  WHERE cla_id  = #{gpClaId}and gro_name = #{gpGroName};
+    </select>
+    <select id="selectById" resultMap="groupMap">
+        select * from gp where cla_id = #{gpClaId} and gro_id = #{gpGroId};
+    </select>
+    <select id="selectByClaId" resultMap="groupMap">
+        select * from gp where cla_id = #{gpClaId};
+    </select>
+    <select id="selectByName" resultMap="groupMap">
+        select * from gp where gro_name = #{gpGroName};
+    </select>
+    <insert id="insertGroup" parameterType="com.tositteach.domain.entity.Gp">
+        insert into gp(gro_id,cla_id,gro_name,pro_id) values (#{gpGroId},#{gpClaId},#{gpGroName},#{gpProId});
+    </insert>
+    <delete id="deleteByClaId" parameterType="String">
+        delete from gp where cla_id = #{gpClaId};
+    </delete>
+
+
+</mapper>

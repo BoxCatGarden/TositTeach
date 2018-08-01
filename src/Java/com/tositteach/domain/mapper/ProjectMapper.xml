@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.tositteach.domain.mapper.ProjectMapper">
+<resultMap id="ProjectMap" type="com.tositteach.domain.entity.Project" >
+    <id column="pro_id" property="projId" jdbcType="VARCHAR"/>
+    <result column="pro_name" property="projName" jdbcType="VARCHAR"/>
+    <result column="st_time" property="projStti" jdbcType="DATE"/>
+    <result column="ed_time" property="projEdti" jdbcType="DATE"/>
+    <result column="disp" property="projDisp" jdbcType="LONGVARCHAR"/>
+    <result column="state" property="projStat" jdbcType="TINYINT"/>
+    <result column="time" property="projTime" jdbcType="TIMESTAMP"/>
+    <result column="user_id" property="projUserId" jdbcType="VARCHAR"/>
+</resultMap>
+    <select id="selectAllProjectS" resultMap="ProjectMap">
+        select * from project where state = 0;
+    </select>
+
+    <select id="selectAllProjectT" resultMap="ProjectMap">
+        select * from project where state = 1;
+    </select>
+
+
+    <select id="selectAllProjectM" resultMap="ProjectMap">
+        select * from project where state = 2;
+    </select>
+
+    <select id="selectAllProject" resultMap="ProjectMap">
+        select * from project;
+    </select>
+
+    <insert id="insertProject" parameterType="com.tositteach.domain.entity.Project">
+        insert into project(pro_id,pro_name,st_time,ed_time,disp,state,time,user_id)
+         values (#{projId},#{projName},#{projStti},#{projEdti},#{projDisp},#{projStat},#{projTime},#{projUserId});
+    </insert>
+    <delete id="deleteProject" parameterType="String">
+        delete from project where project.pro_id = #{projId};
+    </delete>
+    <update id="updateProject" parameterType="com.tositteach.domain.entity.Project">
+        update project set pro_name = #{projName},ed_time = #{projEdti}, disp=#{projDisp},pro_id=#{projId};
+    </update>
+    <update id="updateProjectState" parameterType="com.tositteach.domain.entity.Project">
+        update project set state = #{projStat} where pro_id=#{projId};
+    </update>
+    <select id = "selectById" parameterType="String">
+        select * from  project where pro_id=#{projId};
+    </select>
+    <select id="selectByEngineerId" parameterType="String">
+        select * from project where user_id = #{projUserId} and state = #{projStat};
+    </select>
+</mapper>

@@ -19,7 +19,7 @@ public class UploadServiceImpl implements UploadService {
 
     /* return the url of the file, or null if the file size is 0*/
     public String saveFile(CommonsMultipartFile file) throws IOException {
-        if (file.getSize() == 0) return null;
+        if (file.getSize() == 0) return "";
         String name = UUID.randomUUID().toString().replace("-","") + file.getOriginalFilename();
         String path = realPath + name;
         File newFile = new File(path);

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.tositteach.domain.mapper.StudentMapper">
+    <resultMap id="studentMap" type="com.tositteach.domain.entity.Student">
+        <id column="user_id" property="studUser" jdbcType="VARCHAR"/>
+        <result column="school" property="studScho" jdbcType="VARCHAR" />
+        <result column="id" property="studId" jdbcType="VARCHAR"/>
+        <result column="name" property="studName" jdbcType="VARCHAR"/>
+        <result column="sex" property="studSex" jdbcType="TINYINT"/>
+        <result column="grade" property="studGrad" jdbcType="VARCHAR"/>
+        <result column="cla_id" property="studClas" jdbcType="VARCHAR"/>
+        <result column="gro_id" property="studGrou" jdbcType="TINYINT"/>
+    </resultMap>
+    <select id="selectAllStudents" resultMap="studentMap">
+        SELECT * FROM student;
+    </select>
+    <insert id="insertStudent" parameterType="com.tositteach.domain.entity.Student">
+        INSERT INTO student(user_id,school,id,
+                      name,sex,grade)
+                      VALUES
+          (#{studUser},#{studScho},#{studId},#{studName},
+          #{studSex},#{studGrad})
+    </insert>
+
+    <update id="updateStudentClass" parameterType="com.tositteach.domain.entity.Student">
+        UPDATE student
+        SET cla_id=#{studClas}
+        WHERE user_id= #{studUser}
+    </update>
+
+    <update id="updateStudentGroup" parameterType="com.tositteach.domain.entity.Student">
+        UPDATE student
+        SET gro_id = #{studGroup}
+        WHERE user_id = #{studUser} AND cla_id = #{studClas}
+    </update>
+
+    <select id="selectStudentsByClassId" parameterType="String" resultMap="studentMap">
+        SELECT * FROM student
+        WHERE cla_id= #{studClas}
+    </select>
+
+    <select id="selectStudentNoClass" resultMap="studentMap">
+        SELECT * FROM student
+        WHERE cla_id = NULL
+    </select>
+
+    <insert id="insertInfoBatch" parameterType="java.util.List">
+        insert into salarymanage (user_id,school,id,
+        name,sex,grade)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.studUser}, #{item.studScho}, #{item.studId},#{item.studName},
+            #{item.studSex}, #{item.studGrad})
+        </foreach>
+    </insert>
+
+
+</mapper>
