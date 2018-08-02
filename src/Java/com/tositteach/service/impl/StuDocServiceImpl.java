@@ -1,5 +1,6 @@
 package com.tositteach.service.impl;
 
+import com.tositteach.domain.entity.Gp;
 import com.tositteach.domain.entity.StuDoc;
 import com.tositteach.domain.entity.Student;
 import com.tositteach.domain.mapper.StuDocMapper;
@@ -61,10 +62,10 @@ public class StuDocServiceImpl implements StuDocService {
         doc.setDisp(disp);
         doc.setUrl(url);
 
-        Student stu = studentService.get(stuId);
-        doc.setClaId(stu.getClaId());
-        doc.setGroId(stu.getGroId());
-        doc.setProId(stu.getGp().getProId());
+        Gp stuGp = studentService.get(stuId).getGp();
+        doc.setClaId(stuGp.getClaId());
+        doc.setGroId(stuGp.getGroId());
+        doc.setProId(stuGp.getProId());
 
         synchronized (this) {
             doc.setDocId(YearIdBuilder.build(stuDocMapper.getMaxId()));

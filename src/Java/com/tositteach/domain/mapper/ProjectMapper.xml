@@ -11,43 +11,80 @@
         <result property="disp" column="disp" jdbcType="VARCHAR"/>
         <result property="state" column="state" jdbcType="TINYINT"/>
         <result property="time" column="time" jdbcType="TIMESTAMP"/>
-        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <association property="eng" javaType="engineer">
+            <id property="userId" column="user_id" jdbcType="VARCHAR"/>
+            <result property="name" column="name"/>
+        </association>
+        <association property="doc" column="doc_pro_id" javaType="engDoc" select="getProDoc"/>
     </resultMap>
 
-    <select id="selectAllProjectS" resultMap="ProjectMap">
-        select * from project where state = 0;
+    <select id="total" resultType="_int">
+        select count(*)
+        from project natural join engineer
+        <where>
+            <if test="s != 3">
+                state=#{s}
+            </if>
+            <if test="pn!=null">
+                and pro_name like {"%"+pn+"%"}
+            </if>
+            <if test="en!=null">
+                and name like {"%"+en+"%"}
+            </if>
+            <if test="ei!=null">
+                and user_id like {"%"+ei+"%"}
+            </if>
+        </where>
+    </select>
+    <select id="query" resultMap="proMap">
+        select pro_id,pro_name,st_time,user_id,name
+        from project natural join engineer
+        <where>
+            <if test="s != 3">
+                state=#{s}
+            </if>
+            <if test="pn!=null">
+                and pro_name like {"%"+pn+"%"}
+            </if>
+            <if test="en!=null">
+                and name like {"%"+en+"%"}
+            </if>
+            <if test="ei!=null">
+                and user_id like {"%"+ei+"%"}
+            </if>
+        </where>
+        <if test="nm>0">
+            limit #{st},#{nm}
+        </if>
     </select>
 
-    <select id="selectAllProjectT" resultMap="ProjectMap">
-        select * from project where state = 1;
+    <select id="get" resultMap="proMap">
+        select pro_id,pro_name,st_time,ed_time,disp,user_id,name,pro_id as doc_pro_id
+        from project natural join engineer where pro_id=#{pi}
+    </select>
+    <select id="getProDoc" resultMap="com.tositteach.domain.mapper.EngDocMapper.engDocMap">
+        select doc_id,url from doc_engineer where pro_id=#{doc_pro_id}
     </select>
 
 
-    <select id="selectAllProjectM" resultMap="ProjectMap">
-        select * from project where state = 2;
+    <select id="getMaxId" resultType="string">
+        select max(pro_id) from project
     </select>
-
-    <select id="selectAllProject" resultMap="ProjectMap">
-        select * from project;
-    </select>
-
-    <insert id="insertProject" parameterType="com.tositteach.domain.entity.Project">
-        insert into project(pro_id,pro_name,st_time,ed_time,disp,state,time,user_id)
-         values (#{proId},#{proName},#{stTime},#{edTime},#{disp},#{state},#{time},#{userId});
+    <insert id="add">
+        insert into project
+        values (#{proId},#{proName},#{stTime},#{edTime},#{disp},default,default,#{userId})
     </insert>
-    <delete id="deleteProject" parameterType="String">
-        delete from project where project.pro_id = #{proId};
+
+    <delete id="del">
+        delete from project where pro_id=#{pi}
     </delete>
-    <update id="updateProject" parameterType="com.tositteach.domain.entity.Project">
-        update project set pro_name = #{proName},ed_time = #{edTime}, disp=#{disp},pro_id=#{proId};
+
+    <update id="setState">
+        update project set state=#{s} where pro_id=#{pi}
     </update>
-    <update id="updateProjectState" parameterType="com.tositteach.domain.entity.Project">
-        update project set state = #{state} where pro_id=#{proId};
+
+    <update id="mod">
+        update project set pro_name=#{proName},ed_time=#{edTime},disp=#{disp} where pro_id=#{proId}
     </update>
-    <select id="selectById" parameterType="String">
-        select * from  project where pro_id=#{proId};
-    </select>
-    <select id="selectByEngineerId" parameterType="String">
-        select * from project where user_id = #{userId} and state = #{state};
-    </select>
+
 </mapper>

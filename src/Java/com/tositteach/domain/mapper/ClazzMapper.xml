@@ -8,30 +8,46 @@
         <id property="claId" column="cla_id" jdbcType="VARCHAR"/>
         <result property="claName" column="cla_name" jdbcType="VARCHAR"/>
         <result property="room" column="room" jdbcType="VARCHAR"/>
-        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <association property="eng" javaType="engineer">
+            <id property="userId" column="user_id" jdbcType="VARCHAR"/>
+            <result property="name" column="name"/>
+        </association>
     </resultMap>
 
-    <!--查询clazz表中的所有信息-->
-    <select id="selectAllClazz" resultMap="clazzMap">
-        SELECT * FROM clazz
+
+    <select id="total" resultType="_int">
+        select count(*) from clazz
+    </select>
+    <select id="query" resultMap="claMap">
+        select cla_id,cla_name,room,user_id,name
+        from clazz natural left outer join engineer
+        <if test="nm>0">
+            limit #{st},#{nm}
+        </if>
     </select>
 
-    <!--根据班级id查询相关班级信息-->
-    <select id="selectClazzById" resultMap="clazzMap" parameterType="string">
-        SELECT * FROM clazz
-        WHERE cla_id=#{claId}
+    <select id="getMaxId" resultType="string">
+        select max(cla_id) from clazz
     </select>
+    <insert id="add">
+        insert into clazz
+        values (#{claId},#{claName},#{room},#{userId})
+    </insert>
 
     <!--根据选中班级的cla_id删除班级信息-->
-    <delete id="deleteClazz" parameterType="string">
-        DELETE FROM clazz WHERE cla_id=#{claId}
+    <delete id="del">
+        delete from clazz where cla_id in
+        <foreach collection="cis" item="ci" open="(" separator="," close=")">
+            #{ci}
+        </foreach>
     </delete>
 
-    <!--增加新的班级及其信息-->
-    <insert id="insertClazz" parameterType="com.tositteach.domain.entity.Clazz">
-        INSERT INTO clazz(cla_id,cla_name,room,user_id)
-        VALUES
-        (#{claId},#{claName},#{room},#{userId})
-    </insert>
+    <update id="addstu">
+        update student set cla_id=#{ci}
+        where user_id in
+        <foreach collection="sis" item="si" open="(" separator="," close=")">
+            #{si}
+        </foreach>
+    </update>
 
 </mapper>

@@ -38,8 +38,8 @@
         gro_id, gro_name,
         pro_id, pro_name, st_time, ed_time
         from (select * from student where user_id=#{ui}) as s join clazz using (cla_id)
-        join gp using (cla_id,gro_id) join project using (pro_id)
-        join engineer as e on clazz.user_id=e.user_id
+        join gp using (cla_id,gro_id) left outer join project using (pro_id)
+        left outer join engineer as e on clazz.user_id=e.user_id
     </select>
 
     <resultMap id="stuInfoMap" type="student">
@@ -52,7 +52,7 @@
             <result property="claName" column="cla_name"/>
             <result property="room" column="room"/>
             <association property="eng" javaType="engineer">
-                <id property="engId" column="eng_id"/>
+                <id property="userId" column="eng_id"/>
                 <result property="name" column="eng_name"/>
             </association>
         </association>

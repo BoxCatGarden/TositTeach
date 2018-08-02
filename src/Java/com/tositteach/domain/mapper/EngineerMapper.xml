@@ -9,16 +9,13 @@
         <result property="sex" column="sex" jdbcType="TINYINT"/>
     </resultMap>
 
-    <select id="selectAllEngineer" resultMap="EngineerMap">
-        select * from engineer;
+    <select id="total" resultType="_int">
+        select count(*) from engineer
     </select>
-    <select id="selectEngineerById" resultMap="EngineerMap" parameterType="String">
-        select * from engineer where user_id = #{userId};
+    <select id="query" resultMap="engMap">
+        select user_id,name from engineer
+        <if test="nm>0">
+            limit #{st},#{nm}
+        </if>
     </select>
-    <select id="selectEngineerByName" resultMap="EngineerMap" parameterType="String">
-        select * from engineer where name = #{name};
-    </select>
-    <insert id="insertEngineer" parameterType="com.tositteach.domain.entity.Engineer">
-        insert into engineer(user_id,name,sex) values (#{userId},#{name},#{sex});
-    </insert>
 </mapper>

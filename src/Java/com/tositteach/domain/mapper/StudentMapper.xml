@@ -10,52 +10,51 @@
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="sex" column="sex" jdbcType="TINYINT"/>
         <result property="grade" column="grade" jdbcType="VARCHAR"/>
-        <result property="claId" column="cla_id" jdbcType="VARCHAR"/>
-        <result property="groId" column="gro_id" jdbcType="TINYINT"/>
+        <association property="gp" javaType="gp">
+            <id property="claId" column="cla_id" jdbcType="VARCHAR"/>
+            <id property="groId" column="gro_id" jdbcType="TINYINT"/>
+            <result property="proId" column="pro_id" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
 
-    <select id="selectAllStudents" resultMap="studentMap">
-        SELECT * FROM student;
+    <select id="total" resultType="_int">
+        select count(*) from student
+        <choose>
+            <when test="ci=='n'">
+                where cla_id is null
+            </when>
+            <when test="ci!=null">
+                where cla_id=#{ci}
+            </when>
+            <otherwise></otherwise>
+        </choose>
     </select>
-    <insert id="insertStudent" parameterType="com.tositteach.domain.entity.Student">
-        INSERT INTO student(user_id,school,id,
-                      name,sex,grade)
-                      VALUES
-          (#{userId},#{school},#{id},#{name},
-          #{sex},#{grade})
+
+    <select id="query" resultMap="stuMap">
+        select user_id,id,name
+        from student
+        <choose>
+            <when test="ci=='n'">
+                where cla_id is null
+            </when>
+            <when test="ci!=null">
+                where cla_id=#{ci}
+            </when>
+            <otherwise></otherwise>
+        </choose>
+    </select>
+
+    <select id="get" resultMap="stuMap">
+        select user_id,cla_id,gro_id,pro_id
+        from student natural join gp
+        where user_id=#{si}
+    </select>
+
+    <select id="getMaxId" resultType="string">
+        select max(user_id) from user
+    </select>
+    <insert id="add">
+        insert into student values (#{userId},#{school},#{id},#{name},#{sex},#{grade},null,null)
     </insert>
-
-    <update id="updateStudentClass" parameterType="com.tositteach.domain.entity.Student">
-        UPDATE student
-        SET cla_id=#{claId}
-        WHERE user_id= #{userId}
-    </update>
-
-    <update id="updateStudentGroup" parameterType="com.tositteach.domain.entity.Student">
-        UPDATE student
-        SET gro_id = #{studGroup}
-        WHERE user_id = #{userId} AND cla_id = #{claId}
-    </update>
-
-    <select id="selectStudentsByClassId" parameterType="String" resultMap="studentMap">
-        SELECT * FROM student
-        WHERE cla_id= #{claId}
-    </select>
-
-    <select id="selectStudentNoClass" resultMap="studentMap">
-        SELECT * FROM student
-        WHERE cla_id = NULL
-    </select>
-
-    <insert id="insertInfoBatch" parameterType="java.util.List">
-        insert into salarymanage (user_id,school,id,
-        name,sex,grade)
-        values
-        <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.userId}, #{item.school}, #{item.id},#{item.name},
-            #{item.sex}, #{item.grade})
-        </foreach>
-    </insert>
-
 
 </mapper>

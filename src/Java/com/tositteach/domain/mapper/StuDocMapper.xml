@@ -11,82 +11,76 @@
         <result property="score" column="score" jdbcType="TINYINT"/>
         <result property="time" column="time" jdbcType="TIMESTAMP"/>
         <result property="disp" column="disp" jdbcType="VARCHAR"/>
-        <result property="claId" column="cla_id" jdbcType="VARCHAR"/>
-        <result property="groId" column="gro_id" jdbcType="TINYINT"/>
-        <result property="proId" column="pro_id" jdbcType="VARCHAR"/>
+        <association property="gp" javaType="gp">
+            <id property="claId" column="cla_id" jdbcType="VARCHAR"/>
+            <id property="groId" column="gro_id" jdbcType="TINYINT"/>
+            <result property="groName" column="gro_name"/>
+        </association>
+        <association property="pro" javaType="project">
+            <id property="proId" column="pro_id" jdbcType="VARCHAR"/>
+            <result property="proName" column="pro_name"/>
+        </association>
     </resultMap>
 
-    <!--增删改查待写-->
-
-    <!--查询doc_student表中所有信息-->
-    <select id="selectAllDoc_student" resultMap="doc_studentMap">
-        SELECT * FROM stuDoc
+    <select id="total" resultType="_int">
+        select count(*)
+        from doc_student
+          natural left outer join gp
+          join project using (pro_id)
+        <if test="dn != null">
+            and doc_name like #{"%"+dn+"%}
+        </if>
+        <if test="gn!=null">
+            and gro_name like #{"%"+gn+"%}
+        </if>
+        <if test="pn!=null">
+            and pro_name like #{"%"+pn+"%}
+        </if>
     </select>
 
-    <!--按文档名称搜索，列出信息-->
-    <select id="selectDoc_studentName" resultMap="doc_studentMap" parameterType="string">
-        SELECT * FROM stuDoc
-        WHERE doc_name=#{docName}
+    <select id="query" resultMap="stuDocMap">
+        select doc_id,doc_name,cla_id,gro_id,gro_name,pro_id,pro_name
+        from doc_student
+            natural left outer join gp
+            join project using (pro_id)
+        <if test="dn != null">
+            and doc_name like #{"%"+dn+"%}
+        </if>
+        <if test="gn!=null">
+            and gro_name like #{"%"+gn+"%}
+        </if>
+        <if test="pn!=null">
+            and pro_name like #{"%"+pn+"%}
+        </if>
+        <if test="nm>0">
+            limit #{st},#{nm}
+        </if>
     </select>
 
-    <!--按照文档id搜索，找到该文档-->
-    <select id="selectAllByDocsId" resultMap="doc_studentMap" parameterType="string">
-        SELECT * FROM stuDoc
-        WHERE doc_id=#{docId}
+    <select id="get" resultMap="stuDocMap">
+        select doc_id,doc_name,disp,score,time,cla_id,gro_id,gro_name
+        from doc_student
+          natural left outer join gp
+        where doc_id=#{di}
     </select>
 
-    <!--按项目名称搜索，列出信息-->
-    <!--这里是根据项目id来选择，需要根据项目名称联系到项目id（project表）-->
-    <!--<select id="selectDoc_studentProj" resultMap="doc_studentMap" parameterType="string">-->
-        <!--SELECT * FROM stuDoc-->
-        <!--WHERE pro_id=#{proId}-->
-    <!--</select>-->
-
-    <!--按小组名称搜索，列出信息-->
-    <!--这里根据gro_id和cla_id来选择，需要根据小组名称联系到小组id（gp表）-->
-    <select id="selectDoc_studentByGpName" resultMap="doc_studentMap" parameterType="string">
-        SELECT * FROM stuDoc
-        WHERE gro_id=#{groId} AND cla_id=#{claId}
+    <select id="getMaxId" resultType="string">
+        select max(doc_id) from doc_student
     </select>
-
-    <!--下载获取url-->
-    <select id="selectDoc_student" resultMap="doc_studentMap" parameterType="string">
-        SELECT url FROM stuDoc
-        WHERE doc_id=#{docId}
-    </select>
-
-    <!--删除文档-->
-    <delete id="deleteDoc_student" parameterType="string">
-        DELETE FROM stuDoc WHERE doc_id=#{docId}
-    </delete>
-
-    <!--修改文档分数-->
-    <update id="updateDoc_studentScore" parameterType="string">
-        UPDATE
-        stuDoc SET score=#{score}
-        WHERE doc_id=#{docId}
-    </update>
-
-    <!--修改已上传文档-->
-    <update id="updateDoc_studentUrl" parameterType="string">
-        UPDATE
-        stuDoc SET url=#{url}
-        WHERE doc_id=#{docId}
-    </update>
-
-    <!--文档添加-->
-    <insert id="insertDoc_student" parameterType="com.tositteach.domain.entity.StuDoc">
-        INSERT INTO stuDoc(doc_id,doc_name,url,score,time,disp,cla_id,gro_id,pro_id)
-        VALUES
-        (#{docId},#{docName},#{url},#{score},
-        #{time},#{disp},#{claId},#{groId},#{proId})
+    <insert id="add">
+        insert into doc_student values (#{docId},#{docName},#{url},default,default,
+        #{disp},#{claId},#{groId},#{proId})
     </insert>
 
-    <!--初次上传文档-->
-    <update id="updateDoc_studentFurl" parameterType="string">
-        UPDATE
-        stuDoc SET url=#{url}
-        WHERE doc_name=#{docName}
+    <update id="setUrl">
+        update doc_student set url=#{url} where doc_id=#{di}
     </update>
 
+    <delete id="del">
+        delete from doc_student where doc_id=#{di}
+    </delete>
+
+    <update id="setScore">
+        update doc_student set score=#{sc} where doc_id=#{di}
+    </update>
 </mapper>

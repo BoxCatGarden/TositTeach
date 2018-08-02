@@ -11,49 +11,26 @@
         <result property="userId" column="user_id" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <!--增删改查待写-->
-
-    <!--查询总记录数-->
-    <select id="getEngDocTotalNum" resultType="_int">
-        select count(*) from doc_engineer
-        <if test="pn != null">
-            join project on doc_engineer.pro_id=project.pro_id
-            where pro_name like #{"%" + pn + "%"}
-        </if>
-    </select>
-    <!--查询doc_engineer表中的所有信息-->
-    <select id="getEngDocList" resultMap="engDocMapper">
+    <select id="get" resultMap="engDocMap">
         select * from doc_engineer
-        <if test="pn != null">
-            join project on doc_engineer.pro_id=project.pro_id
-            where pro_name like #{"%" + pn + "%"}
-        </if>
-        order by doc_id limit #{st},#{nm}
+        where doc_id=#{di}
     </select>
 
-    <!--上传新的教师文档-->
-    <insert id="addEngDoc" parameterType="engDoc">
-        INSERT INTO doc_engineer(doc_id,url,pro_id,user_id)
+    <select id="getMaxId" resultType="string">
+        select max(doc_id) from doc_engineer
+    </select>
+    <insert id="add">
+        insert into doc_engineer
         VALUES (#{docId},#{url},#{proId},#{userId})
     </insert>
 
-    <!--改变某一项目的教师文档（一个项目只有一个文档对应）-->
-    <update id="updateEngDoc" parameterType="engDoc">
-        UPDATE doc_engineer SET url=#{url} WHERE doc_id=#{docId}
+    <update id="setUrl">
+        update doc_engineer set url=#{url} where doc_id=#{di}
     </update>
 
     <!--删除文档-->
-    <delete id="delEngDoc" parameterType="engDoc">
-        delete from doc_engineer where doc_id=#{docId}
+    <delete id="del">
+        delete from doc_engineer where doc_id=#{di}
     </delete>
-
-    <select id="getMaxEngDocId" resultType="string">
-        select max(doc_id) from doc_engineer;
-    </select>
-
-    <select id="getEngDoc" resultMap="engDocMapper">
-        select * from doc_engineer where doc_id=#{docId};
-    </select>
-
 
 </mapper>

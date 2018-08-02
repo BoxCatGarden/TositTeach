@@ -26,7 +26,7 @@
 
     <select id="query" resultMap="tasMap">
         select tas_id,tas_name,st_time,user_id,name
-        from task natural join engineer
+        from task natural left outer join engineer
         <if test="ei != null">
             where user_id like #{"%"+ei+"%"}
         </if>
@@ -37,7 +37,7 @@
 
     <select id="get" resultMap="tasMap">
         select tas_id,tas_name,st_time,ed_time,disp,plan,user_id,name
-        from task natural join engineer
+        from task natural left outer join engineer
         where tas_id=#{ti}
     </select>
 

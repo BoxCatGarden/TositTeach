@@ -10,27 +10,20 @@
         <result property="proId" column="pro_id" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="selectAllGp" resultMap="groupMap">
-        select * from  gp;
+    <select id="getMaxId" resultType="byte">
+        select case when max(gro_id) is null then -1 else max(gro_id) end
+        from gp where cla_id=#{ci}
     </select>
-    <select id="selectByClaidName" resultMap="groupMap">
-        select * from  WHERE cla_id  = #{claId}and gro_name = #{groName};
-    </select>
-    <select id="selectById" resultMap="groupMap">
-        select * from gp where cla_id = #{claId} and gro_id = #{groId};
-    </select>
-    <select id="selectByClaId" resultMap="groupMap">
-        select * from gp where cla_id = #{claId};
-    </select>
-    <select id="selectByName" resultMap="groupMap">
-        select * from gp where gro_name = #{groName};
-    </select>
-    <insert id="insertGroup" parameterType="com.tositteach.domain.entity.Gp">
-        insert into gp(gro_id,cla_id,gro_name,pro_id) values (#{groId},#{claId},#{groName},#{proId});
+    <insert id="add">
+        insert into gp values (#{claId},#{groId},#{groName},#{proId});
     </insert>
-    <delete id="deleteByClaId" parameterType="String">
-        delete from gp where cla_id = #{claId};
-    </delete>
 
+    <update id="addstu">
+        update student set gro_id=#{gi}
+        where user_id in
+        <foreach item="si" index="index" collection="sis" open="(" separator="," close=")">
+            #{si}
+        </foreach>
+    </update>
 
 </mapper>
