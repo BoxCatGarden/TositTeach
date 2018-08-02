@@ -1,8 +1,8 @@
 package com.tositteach.domain.entity;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Task {
     private String tasId;
     private String tasName;

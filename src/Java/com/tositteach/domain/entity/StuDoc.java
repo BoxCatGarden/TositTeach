@@ -1,87 +1,107 @@
 package com.tositteach.domain.entity;
 
-import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class StuDoc {
-    private String docsId;
-    private String docsName;
-    private String docsUrl;
-    private Byte docsScor;
-    private Timestamp docsTime;
-    private String docsDisp;
-    private String docsClaId;
-    private String docsGroId;
-    private String docsProId;
+    private String docId;
+    private String docName;
+    private String url;
+    private Byte score;
+    private String time;
+    private String disp;
+    private String claId;
+    private String groId;
+    private String proId;
 
-    public String getDocsId() {
-        return docsId;
+    private Gp gp;
+    private Project pro;
+
+    public Gp getGp() {
+        return gp;
     }
 
-    public void setDocsId(String docsId) {
-        this.docsId = docsId;
+    public void setGp(Gp gp) {
+        this.gp = gp;
     }
 
-    public String getDocsName() {
-        return docsName;
+    public Project getPro() {
+        return pro;
     }
 
-    public void setDocsName(String docsName) {
-        this.docsName = docsName;
+    public void setPro(Project pro) {
+        this.pro = pro;
     }
 
-    public String getDocsUrl() {
-        return docsUrl;
+    public String getDocId() {
+        return docId;
     }
 
-    public void setDocsUrl(String docsUrl) {
-        this.docsUrl = docsUrl;
+    public void setDocId(String docId) {
+        this.docId = docId;
     }
 
-    public Byte getDocsScor() {
-        return docsScor;
+    public String getDocName() {
+        return docName;
     }
 
-    public void setDocsScor(Byte docsScor) {
-        this.docsScor = docsScor;
+    public void setDocName(String docName) {
+        this.docName = docName;
     }
 
-    public Timestamp getDocsTime() {
-        return docsTime;
+    public String getUrl() {
+        return url;
     }
 
-    public void setDocsTime(Timestamp docsTime) {
-        this.docsTime = docsTime;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getDocsDisp() {
-        return docsDisp;
+    public Byte getScore() {
+        return score;
     }
 
-    public void setDocsDisp(String docsDisp) {
-        this.docsDisp = docsDisp;
+    public void setScore(Byte score) {
+        this.score = score;
     }
 
-    public String getDocsClaId() {
-        return docsClaId;
+    public String getTime() {
+        return time;
     }
 
-    public void setDocsClaId(String docsClaId) {
-        this.docsClaId = docsClaId;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public String getDocsGroId() {
-        return docsGroId;
+    public String getDisp() {
+        return disp;
     }
 
-    public void setDocsGroId(String docsGroId) {
-        this.docsGroId = docsGroId;
+    public void setDisp(String disp) {
+        this.disp = disp;
     }
 
-    public String getDocsProId() {
-        return docsProId;
+    public String getClaId() {
+        return claId;
     }
 
-    public void setDocsProId(String docsProId) {
-        this.docsProId = docsProId;
+    public void setClaId(String claId) {
+        this.claId = claId;
+    }
+
+    public String getGroId() {
+        return groId;
+    }
+
+    public void setGroId(String groId) {
+        this.groId = groId;
+    }
+
+    public String getProId() {
+        return proId;
+    }
+
+    public void setProId(String proId) {
+        this.proId = proId;
     }
 }

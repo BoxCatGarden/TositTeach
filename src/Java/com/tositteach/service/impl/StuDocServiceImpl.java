@@ -107,20 +107,20 @@ public class StuDocServiceImpl implements StuDocService {
     public void getRightId(StuDoc stuDoc) {
         List<StuDoc> stuDocs = stuDocMapper.selectAllDoc_student();
         if(stuDocs.size()==0){
-            stuDoc.setDocsId("1");
+            stuDoc.setDocId("1");
         }
         else {
             ArrayList<Integer> iid = new ArrayList<Integer>();
             //最后一个元素
             for (StuDoc stuDoc1 : stuDocs) {
-                iid.add(new Integer(stuDoc1.getDocsId()));
+                iid.add(new Integer(stuDoc1.getDocId()));
             }
             //排序从小到大
             Collections.sort(iid);
             int id1 = iid.get(iid.size() - 1) + 1;
             System.out.println(id1 + "\n\n\n\n\n\n");
             String id = String.valueOf(id1);
-            stuDoc.setDocsId(id);
+            stuDoc.setDocId(id);
         }
     }
 

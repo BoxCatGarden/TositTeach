@@ -1,12 +1,24 @@
 package com.tositteach.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Gp {
     private String claId;
     private Byte groId;
     private String groName;
     private String proId;
 
+    private Clazz cla;
     private Project pro;
+
+    public Clazz getCla() {
+        return cla;
+    }
+
+    public void setCla(Clazz cla) {
+        this.cla = cla;
+    }
 
     public Project getPro() {
         return pro;

@@ -1,5 +1,8 @@
 package com.tositteach.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EngDoc {
     private String docId;
     private String url;

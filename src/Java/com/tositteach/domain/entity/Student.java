@@ -1,6 +1,8 @@
 package com.tositteach.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Student {
     private String userId;
     private String school;

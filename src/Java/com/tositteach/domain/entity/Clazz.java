@@ -1,5 +1,8 @@
 package com.tositteach.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Clazz {
     private String claId;
     private String claName;
