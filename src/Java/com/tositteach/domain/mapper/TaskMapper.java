@@ -7,11 +7,17 @@ import com.tositteach.domain.entity.User;
 import java.util.List;
 
 public interface TaskMapper {
-    public List<Task> selectAllTasks();
 
-    public Integer insertTask(Task task);
+    int total(@Param("ei") String engId);
+    List<Task> query(@Param("ei") String engId,
+              @Param("st") int st, @Param("nm") int nm);
 
-    public Task selectOnetask(@Param("taskId") String taskId);
+    Task get(@Param("ti") String tasId);
 
-    public Integer updateTaskPlan(Task task);
+    String getMaxId();
+    int add(Task task);
+
+    int setPlan(@Param("ti") String tasId, @Param("pl") String plan);
+
+    int del(@Param("ti") String tasId);
 }

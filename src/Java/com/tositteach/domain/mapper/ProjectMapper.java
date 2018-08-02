@@ -6,14 +6,24 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ProjectMapper {
-    public List<Project> selectAllProjectS();
-    public List<Project> selectAllProjectT();
-    public List<Project> selectAllProjectM();
-    public List<Project> selectAllProject();
-    public List<Project> selectByEngineerId(@Param("projUserId") String uid);
-    public int insertProject(Project project);
-    public int deleteProject(@Param("projId") String id);
-    public int updateProject(Project project);
-    public int updateProjectState(@Param("projId") String id);
-    public Project selectById(@Param("projId") String id);
+    int total(@Param("s")int state,
+              @Param("pn")String proName,
+              @Param("en")String engName,
+              @Param("ei")String engId);
+    List<Project> query(@Param("s")int state,
+                        @Param("pn")String proName,
+                        @Param("en")String engName,
+                        @Param("ei")String engId,
+                        @Param("st") int st, @Param("nm") int nm);
+
+    Project get(@Param("pi")String proId);
+
+    String getMaxId();
+    int add(Project pro);
+
+    int del(@Param("pi")String proId);
+
+    int setState(@Param("pi")String proId, @Param("s")byte state);
+
+    int mod(Project pro);
 }

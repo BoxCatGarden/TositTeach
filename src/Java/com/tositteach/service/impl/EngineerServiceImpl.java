@@ -9,49 +9,19 @@ import com.tositteach.util.PagingBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 @Service
 public class EngineerServiceImpl implements EngineerService {
-    @Autowired
-    EngineerMapper engineerMapper;
-    ProjectService projectService;
+    @Resource
+    private EngineerMapper engineerMapper;
 
     @Override
     public PagingBody query(int st, int nm) {
-        return null;
+        PagingBody body = new PagingBody();
+        body.setTotal(engineerMapper.total());
+        body.setData(engineerMapper.query(st, nm));
+        return body;
     }
 
-    @Override
-    public List<Engineer> queryAllEngineer() {
-        return engineerMapper.selectAllEngineer();
-    }
-
-    @Override
-    public Engineer queryById(String id) {
-        List<Engineer> engineers = engineerMapper.selectAllEngineer();
-        for(Engineer engineer:engineers){
-            if(engineer.getUserId().equals(id)){
-                return engineer;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public List<Engineer> queryByName(String name) {
-        List<Engineer> engineers = engineerMapper.selectEngineerByName(name);
-        return engineers;
-    }
-
-    @Override
-    public int insertOneEngineer() {
-        return engineerMapper.insertEngineer();
-    }
-
-    @Override
-    public Engineer queryByProId(String proid) {
-        Project project = projectService.queryById(proid);
-        Engineer engineer = engineerMapper.selectEngineerById(project.getUserId());
-        return engineer;
-    }
 }

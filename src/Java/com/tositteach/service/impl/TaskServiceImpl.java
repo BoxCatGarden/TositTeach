@@ -4,80 +4,60 @@ import com.tositteach.domain.entity.Task;
 import com.tositteach.domain.mapper.TaskMapper;
 import com.tositteach.service.TaskService;
 import com.tositteach.util.PagingBody;
+import com.tositteach.util.YearIdBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 @Service
 public class TaskServiceImpl implements TaskService{
-    @Autowired
+    @Resource
     TaskMapper taskMapper;
 
     @Override
     public PagingBody query(String engId, int st, int nm) {
-        return null;
+        PagingBody body = new PagingBody();
+        body.setTotal(taskMapper.total(engId));
+        body.setData(taskMapper.query(engId, st, nm));
+        return body;
     }
 
     @Override
     public Task get(String tasId) {
-        return null;
+        return taskMapper.get(tasId);
     }
 
     @Override
-    public String add(String tasName, String stTime, String edTime, String disp, String engId) {
+    public String add(String tasName,
+                      String stTime, String edTime,
+                      String disp,
+                      String engId) {
+        Task task = new Task();
+        task.setTasName(tasName);
+        task.setStTime(stTime);
+        task.setEdTime(edTime);
+        task.setDisp(disp);
+        task.setUserId(engId);
+        synchronized (this) {
+            String tasId = YearIdBuilder.build(taskMapper.getMaxId());
+            task.setTasId(tasId);
+            if (taskMapper.add(task) != 0) return tasId;
+        }
         return null;
     }
 
     @Override
     public int mod(String tasId, String plan) {
-        return 0;
+        return taskMapper.setPlan(tasId, plan);
     }
 
     @Override
     public int del(String tasId) {
-        return 0;
+        return taskMapper.del(tasId);
     }
 
-    @Override
-    public List<Task> queryAllTask(){
-        return taskMapper.selectAllTasks();
-    }
-
-    @Override
-    public Integer addTask(Task task){
-        getRightId(task);
-        return taskMapper.insertTask(task);
-    }
-
-    @Override
-    public Task queryOneTaskById(String taskId){
-        return taskMapper.selectOnetask(taskId);
-    }
-
-    @Override
-    public Integer modifyTaskPlan(Task task){return taskMapper.updateTaskPlan(task);}
-
-    @Override
-    public void getRightId(Task task){
-        List<Task> tasks = taskMapper.selectAllTasks();
-        if(tasks.size()==0){
-            task.setTasId("1");
-        }
-        else {
-            ArrayList<Integer> iid = new ArrayList<Integer>();
-            //最后一个元素
-            for (Task task1 : tasks) {
-                iid.add(new Integer(task1.getTasId()));
-            }
-            //排序从小到大
-            Collections.sort(iid);
-            int id1 = iid.get(iid.size() - 1) + 1;
-            System.out.println(id1 + "\n\n\n\n\n\n");
-            String id = String.valueOf(id1);
-            task.setTasId(id);
-        }
-    }
 
 }

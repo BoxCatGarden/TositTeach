@@ -1,7 +1,6 @@
 package com.tositteach.controller;
 
-import com.tositteach.service.UploadService;
-import com.tositteach.service.impl.UploadServiceImpl;
+import com.tositteach.service.FileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,10 +12,10 @@ import javax.annotation.Resource;
 import java.io.IOException;
 
 @Controller
-public class UploadController {
+public class FileController {
 
-    @Resource
-    private UploadService up;
+   /* @Resource
+    private FileService up;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
@@ -27,5 +26,5 @@ public class UploadController {
             e.printStackTrace();
             return "";
         }
-    }
+    }*/
 }

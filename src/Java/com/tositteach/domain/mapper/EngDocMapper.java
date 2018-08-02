@@ -7,18 +7,13 @@ import java.util.List;
 
 public interface EngDocMapper {
 
-    public int getEngDocTotalNum(String pn);
+    EngDoc get(@Param("di")String docId);
 
-    public List<EngDoc> getEngDocList(@Param("pn")String pn, @Param("st")int st, @Param("nm")int nm);
+    String getMaxId();
+    int add(EngDoc doc);
 
-    public int addEngDoc(EngDoc engDoc);
+    int setUrl(@Param("di")String docId, @Param("url")String url);
 
-    public int updateEngDoc(EngDoc engDoc);
-
-    public int delEngDoc(String docId);
-
-    public String getMaxEngDocId();
-
-    public EngDoc getEngDoc(String docId);
+    int del(@Param("di")String docId);
 
 }

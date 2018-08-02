@@ -4,48 +4,44 @@ import com.tositteach.domain.mapper.StudentMapper;
 import com.tositteach.domain.entity.Student;
 import com.tositteach.service.StudentService;
 import com.tositteach.util.PagingBody;
+import com.tositteach.util.YearIdBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService{
-    @Autowired
+    @Resource
     StudentMapper studentMapper;
 
     @Override
     public PagingBody query(String claId, int st, int nm) {
-        return null;
+        PagingBody body = new PagingBody();
+        body.setTotal(studentMapper.total(claId));
+        body.setData(studentMapper.query(claId, st, nm));
+        return body;
     }
 
     @Override
-    public int add(String school, String id, String name, byte sex, String grade) {
-        return 0;
+    public Student get(String stuId) {
+        return studentMapper.get(stuId);
     }
 
     @Override
-    public List<Student> queryAllStudents(){
-        return studentMapper.selectAllStudents();
+    public int add(String school, String id,
+                   String name, byte sex, String grade) {
+        Student stu = new Student();
+        stu.setSchool(school);
+        stu.setId(id);
+        stu.setName(name);
+        stu.setSex(sex);
+        stu.setGrade(grade);
+        synchronized (this) {
+            stu.setUserId(YearIdBuilder.build(studentMapper.getMaxId()));
+            return studentMapper.add(stu);
+        }
     }
-
-    @Override
-    public Integer addStudent(Student student) {
-        return studentMapper.insertStudent(student);
-    }
-
-    @Override
-    public Integer addStudentClass(Student student){
-        return studentMapper.updateStudentClass(student);
-    }
-
-    @Override
-    public Integer addStudentGroup(Student student){ return studentMapper.updateStudentGroup(student);}
-
-    @Override
-    public List<Student> queryStudentsByClassId(String studClas){return studentMapper.selectStudentsByClassId(studClas);}
-
-    @Override
-    public List<Student> queryStudentNoClass(){return studentMapper.selectStudentNoClass();}
 
 }

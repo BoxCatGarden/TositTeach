@@ -7,19 +7,14 @@ import java.util.List;
 
 public interface ClazzMapper {
 
+    int total();
+    List<Clazz> query(@Param("st") int st, @Param("nm") int nm);
 
-    //查询班级表中所有信息
-    public List<Clazz> selectAllClazz();
+    String getMaxId();
+    int add(Clazz cla);
 
-    //根据班级id查询相关班级信息
-    public Clazz selectClazzById(@Param("clazId") String clazId);
+    int del(@Param("cis")List<String> claIds);
 
-    //根据选中班级的cla_id删除班级信息
-    public Integer deleteClazz(@Param("clazId") String clazId);
-
-    //增加新的班级及其信息，返回添加条数
-    public Integer insertClazz(Clazz clazz);
-
-
-
+    int addstu(@Param("ci")String claId,
+               @Param("sis")List<String> stuIds);
 }

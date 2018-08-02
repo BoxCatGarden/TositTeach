@@ -31,14 +31,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Student getStuUserInfo(String userId) {
-        Student stu = userMapper.getStuInfo(userId);
-        return stu != null ? stu : new Student();
+        return userMapper.getStuInfo(userId);
     }
 
     @Override
     public Engineer getEngUserInfo(String userId) {
-        Engineer eng = userMapper.getEngInfo(userId);
-        return eng != null ? eng : new Engineer();
+        return userMapper.getEngInfo(userId);
     }
 
 

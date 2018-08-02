@@ -1,5 +1,6 @@
 package com.tositteach.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PagingBody {
@@ -20,6 +21,6 @@ public class PagingBody {
     }
 
     public void setData(List<?> data) {
-        this.data = data;
+        this.data = data != null ? data : new ArrayList<>();
     }
 }

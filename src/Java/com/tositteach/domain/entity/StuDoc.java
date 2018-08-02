@@ -11,7 +11,7 @@ public class StuDoc {
     private String time;
     private String disp;
     private String claId;
-    private String groId;
+    private Byte groId;
     private String proId;
 
     private Gp gp;
@@ -89,11 +89,11 @@ public class StuDoc {
         this.claId = claId;
     }
 
-    public String getGroId() {
+    public Byte getGroId() {
         return groId;
     }
 
-    public void setGroId(String groId) {
+    public void setGroId(Byte groId) {
         this.groId = groId;
     }
 

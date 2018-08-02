@@ -16,18 +16,18 @@ public interface EngDocService {
     *  Note: it may throws IOException if the file cannot be
     *  stored in the disk.*/
     int upload(CommonsMultipartFile file,
-               String proId, String engId) throws IOException;
+               String proId, String engId);
 
     /* re-upload the file, which will delete the old file from and
     *  save the new file into the disk, changing the Attribute URL
     *  of its corresponding record in the DB.
     *  return: 0, fail;
     *          1, succeed*/
-    int reupload(String docId, CommonsMultipartFile file) throws IOException;
+    int reupload(String docId, CommonsMultipartFile file);
 
     /* delete the document with the id of doc_id from the disk,
     *  which will also delete the record from the database.
     *  return: 0, fail;
     *          1, succeed*/
-    int del(String docId) throws IOException;
+    int del(String docId);
 }

@@ -12,9 +12,4 @@ public interface TaskService {
     int mod(String tasId, String plan);
     int del(String tasId);
 
-    public List<Task> queryAllTask();
-    public Integer addTask(Task task);
-    public Task queryOneTaskById(String taskId);
-    public Integer modifyTaskPlan(Task task);
-    public void getRightId(Task task);
 }

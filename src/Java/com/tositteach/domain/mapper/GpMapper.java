@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface GpMapper {
-    public List<Gp> selectAllGp();
-//  public int insertGroup(Gp gp);
-    public int insertGroup(Map<String, Object> a);
-    public Gp selectById(@Param("gpClaId") String cid, @Param("gpGroId") String gid);
-    public List<Gp> selectByClaId(@Param("gpClaId") String cid);
-    public List<Gp> selectByName(@Param("gpGroName") String name);
-    public int deleteByClaId(@Param("gpClaId") String id);
-    public Gp selectByClaidName(@Param("gpClaId") String cid, @Param("gpGroName") String name);
+
+    Byte getMaxId(@Param("ci")String claId);
+    int add(Gp gp);
+
+    int addstu(@Param("ci")String claId, @Param("gi")byte groId,
+               @Param("sis")List<String>stuIds);
 }

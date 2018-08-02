@@ -6,18 +6,14 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface StudentMapper {
-    public List<Student> selectAllStudents();
 
-    public Integer insertStudent(Student student);
+    int total(@Param("ci")String claId);
+    List<Student> query(@Param("ci")String claId,
+                        @Param("st") int st, @Param("nm") int nm);
 
-    public Integer updateStudentClass(Student student);
+    Student get(@Param("si")String stuId);
 
-    public Integer updateStudentGroup(Student student);
-
-    public List<Student> selectStudentsByClassId(@Param("studClas") String studClas);
-
-    public List<Student> selectStudentNoClass();
-
-    public Integer insertInfoBatch(List<Student> students);
+    String getMaxId();
+    int add(Student stu);
 
 }
