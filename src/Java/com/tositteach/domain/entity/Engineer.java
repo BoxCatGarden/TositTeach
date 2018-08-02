@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Engineer {
     private String userId;//user_id
-    private String engName;
+    private String name;
     private Byte sex;
 
     public String getUserId() {
@@ -16,12 +16,12 @@ public class Engineer {
         this.userId = userId;
     }
 
-    public String getEngName() {
-        return engName;
+    public String getName() {
+        return name;
     }
 
-    public void setEngName(String engName) {
-        this.engName = engName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Byte getSex() {

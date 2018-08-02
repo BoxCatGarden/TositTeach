@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tositteach.domain.mapper.EngDocMapper">
-    <resultMap id="engDocMapper" type="engDoc">
-        <id column="doc_id" property="docId" jdbcType="VARCHAR"/>
-        <result column="url" property="url" jdbcType="VARCHAR"/>
-        <result column="pro_id" property="proId" jdbcType="VARCHAR"/>
-        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <resultMap id="engDocMap" type="engDoc">
+        <id property="docId" column="doc_id" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="proId" column="pro_id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--增删改查待写-->

@@ -2,17 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace = "com.tositteach.domain.mapper.ProjectMapper">
-<resultMap id="ProjectMap" type="com.tositteach.domain.entity.Project" >
-    <id column="pro_id" property="proId" jdbcType="VARCHAR"/>
-    <result column="pro_name" property="proName" jdbcType="VARCHAR"/>
-    <result column="st_time" property="stTime" jdbcType="DATE"/>
-    <result column="ed_time" property="edTime" jdbcType="DATE"/>
-    <result column="disp" property="disp" jdbcType="LONGVARCHAR"/>
-    <result column="state" property="state" jdbcType="TINYINT"/>
-    <result column="time" property="time" jdbcType="TIMESTAMP"/>
-    <result column="user_id" property="userId" jdbcType="VARCHAR"/>
-</resultMap>
+<mapper namespace="com.tositteach.domain.mapper.ProjectMapper">
+    <resultMap id="proMap" type="project">
+        <id property="proId" column="pro_id" jdbcType="VARCHAR"/>
+        <result property="proName" column="pro_name" jdbcType="VARCHAR"/>
+        <result property="stTime" column="st_time" jdbcType="DATE"/>
+        <result property="edTime" column="ed_time" jdbcType="DATE"/>
+        <result property="disp" column="disp" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="TINYINT"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <select id="selectAllProjectS" resultMap="ProjectMap">
         select * from project where state = 0;
     </select>
@@ -43,7 +44,7 @@
     <update id="updateProjectState" parameterType="com.tositteach.domain.entity.Project">
         update project set state = #{state} where pro_id=#{proId};
     </update>
-    <select id = "selectById" parameterType="String">
+    <select id="selectById" parameterType="String">
         select * from  project where pro_id=#{proId};
     </select>
     <select id="selectByEngineerId" parameterType="String">

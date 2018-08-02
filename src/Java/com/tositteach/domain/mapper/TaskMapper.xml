@@ -3,29 +3,57 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.tositteach.domain.mapper.TaskMapper">
-    <resultMap id="taskMap" type="com.tositteach.domain.entity.Task">
-        <id column="task_id" property="tasId" jdbcType="VARCHAR"/>
-        <result column="task_name" property="tasName" jdbcType="VARCHAR" />
-        <result column="st_time" property="stTime" jdbcType="DATE"/>
-        <result column="ed_time" property="edTime" jdbcType="DATE"/>
-        <result column="disp" property="disp" jdbcType="VARCHAR"/>
-        <result column="plan" property="plan" jdbcType="VARCHAR"/>
-        <result column="time" property="time" jdbcType="TIMESTAMP"/>
-        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <resultMap id="tasMap" type="task">
+        <id property="tasId" column="tas_id" jdbcType="VARCHAR"/>
+        <result property="tasName" column="tas_name" jdbcType="VARCHAR" />
+        <result property="stTime" column="st_time" jdbcType="DATE"/>
+        <result property="edTime" column="ed_time" jdbcType="DATE"/>
+        <result property="disp" column="disp" jdbcType="VARCHAR"/>
+        <result property="plan" column="plan" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <association property="eng" javaType="engineer">
+            <id property="userId" column="user_id"/>
+            <result property="name" column="name"/>
+        </association>
     </resultMap>
-    <select id="selectAllTask" resultMap="taskMap">
-        select * from task;
-    </select>
-    <select id="insertTasks" parameterType="com.tositteach.domain.entity.Task">
-        INSERT INTO task(task_id,task_name,
-                      st_time,ed_time,disp,plan,time,user_id)
-                      VALUES
-          (#{tasId},#{tasName},#{stTime},#{edTime},
-          #{disp},#{plan},#{time},#{userId})
-    </select>
-    <select id="selectOnetask" parameterType="String">
-        SELECT * from task
-        WHERE task_id=#{tasId}
+
+    <select id="total" resultType="_int">
+        select count(*) from task
+        <if test="ei != null">
+            where user_id like #{"%"+ei+"%"}
+        </if>
     </select>
 
+    <select id="query" resultMap="tasMap">
+        select tas_id,tas_name,st_time,user_id,name
+        from task natural join engineer
+        <if test="ei != null">
+            where user_id like #{"%"+ei+"%"}
+        </if>
+        <if test="nm > 0">
+            limit #{st},#{nm}
+        </if>
+    </select>
+
+    <select id="get" resultMap="tasMap">
+        select tas_id,tas_name,st_time,ed_time,disp,plan,user_id,name
+        from task natural join engineer
+        where tas_id=#{ti}
+    </select>
+
+    <select id="getMaxId" resultType="string">
+        select max(tas_id) from task
+    </select>
+    <insert id="add">
+        insert into task values (#{tasId},#{tasName},#{stTime},#{edTime},
+        #{disp},'',default,#{userId})
+    </insert>
+
+    <update id="setPlan">
+        update task set plan=#{pl} where tas_id=#{ti}
+    </update>
+
+    <delete id="del">
+        delete from task where tas_id=#{ti}
+    </delete>
 </mapper>

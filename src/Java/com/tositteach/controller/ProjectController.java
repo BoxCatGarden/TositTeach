@@ -45,7 +45,7 @@ public class ProjectController {
         Engineer engineer = engineerService.queryByProId(id);
         Doc_engineer doc_engineer = doc_engineerService.queryAllByProjId(id);
         String res = project.getProName()+","
-                +engineer.getEngName()+","
+                +engineer.getName()+","
                 +project.getStTime()+","
                 +project.getEdTime()+","
                 +project.getDisp()+","

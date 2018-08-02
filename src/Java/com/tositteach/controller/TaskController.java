@@ -61,6 +61,6 @@ public class TaskController {
         Task task = taskService.queryOneTaskById(taskId);
         String engiId = task.getUserId();
         Engineer engineer = engineerService.queryById(engiId);
-        return engineer.getEngName();
+        return engineer.getName();
     }*/
 }

@@ -3,12 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.tositteach.domain.mapper.GpMapper">
-    <resultMap id="groupMap" type="com.tositteach.domain.entity.Gp">
-        <id column="gro_id" property="groId" jdbcType="VARCHAR"/>
-        <id column="cla_id" property="claId" jdbcType="VARCHAR"/>
-        <result column="gro_name" property="groName" jdbcType="VARCHAR"/>
-        <result column="pro_id" property="proId" jdbcType="VARCHAR"/>
+    <resultMap id="groMap" type="gp">
+        <id property="claId" column="cla_id" jdbcType="VARCHAR"/>
+        <id property="groId" column="gro_id" jdbcType="TINYINT"/>
+        <result property="groName" column="gro_name" jdbcType="VARCHAR"/>
+        <result property="proId" column="pro_id" jdbcType="VARCHAR"/>
     </resultMap>
+
     <select id="selectAllGp" resultMap="groupMap">
         select * from  gp;
     </select>

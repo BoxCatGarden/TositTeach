@@ -3,13 +3,74 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.tositteach.domain.mapper.UserMapper">
-    <resultMap id="UserMap" type="com.tositteach.domain.entity.User">
-        <id column="user_id" property="userId" jdbcType="VARCHAR"/>
-        <result column="pwd" property="userPwd" jdbcType="VARCHAR" />
-        <result column="type" property="type" jdbcType="TINYINT"/>
+    <resultMap id="userMap" type="user">
+        <id property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="TINYINT"/>
     </resultMap>
-    <select id="selectAllUser" resultMap="UserMap">
-        select * from user;
+
+    <select id="getPwd" resultType="string">
+        select pwd from user where user_id=#{ui}
+    </select>
+
+    <select id="getUser" resultMap="userMap">
+        select user_id,type,
+        case
+          when type=1 then (select name from student as s where s.user_id=u.user_id)
+          when type=2 then (select name from engineer as e where e.user_id=u.user_id)
+          else 'super'
+        end as name
+        from user as u where user_id=#{ui}
+    </select>
+
+    <update id="setPwd">
+        update user set pwd=#{np} where user_id=#{ui} and pwd=#{op}
+    </update>
+
+    <select id="getStuInfo" resultMap="stuInfoMap">
+        select
+        s.user_id as stu_id,
+        s.name as stu_name,
+        school as sc, id,
+        cla_id, cla_name, room,
+        e.user_id as eng_id,
+        e.name as eng_name,
+        gro_id, gro_name,
+        pro_id, pro_name, st_time, ed_time
+        from (select * from student where user_id=#{ui}) as s join clazz using (cla_id)
+        join gp using (cla_id,gro_id) join project using (pro_id)
+        join engineer as e on clazz.user_id=e.user_id
+    </select>
+
+    <resultMap id="stuInfoMap" type="student">
+        <id property="userId" column="stu_id"/>
+        <result property="name" column="stu_name"/>
+        <result property="school" column="sc"/>
+        <result property="id" column="id"/>
+        <association property="cla" javaType="clazz">
+            <id property="claId" column="cla_id"/>
+            <result property="claName" column="cla_name"/>
+            <result property="room" column="room"/>
+            <association property="eng" javaType="engineer">
+                <id property="engId" column="eng_id"/>
+                <result property="name" column="eng_name"/>
+            </association>
+        </association>
+        <association property="gp" javaType="gp">
+            <id property="claId" column="cla_id"/>
+            <id property="groId" column="gro_id"/>
+            <result property="groName" column="gro_name"/>
+            <association property="pro" javaType="project">
+                <id property="proId" column="pro_id"/>
+                <result property="proName" column="pro_name"/>
+                <result property="stTime" column="st_time"/>
+                <result property="edTime" column="ed_time"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="getEngInfo" resultType="engineer">
+        select user_id as userId,name from engineer where user_id=#{ui}
     </select>
 
 </mapper>

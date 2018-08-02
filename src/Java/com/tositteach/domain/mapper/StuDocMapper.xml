@@ -4,16 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tositteach.domain.mapper.StuDocMapper">
-    <resultMap id="doc_studentMap" type="com.tositteach.domain.entity.StuDoc">
-        <id column="doc_id" property="docId" jdbcType="VARCHAR"/>
-        <result column="doc_name" property="docName" jdbcType="VARCHAR"/>
-        <result column="url" property="url" jdbcType="VARCHAR"/>
-        <result column="score" property="score" jdbcType="TINYINT"/>
-        <result column="time" property="time" jdbcType="TIMESTAMP"/>
-        <result column="disp" property="disp" jdbcType="LONGVARCHAR"/>
-        <result column="cla_id" property="claId" jdbcType="VARCHAR"/>
-        <result column="gro_id" property="groId" jdbcType="VARCHAR"/>
-        <result column="pro_id" property="proId" jdbcType="VARCHAR"/>
+    <resultMap id="stuDocMap" type="stuDoc">
+        <id property="docId" column="doc_id" jdbcType="VARCHAR"/>
+        <result property="docName" column="doc_name" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="TINYINT"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <result property="disp" column="disp" jdbcType="VARCHAR"/>
+        <result property="claId" column="cla_id" jdbcType="VARCHAR"/>
+        <result property="groId" column="gro_id" jdbcType="TINYINT"/>
+        <result property="proId" column="pro_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--增删改查待写-->
