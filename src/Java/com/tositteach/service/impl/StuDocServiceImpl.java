@@ -1,79 +1,111 @@
 package com.tositteach.service.impl;
 
 import com.tositteach.domain.entity.StuDoc;
-import com.tositteach.domain.mapper.Doc_studentMapper;
-import com.tositteach.service.Doc_studentService;
+import com.tositteach.domain.mapper.StuDocMapper;
+import com.tositteach.service.StuDocService;
+import com.tositteach.util.PagingBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Service
-public class Doc_studentServiceImpl implements Doc_studentService {
+public class StuDocServiceImpl implements StuDocService {
     @Autowired
-    Doc_studentMapper doc_studentMapper;
+    StuDocMapper stuDocMapper;
+
+    @Override
+    public PagingBody query(String docName, String groName, String proName, int st, int nm) {
+        return null;
+    }
+
+    @Override
+    public StuDoc get(String docId) {
+        return null;
+    }
+
+    @Override
+    public int add(CommonsMultipartFile file, String docName, String disp, String stuId) {
+        return 0;
+    }
+
+    @Override
+    public int mod(String docId, CommonsMultipartFile file) {
+        return 0;
+    }
+
+    @Override
+    public int del(String docId) {
+        return 0;
+    }
+
+    @Override
+    public int score(String docId, byte score) {
+        return 0;
+    }
 
     //查询doc_student表中所有信息
     @Override
     public List<StuDoc> queryAllDoc_student() {
-        return doc_studentMapper.selectAllDoc_student();
+        return stuDocMapper.selectAllDoc_student();
     }
 
     //按文档名称搜索，列出信息
     @Override
     public List<StuDoc> queryDoc_studentName(String docsName) {
-        return doc_studentMapper.selectDoc_studentName(docsName);
+        return stuDocMapper.selectDoc_studentName(docsName);
     }
 
     //按小组名称搜索，列出信息
     //这里根据小组id来选择，需要根据小组名称联系到小组id（gp表）
     @Override
     public List<StuDoc> queryDoc_studentByGpName(String docsGroId, String docsClaId) {
-        return doc_studentMapper.selectDoc_studentByGpName(docsGroId, docsClaId);
+        return stuDocMapper.selectDoc_studentByGpName(docsGroId, docsClaId);
     }
 
 
     //下载获取url
     @Override
     public String queryDoc_student(String docsId) {
-        return doc_studentMapper.selectDoc_student(docsId);
+        return stuDocMapper.selectDoc_student(docsId);
     }
 
     //删除文档
     @Override
     public Integer removeDoc_student(String docsId) {
-        return doc_studentMapper.deleteDoc_student(docsId);
+        return stuDocMapper.deleteDoc_student(docsId);
     }
 
     //修改文档分数
     @Override
     public Integer modifyDoc_studentScore(String docsId) {
-        return doc_studentMapper.updateDoc_studentScore(docsId);
+        return stuDocMapper.updateDoc_studentScore(docsId);
     }
 
     //修改已上传文档
     @Override
     public Integer modifyDoc_studentUrl(String docsId) {
-        return doc_studentMapper.updateDoc_studentUrl(docsId);
+        return stuDocMapper.updateDoc_studentUrl(docsId);
     }
 
     //文档添加
     @Override
     public Integer addDoc_student(StuDoc stuDoc) {
-        return doc_studentMapper.insertDoc_student(stuDoc);
+        return stuDocMapper.insertDoc_student(stuDoc);
     }
 
     //初次上传文档
     @Override
     public Integer modifyDoc_studentFurl(String docsId) {
-        return doc_studentMapper.updateDoc_studentFurl(docsId);
+        return stuDocMapper.updateDoc_studentFurl(docsId);
     }
 
     @Override
     public void getRightId(StuDoc stuDoc) {
-        List<StuDoc> stuDocs = doc_studentMapper.selectAllDoc_student();
+        List<StuDoc> stuDocs = stuDocMapper.selectAllDoc_student();
         if(stuDocs.size()==0){
             stuDoc.setDocsId("1");
         }
@@ -94,6 +126,6 @@ public class Doc_studentServiceImpl implements Doc_studentService {
 
     @Override
     public StuDoc queryAllByDocsId(String docsId) {
-        return doc_studentMapper.selectAllByDocsId(docsId);
+        return stuDocMapper.selectAllByDocsId(docsId);
     }
 }

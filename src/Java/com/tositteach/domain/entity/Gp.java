@@ -2,7 +2,7 @@ package com.tositteach.domain.entity;
 
 public class Gp {
     private String claId;
-    private String groId;
+    private Byte groId;
     private String groName;
     private String proId;
 
@@ -24,11 +24,11 @@ public class Gp {
         this.claId = claId;
     }
 
-    public String getGroId() {
+    public Byte getGroId() {
         return groId;
     }
 
-    public void setGroId(String groId) {
+    public void setGroId(Byte groId) {
         this.groId = groId;
     }
 

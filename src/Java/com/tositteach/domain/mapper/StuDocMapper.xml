@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tositteach.domain.mapper.Doc_studentMapper">
+<mapper namespace="com.tositteach.domain.mapper.StuDocMapper">
     <resultMap id="doc_studentMap" type="com.tositteach.domain.entity.StuDoc">
         <id column="doc_id" property="docsId" jdbcType="VARCHAR"/>
         <result column="doc_name" property="docsName" jdbcType="VARCHAR"/>

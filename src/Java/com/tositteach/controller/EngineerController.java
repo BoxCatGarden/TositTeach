@@ -26,6 +26,6 @@ public class EngineerController {
                             @RequestParam(value = "nm", required = false, defaultValue = "0")int nm) {
         if (st < 0) st = 0;
         if (nm < 0) nm = 0;
-        return null;
+        return engineerService.query(st, nm);
     }
 }

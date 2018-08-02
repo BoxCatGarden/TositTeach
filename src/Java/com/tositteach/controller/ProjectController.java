@@ -2,6 +2,7 @@ package com.tositteach.controller;
 
 import com.tositteach.domain.entity.Engineer;
 import com.tositteach.domain.entity.Project;
+import com.tositteach.domain.entity.User;
 import com.tositteach.service.EngineerService;
 import com.tositteach.service.ProjectService;
 import com.tositteach.util.PagingBody;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Properties;
 
@@ -32,7 +34,7 @@ public class ProjectController {
         if (state < 0 || 3 < state) state = 1;
         if (st < 0) st = 0;
         if (nm < 0) nm = 10;
-        return null;
+        return projectService.query(state, proName, engName, engId, st, nm);
     }
 
     //获取项目详情
@@ -49,21 +51,22 @@ public class ProjectController {
                 +project.getDisp()+","
                 +doc_engineer.getDoceUrl();
 */
-        return null;
+        return projectService.get(proId);
     }
 
     //添加新项目，返回项目id
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String add(@RequestBody ProReqBody pro){
-       return "id";
+    public String add(@RequestBody ProReqBody pro, HttpSession session) {
+       return projectService.add(pro.pn, pro.stt, pro.edt, pro.dp,
+               ((User) session.getAttribute("user")).getUserId());
     }
 
     //删除项目
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
-    public int del(@RequestBody ProReqBody pro){ //proId
-        return 0;
+    public int del(@RequestBody ProReqBody pro) { //proId
+        return projectService.del(pro.pi);
     }
 
     //审批项目
@@ -71,14 +74,14 @@ public class ProjectController {
     @ResponseBody
     public int check(@RequestBody ProReqBody pro){ //pro_id,state
         if (pro.pi == null || pro.s < 1 || 2 < pro.s) return 0;
-        return 0;
+        return projectService.check(pro.pi, pro.s);
     }
 
     //修改项目信息
     @RequestMapping(value = "/mod", method = RequestMethod.POST)
     @ResponseBody
-    public int mod(@RequestBody ProReqBody pro){
-        return 0;
+    public int mod(@RequestBody ProReqBody pro) {
+        return projectService.mod(pro.pi, pro.pn, pro.edt, pro.dp);
     }
 
 }

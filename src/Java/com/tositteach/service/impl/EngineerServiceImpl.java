@@ -5,6 +5,7 @@ import com.tositteach.domain.entity.Engineer;
 import com.tositteach.domain.entity.Project;
 import com.tositteach.service.EngineerService;
 import com.tositteach.service.ProjectService;
+import com.tositteach.util.PagingBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,12 @@ public class EngineerServiceImpl implements EngineerService {
     @Autowired
     EngineerMapper engineerMapper;
     ProjectService projectService;
+
+    @Override
+    public PagingBody query(int st, int nm) {
+        return null;
+    }
+
     @Override
     public List<Engineer> queryAllEngineer() {
         return engineerMapper.selectAllEngineer();

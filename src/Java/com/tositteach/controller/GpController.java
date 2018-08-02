@@ -23,7 +23,14 @@ public class GpController {
     //将传入的学员分组，传入序列[gro_name,cla_id,pro_id,stu_id[,stu_id[,..]]]
     @RequestMapping(value = "/group", method = RequestMethod.POST)
     @ResponseBody
-    public int group(@RequestBody List<String> list){
-         return 0;
+    public int group(@RequestBody List<String> list) {
+        if (list.size() < 4) return 0;
+        String groName = list.get(0);
+        String claId = list.get(1);
+        String proId = list.get(2);
+        List<String> stuIds = list.subList(3, list.size());
+        byte groId = gpService.create(groName, claId, proId);
+        if (groId < 0) return 0;
+        return gpService.addStuInto(claId, groId, stuIds);
     }
 }

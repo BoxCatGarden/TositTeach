@@ -5,9 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface Doc_studentMapper {
+public interface StuDocMapper {
 
-//    Doc_studentMapper.xml中的方法名待写
+//    StuDocMapper.xml中的方法名待写
 
     //查询doc_student表中所有信息
     public List<StuDoc> selectAllDoc_student();

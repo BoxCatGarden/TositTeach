@@ -3,6 +3,7 @@ import com.tositteach.domain.entity.Task;
 
 import com.tositteach.domain.mapper.TaskMapper;
 import com.tositteach.service.TaskService;
+import com.tositteach.util.PagingBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,32 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService{
     @Autowired
     TaskMapper taskMapper;
+
+    @Override
+    public PagingBody query(String engId, int st, int nm) {
+        return null;
+    }
+
+    @Override
+    public Task get(String tasId) {
+        return null;
+    }
+
+    @Override
+    public String add(String tasName, String stTime, String edTime, String disp, String engId) {
+        return null;
+    }
+
+    @Override
+    public int mod(String tasId, String plan) {
+        return 0;
+    }
+
+    @Override
+    public int del(String tasId) {
+        return 0;
+    }
+
     @Override
     public List<Task> queryAllTask(){
         return taskMapper.selectAllTasks();

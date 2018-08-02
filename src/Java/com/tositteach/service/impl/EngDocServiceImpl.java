@@ -22,18 +22,7 @@ public class EngDocServiceImpl implements EngDocService {
     UploadService uploadService;
 
     @Override
-    public int total(String proName) {
-        return engDocMapper.getEngDocTotalNum(proName);
-    }
-
-    @Override
-    public List<EngDoc> query(String proName, int st, int nm) {
-        List<EngDoc> list = engDocMapper.getEngDocList(proName, st, nm);
-        return list != null ? list : new ArrayList<EngDoc>();
-    }
-
-    @Override
-    public int add(CommonsMultipartFile file, String proId, String userId) throws IOException {
+    public int upload(CommonsMultipartFile file, String proId, String userId) throws IOException {
         String url = uploadService.saveFile(file);
         if (url == null) return 0;
         EngDoc engDoc = new EngDoc();
@@ -48,12 +37,7 @@ public class EngDocServiceImpl implements EngDocService {
     }
 
     @Override
-    public int modify(EngDoc doc) {
-        return engDocMapper.updateEngDoc(doc);
-    }
-
-    @Override
-    public int reupload(String doc_id, CommonsMultipartFile file) throws IOException {
+    public int reupload(String docId, CommonsMultipartFile file) throws IOException {
 //        String url = uploadService.saveFile(file);
 //        if (url == null) return 0;
 //        EngDoc doc = engDocMapper.getEngDoc(doc_id);
@@ -68,8 +52,8 @@ public class EngDocServiceImpl implements EngDocService {
     }
 
     @Override
-    public int del(String doc_id) throws IOException {
-        EngDoc doc = engDocMapper.getEngDoc(doc_id);
-        return (doc == null || engDocMapper.delEngDoc(doc_id) == 0 || !uploadService.removeFile(doc.getUrl())) ? 0 : 1;
+    public int del(String docId) throws IOException {
+        EngDoc doc = engDocMapper.getEngDoc(docId);
+        return (doc == null || engDocMapper.delEngDoc(docId) == 0 || !uploadService.removeFile(doc.getUrl())) ? 0 : 1;
     }
 }

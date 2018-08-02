@@ -11,7 +11,13 @@ public interface ProjectService {
                      String engName, String engId,
                      int st, int nm);
     Project get(String proId);
-    String add();
+    String add(String proName,
+               String stTime, String edTime, String disp,
+               String engId);
+    int del(String proId);
+    int check(String proId, byte state);
+    int mod(String proId, String proName,
+            String edTime, String disp);
 
     //审核中
     public List<Project> queryAllProjectS();

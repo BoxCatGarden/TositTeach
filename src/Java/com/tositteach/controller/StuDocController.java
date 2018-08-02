@@ -1,19 +1,21 @@
 package com.tositteach.controller;
 
 import com.tositteach.domain.entity.StuDoc;
-import com.tositteach.service.Doc_studentService;
+import com.tositteach.domain.entity.User;
+import com.tositteach.service.StuDocService;
 import com.tositteach.util.PagingBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/studoc")
 public class StuDocController {
     @Resource
-    Doc_studentService doc_studentService;
+    StuDocService stuDocService;
     /*@Autowired
     GpService gpService;
     @Autowired
@@ -25,36 +27,30 @@ public class StuDocController {
     @ResponseBody
     public PagingBody query(@RequestParam(value = "dn", required = false)String docName,
                             @RequestParam(value = "gn", required = false)String groName,
-                            @RequestParam(value = "pn", required = false)String projName,
+                            @RequestParam(value = "pn", required = false)String proName,
                             @RequestParam(value = "st", required = false, defaultValue = "0")int st,
                             @RequestParam(value = "nm", required = false, defaultValue = "10")int nm) {
         if (st < 0) st = 0;
         if (nm < 0) nm = 10;
-//        List<StuDoc> doc_students = doc_studentService.queryAllDoc_student();
-        return null;
+        return stuDocService.query(docName, groName, proName, st, nm);
     }
 
     //获取文档详情
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public StuDoc get(@RequestParam("di")String docId) {
-        return null;
+        return stuDocService.get(docId);
     }
-
-    //获取下载的url，不包含域名，只供前端使用，用户不直接操作这个url
-    /*@RequestMapping(value = "/geturl", method = RequestMethod.GET)
-    @ResponseBody
-    public String getUrl(@RequestParam("di") String docId) {
-        return null;
-    }*/
 
     //文档添加
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public int add(@RequestParam("file")CommonsMultipartFile file,
                    @RequestParam("dn")String docName,
-                   @RequestParam("dp")String disp) { //session获取用户获取相应的组
-        return 0;
+                   @RequestParam("dp")String disp,
+                   HttpSession session) { //session获取用户获取相应的组
+        String stuId = ((User) session.getAttribute("user")).getUserId();
+        return stuDocService.add(file, docName, disp, stuId);
     }
 
     //修改已上传文档
@@ -62,21 +58,21 @@ public class StuDocController {
     @ResponseBody
     public int mod(@RequestParam("di")String docId,
                    @RequestParam("file")CommonsMultipartFile file) {
-        return 0;
+        return stuDocService.mod(docId, file);
     }
 
     //删除文档
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public int del(@RequestBody StuDocReqBody doc) { //docId
-        return 0;
+        return stuDocService.del(doc.di);
     }
 
     //修改文档分数
     @RequestMapping(value = "/score", method = RequestMethod.POST)
     @ResponseBody
     public int score(@RequestBody StuDocReqBody doc) { //docId,score
-        return 0;
+        return stuDocService.score(doc.di, doc.sc);
     }
 
 }

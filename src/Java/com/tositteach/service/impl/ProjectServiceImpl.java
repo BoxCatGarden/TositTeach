@@ -5,6 +5,7 @@ import com.tositteach.domain.entity.Engineer;
 import com.tositteach.domain.entity.Project;
 import com.tositteach.service.EngineerService;
 import com.tositteach.service.ProjectService;
+import com.tositteach.util.PagingBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,36 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     ProjectMapper projectMapper;
     EngineerService engineerService;
+
+    @Override
+    public PagingBody query(int state, String proName, String engName, String engId, int st, int nm) {
+        return null;
+    }
+
+    @Override
+    public Project get(String proId) {
+        return null;
+    }
+
+    @Override
+    public String add(String proName, String stTime, String edTime, String disp, String engId) {
+        return null;
+    }
+
+    @Override
+    public int del(String proId) {
+        return 0;
+    }
+
+    @Override
+    public int check(String proId, byte state) {
+        return 0;
+    }
+
+    @Override
+    public int mod(String proId, String proName, String edTime, String disp) {
+        return 0;
+    }
 
     @Override
     public List<Project> queryAllProjectS() {

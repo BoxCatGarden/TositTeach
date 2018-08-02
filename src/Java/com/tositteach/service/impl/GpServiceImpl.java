@@ -12,6 +12,17 @@ import java.util.*;
 public class GpServiceImpl implements GpService {
     @Autowired
     GpMapper gpMapper;
+
+    @Override
+    public byte create(String groName, String claId, String proId) {
+        return 0;
+    }
+
+    @Override
+    public int addStuInto(String claId, byte groId, List<String> stuIds) {
+        return 0;
+    }
+
     @Override
     public List<Gp> queryAllGp() {
         return gpMapper.selectAllGp();
@@ -33,7 +44,7 @@ public class GpServiceImpl implements GpService {
     private void getRightId(Gp gp) {
         List<Gp> gps = gpMapper.selectByClaId(gp.getClaId());
         if(gps.size()==0){
-            gp.setGroId("1");
+            gp.setGroId((byte)1);
         }
         else {
             ArrayList<Integer> iid = new ArrayList<Integer>();
@@ -46,7 +57,7 @@ public class GpServiceImpl implements GpService {
             int id1 = iid.get(iid.size() - 1) + 1;
             System.out.println(id1);
             String id = String.valueOf(id1);
-            gp.setGroId(id);
+            gp.setGroId((byte)1);
         }
     }
 
@@ -80,6 +91,6 @@ public class GpServiceImpl implements GpService {
     @Override
     public String queryByName(String cid, String name) {
         Gp gp= gpMapper.selectByClaidName(cid,name);
-        return gp.getGroId();
+        return null;//gp.getGroId();
     }
 }

@@ -3,6 +3,7 @@ package com.tositteach.service.impl;
 import com.tositteach.domain.mapper.ClazzMapper;
 import com.tositteach.domain.entity.Clazz;
 import com.tositteach.service.ClazzService;
+import com.tositteach.util.PagingBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,26 @@ import java.util.List;
 public class ClazzServiceImpl implements ClazzService{
     @Autowired
     ClazzMapper clazzMapper;
+
+    @Override
+    public PagingBody query(int st, int nm) {
+        return null;
+    }
+
+    @Override
+    public int add(String claName, String room, String engId) {
+        return 0;
+    }
+
+    @Override
+    public int del(List<String> claIds) {
+        return 0;
+    }
+
+    @Override
+    public int addstu(String claId, List<String> stuIds) {
+        return 0;
+    }
 
     //查询clazz表中所有信息
     @Override

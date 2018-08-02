@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/cla")
 public class ClazzController {
     @Resource
-    ClazzService clazzService;
+    private ClazzService clazzService;
 
     //获取班级列表，分页
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -27,28 +27,32 @@ public class ClazzController {
                             @RequestParam(value = "nm", required = false, defaultValue = "10")int nm) {
         if (st < 0) st = 0;
         if (nm < 0) nm = 10;
-        return null;
+        return clazzService.query(st, nm);
     }
 
     //添加班级
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public int add(@RequestBody ClaReqBody cla) {
-        return 0;
+        return clazzService.add(cla.cn, cla.rm, cla.ui);
     }
 
     //根据选中班级的cla_id删除班级信息
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public int del(@RequestBody List<String> ids) {
-        return 0;
+        if (ids.size() < 1) return 0;
+        return clazzService.del(ids);
     }
 
     //将学生加入班级，[cla_id,stu_id[,stu_id[,..]]]
     @RequestMapping(value = "/addstu", method = RequestMethod.POST)
     @ResponseBody
     public int addstu(@RequestBody List<String> ids) {
-        return 0;
+        if (ids.size() < 2) return 0;
+        String claId = ids.get(0);
+        List<String> stuIds = ids.subList(1, ids.size());
+        return clazzService.addstu(claId, stuIds);
     }
 
 }

@@ -5,6 +5,9 @@ import com.tositteach.domain.entity.Gp;
 import java.util.List;
 
 public interface GpService {
+    byte create(String groName, String claId, String proId);
+    int addStuInto(String claId, byte groId, List<String> stuIds);
+
     public List<Gp> queryAllGp();
     public int insertOneGroup(Gp gp);
     public Gp queryGpById(String cid, String gid);
