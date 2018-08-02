@@ -1,4 +1,6 @@
 package com.tositteach.service.impl;
+import com.tositteach.domain.entity.Engineer;
+import com.tositteach.domain.entity.Student;
 import com.tositteach.domain.entity.User;
 
 import com.tositteach.domain.mapper.UserMapper;
@@ -13,45 +15,65 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+
     @Override
+    public User signIn(String userId, String pwd) {
+        return null;
+    }
+
+    @Override
+    public int changePwd(String userId, String op, String np) {
+        return 0;
+    }
+
+    @Override
+    public Student getStuUserInfo(String userId) {
+        return null;
+    }
+
+    @Override
+    public Engineer getEngUserInfo(String userId) {
+        return null;
+    }
+
     public List<User> queryAllUser() {
         return userMapper.selectAllUsers();
     }
 
-    @Override
+
     public User queryById(String Id,String Pwd) {
-        List<User> users = queryAllUser();
+        /*List<User> users = queryAllUser();
         for(User oneUser : users){
             if(oneUser.getUserId().equals(Id)){
                 if(oneUser.getUserPwd().equals(Pwd))
                 {
                     return oneUser;}
             }
-        }
+        }*/
         return null;
     }
 
-    @Override
+
     public String addUser(){
-        User user = new User();
+        /*User user = new User();
         user.setUserPwd("123");
-       /* user.setUserId(UUIDUtil.getUUID());*/
+       *//* user.setUserId(UUIDUtil.getUUID());*//*
         getRightId(user);
         user.setType((byte) 1);
         Integer res = userMapper.insertUser(user);
-        return user.getUserId();
+        return user.getUserId();*/return null;
     }
 
 
-    @Override
+
     public Integer modifyUserPwd(User user){
         return userMapper.updateUserPwd(user);
     }
 
-    @Override
+
     public Integer cutUserById(String userId){return userMapper.deleteUserById(userId);}
 
-    @Override
+
     public void getRightId(User user) {
         List<User> users = userMapper.selectAllUsers();
         if(users.size()==0){

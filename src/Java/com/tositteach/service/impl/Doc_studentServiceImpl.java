@@ -80,8 +80,8 @@ public class Doc_studentServiceImpl implements Doc_studentService {
         else {
             ArrayList<Integer> iid = new ArrayList<Integer>();
             //最后一个元素
-            for (StuDoc stuDoc : stuDocs) {
-                iid.add(new Integer(stuDoc.getDocsId()));
+            for (StuDoc stuDoc1 : stuDocs) {
+                iid.add(new Integer(stuDoc1.getDocsId()));
             }
             //排序从小到大
             Collections.sort(iid);

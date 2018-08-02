@@ -34,21 +34,54 @@ public class StudentController {
     //添加单个学生
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String add(@RequestBody Student stu){  //页面中填写的内容即可
-        return "id";
+    public int add(@RequestBody StuReqBody stu){  //页面中填写的内容即可
+        return 0;
     }
 
-    //添加单个学生
+    //删除单个学生
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
-    public int del(@RequestBody Student stu){  //stu_id
+    public int del(@RequestBody StuReqBody stu){  //stu_id
         return 0;
     }
 
     //修改学员信息
     @RequestMapping(value = "/mod", method = RequestMethod.POST)
     @ResponseBody
-    public int mod(@RequestBody Student stu){
+    public int mod(@RequestBody StuReqBody stu){
         return 0;
+    }
+}
+
+class StuReqBody {
+    String userId;
+    String school;
+    String id;
+    String name;
+    Byte sex;
+    String grade;
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSex(Byte sex) {
+        this.sex = sex;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 }

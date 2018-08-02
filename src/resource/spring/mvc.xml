@@ -69,4 +69,12 @@
 
     <!-- 指定静态文件夹 -->
     <!-- mvc:resources mapping="/static/**" location="/static/"/ -->
+    
+    <!--拦截器-->
+    <!--<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.tositteach.server.filter.ValiInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
 </beans>

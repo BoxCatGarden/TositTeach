@@ -68,20 +68,20 @@ public class StuDocController {
     //删除文档
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
-    public int del(@RequestBody StuReqBody doc) { //docId
+    public int del(@RequestBody StuDocReqBody doc) { //docId
         return 0;
     }
 
     //修改文档分数
     @RequestMapping(value = "/score", method = RequestMethod.POST)
     @ResponseBody
-    public int score(@RequestBody StuReqBody doc) { //docId,score
+    public int score(@RequestBody StuDocReqBody doc) { //docId,score
         return 0;
     }
 
 }
 
-class StuReqBody {
+class StuDocReqBody {
     String di;
     Byte sc;
 

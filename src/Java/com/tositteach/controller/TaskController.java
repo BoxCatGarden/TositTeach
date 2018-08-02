@@ -23,40 +23,35 @@ public class TaskController {
         if (engId.length() == 0) engId = null;
         if (st < 0) st = 0;
         if (nm < 0) nm = 10;
-//        String taskId;
-//        List<Task> listTask = taskService.queryAllTask();
-//        return listTask;
-        return null;
+        return taskService.query(engId, st, nm);
     }
 
     //根据任务id获取任务详情
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public Task get(@RequestParam(value = "ti", required = true) String tasId){
-//        Task task = taskService.queryOneTaskById(taskId);
-//        return task; //乱写的返回
-        return null;
+        return taskService.get(tasId);
     }
 
     //添加任务
     @RequestMapping(value ="/add", method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody Task task){
-        return "id";
+        return taskService.add(task.getTasName(), task.getStTime(), task.getEdTime(), task.getDisp(), task.getUserId());
     }
 
     //修改教学计划
     @RequestMapping(value = "/mod", method = RequestMethod.POST)
     @ResponseBody
     public int mod(@RequestBody Task task){  //该实体中需要ajax中传入data：taskId、taskPlan
-        return 0;
+        return taskService.mod(task.getTasId(), task.getPlan());
     }
 
     //删除任务
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public int del(@RequestBody Task task){  //tasId
-        return 0;
+        return taskService.del(task.getTasId());
     }
 
     //已废置

@@ -58,6 +58,11 @@
         <listener-class>com.tositteach.server.listener.DocFolderListener</listener-class>
     </listener>
 
+    <!-- 监听Session，完成单用户登录的记录释放 -->
+    <listener>
+        <listener-class>com.tositteach.server.listener.SessionListener</listener-class>
+    </listener>
+
 
     <!-- spring mvc servlet-->
     <servlet>
