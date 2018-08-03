@@ -2,7 +2,7 @@ layui.use(['layer', 'upload'], function () {
     var layer = layui.layer;
     layui.upload.render({
         elem: '#selectFilesDiv',
-        url: '/in/engdoc/upload/',
+        url: '/in/upload/',
         method: 'POST',
         accept: 'file',
         auto: false,

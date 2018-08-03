@@ -15,7 +15,10 @@
             <id property="userId" column="user_id" jdbcType="VARCHAR"/>
             <result property="name" column="name"/>
         </association>
-        <association property="doc" column="doc_pro_id" javaType="engDoc" select="getProDoc"/>
+        <association property="doc" javaType="engDoc">
+            <id property="docId" column="doc_id"/>
+            <result property="url" column="url"/>
+        </association>
     </resultMap>
 
     <select id="total" resultType="_int">
@@ -26,13 +29,16 @@
                 state=#{s}
             </if>
             <if test="pn!=null">
-                and pro_name like {"%"+pn+"%"}
+                <bind name="lpn" value="'%'+pn+'%'"/>
+                and pro_name like #{lpn}
             </if>
             <if test="en!=null">
-                and name like {"%"+en+"%"}
+                <bind name="len" value="'%'+en+'%'"/>
+                and name like #{len}
             </if>
             <if test="ei!=null">
-                and user_id like {"%"+ei+"%"}
+                <bind name="lei" value="'%'+ei+'%'"/>
+                and user_id like #{lei}
             </if>
         </where>
     </select>
@@ -44,13 +50,16 @@
                 state=#{s}
             </if>
             <if test="pn!=null">
-                and pro_name like {"%"+pn+"%"}
+                <bind name="lpn" value="'%'+pn+'%'"/>
+                and pro_name like #{lpn}
             </if>
             <if test="en!=null">
-                and name like {"%"+en+"%"}
+                <bind name="len" value="'%'+en+'%'"/>
+                and name like #{len}
             </if>
             <if test="ei!=null">
-                and user_id like {"%"+ei+"%"}
+                <bind name="lei" value="'%'+ei+'%'"/>
+                and user_id like #{lei}
             </if>
         </where>
         <if test="nm>0">
@@ -59,11 +68,8 @@
     </select>
 
     <select id="get" resultMap="proMap">
-        select pro_id,pro_name,st_time,ed_time,disp,user_id,name,pro_id as doc_pro_id
-        from project natural left outer join engineer where pro_id=#{pi}
-    </select>
-    <select id="getProDoc" resultMap="com.tositteach.domain.mapper.EngDocMapper.engDocMap">
-        select doc_id,url from doc_engineer where pro_id=#{doc_pro_id}
+        select pro_id,pro_name,st_time,ed_time,disp,user_id,name,doc_id,url
+        from project natural left outer join engineer natural left outer join (select doc_id,url,pro_id from doc_engineer) as d where pro_id=#{pi}
     </select>
 
 

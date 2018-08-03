@@ -14,7 +14,7 @@ import java.io.IOException;
 @Controller
 public class FileController {
 
-   /* @Resource
+    /*@Resource
     private FileService up;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)

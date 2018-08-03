@@ -79,7 +79,7 @@ public class UserController {
             return userService.getStuUserInfo(user.getUserId());
         } else if (type == 2) {
             return userService.getEngUserInfo(user.getUserId());
-        } else return null;
+        } else return new User();
     }
 
 }
