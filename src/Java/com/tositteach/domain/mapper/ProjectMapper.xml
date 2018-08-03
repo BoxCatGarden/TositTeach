@@ -20,7 +20,7 @@
 
     <select id="total" resultType="_int">
         select count(*)
-        from project natural join engineer
+        from project natural left outer join engineer
         <where>
             <if test="s != 3">
                 state=#{s}
@@ -38,7 +38,7 @@
     </select>
     <select id="query" resultMap="proMap">
         select pro_id,pro_name,st_time,user_id,name
-        from project natural join engineer
+        from project natural left outer join engineer
         <where>
             <if test="s != 3">
                 state=#{s}
@@ -60,7 +60,7 @@
 
     <select id="get" resultMap="proMap">
         select pro_id,pro_name,st_time,ed_time,disp,user_id,name,pro_id as doc_pro_id
-        from project natural join engineer where pro_id=#{pi}
+        from project natural left outer join engineer where pro_id=#{pi}
     </select>
     <select id="getProDoc" resultMap="com.tositteach.domain.mapper.EngDocMapper.engDocMap">
         select doc_id,url from doc_engineer where pro_id=#{doc_pro_id}
