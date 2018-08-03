@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/studoc")
 public class StuDocController {
     @Resource
-    StuDocService stuDocService;
+    private StuDocService stuDocService;
     /*@Autowired
     GpService gpService;
     @Autowired
@@ -39,7 +39,8 @@ public class StuDocController {
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public StuDoc get(@RequestParam("di")String docId) {
-        return stuDocService.get(docId);
+        StuDoc doc = stuDocService.get(docId);
+        return doc != null ? doc : new StuDoc();
     }
 
     //文档添加
@@ -49,6 +50,7 @@ public class StuDocController {
                    @RequestParam("dn")String docName,
                    @RequestParam("dp")String disp,
                    HttpSession session) { //session获取用户获取相应的组
+        if (file.getSize()==0)return 0;
         String stuId = ((User) session.getAttribute("user")).getUserId();
         return stuDocService.add(file, docName, disp, stuId);
     }
@@ -58,6 +60,7 @@ public class StuDocController {
     @ResponseBody
     public int mod(@RequestParam("di")String docId,
                    @RequestParam("file")CommonsMultipartFile file) {
+        if (docId.length()!=11)return 0;
         return stuDocService.mod(docId, file);
     }
 
@@ -65,6 +68,7 @@ public class StuDocController {
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public int del(@RequestBody StuDocReqBody doc) { //docId
+        if (doc.di==null||doc.di.length()!=11)return 0;
         return stuDocService.del(doc.di);
     }
 
@@ -72,6 +76,7 @@ public class StuDocController {
     @RequestMapping(value = "/score", method = RequestMethod.POST)
     @ResponseBody
     public int score(@RequestBody StuDocReqBody doc) { //docId,score
+        if (doc.di==null||doc.sc==null||doc.di.length()!=11||doc.sc<0||100<doc.sc)return 0;
         return stuDocService.score(doc.di, doc.sc);
     }
 

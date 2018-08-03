@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/eng")
 public class EngineerController {
     @Autowired
-    EngineerService engineerService;
+    private EngineerService engineerService;
 
     //获取工程师列表，nm=0（查询全部记录）
     @RequestMapping(value = "", method = RequestMethod.GET)

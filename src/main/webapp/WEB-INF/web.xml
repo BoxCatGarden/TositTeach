@@ -44,9 +44,9 @@
     </listener>
 
     <!--支持Session和Request的注入-->
-    <listener>
+    <!--<listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-    </listener>
+    </listener>-->
 
     <!-- 防止spring内存溢出监听器，比如quartz -->
     <listener>

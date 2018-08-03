@@ -7,10 +7,12 @@ import com.tositteach.domain.mapper.UserMapper;
 import com.tositteach.service.UserService;
 import com.tositteach.util.Md5Encryptor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;

@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/gp")
 public class GpController {
     @Resource
-    GpService gpService;
+    private GpService gpService;
 
     //将传入的学员分组，传入序列[gro_name,cla_id,pro_id,stu_id[,stu_id[,..]]]
     @RequestMapping(value = "/group", method = RequestMethod.POST)

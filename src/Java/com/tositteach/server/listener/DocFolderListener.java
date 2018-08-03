@@ -17,10 +17,8 @@ public class DocFolderListener implements ServletContextListener {
                     : new FileInputStream(configLocation);
             props.load(in);
             in.close();
-            File file = new File(props.getProperty("doc"));
+            File file = new File(props.getProperty("doc.real"));
             if (!file.exists()) file.mkdirs();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -6,17 +6,19 @@ import com.tositteach.service.EngDocService;
 import com.tositteach.service.FileService;
 import com.tositteach.util.YearIdBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 
 @Service
+@Transactional
 public class EngDocServiceImpl implements EngDocService {
     @Resource
-    EngDocMapper engDocMapper;
+    private EngDocMapper engDocMapper;
     @Resource
-    FileService fileService;
+    private FileService fileService;
 
     @Override
     public int upload(CommonsMultipartFile file,

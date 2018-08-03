@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ValiInterceptor extends HandlerInterceptorAdapter {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (request.getSession().getAttribute("user") != null) {
             return !request.getRequestURI().equals("/in/user/signin");
         } else return request.getRequestURI().equals("/in/user/signin");

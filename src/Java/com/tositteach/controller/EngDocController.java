@@ -14,7 +14,7 @@ import java.io.IOException;
 @RequestMapping("/engdoc")
 public class EngDocController {
     @Resource
-    EngDocService engDocService;
+    private EngDocService engDocService;
 
     /* upload the doc file,
      *  return: 0, fail;
@@ -24,8 +24,9 @@ public class EngDocController {
     @ResponseBody
     public int upload(@RequestParam("pi") String proId,
                       @RequestParam("file") CommonsMultipartFile file,
-                      HttpSession session) throws IOException {
-        if (proId.equals("")) proId = null;
+                      HttpSession session) {
+        if (proId.length()!=11) return 0;
+        if (file.getSize()==0) return 0;
         String engId = ((User) session.getAttribute("user")).getUserId();
         return engDocService.upload(file, proId, engId);
     }
@@ -35,7 +36,9 @@ public class EngDocController {
     @RequestMapping(value = "/reupload", method = RequestMethod.POST)
     @ResponseBody
     public int reupload(@RequestParam("di") String docId,
-                        @RequestParam("file") CommonsMultipartFile file) throws IOException {
+                        @RequestParam("file") CommonsMultipartFile file) {
+        if (docId.length()!=11) return 0;
+        if (file.getSize()==0)return 0;
         return engDocService.reupload(docId, file);
     }
 
@@ -43,8 +46,8 @@ public class EngDocController {
      *  if succeed, return 1; else 0*/
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
-    public int del(@RequestBody EngDocReqBody req) throws IOException {
-        return req.di != null ? engDocService.del(req.di) : 0;
+    public int del(@RequestBody EngDocReqBody req) {
+        return req.di != null && req.di.length()==11 ? engDocService.del(req.di) : 0;
     }
 }
 

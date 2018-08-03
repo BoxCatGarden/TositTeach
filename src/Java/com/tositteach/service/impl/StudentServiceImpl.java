@@ -7,14 +7,16 @@ import com.tositteach.util.PagingBody;
 import com.tositteach.util.YearIdBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
+@Transactional
 public class StudentServiceImpl implements StudentService{
     @Resource
-    StudentMapper studentMapper;
+    private StudentMapper studentMapper;
 
     @Override
     public PagingBody query(String claId, int st, int nm) {

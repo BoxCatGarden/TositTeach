@@ -29,6 +29,7 @@ public class UserController {
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     @ResponseBody
     public int signIn(@RequestBody UserReqBody req, HttpServletRequest request) { //ui,p
+        if (req.ui==null||req.p==null) return 0;
         User user = userService.signIn(req.ui,req.p); //try to sign in
         if (user != null) { //succeed
             HttpSession session = userMap.get(user.getUserId());
@@ -56,6 +57,7 @@ public class UserController {
     @RequestMapping(value = "/chgpwd", method = RequestMethod.POST)
     @ResponseBody
     public int changePwd(@RequestBody UserReqBody req, HttpSession session) {
+        if (req.p==null||req.np==null)return 0;
         User user = (User) session.getAttribute("user");
         return userService.changePwd(user.getUserId(), req.p, req.np);
     }

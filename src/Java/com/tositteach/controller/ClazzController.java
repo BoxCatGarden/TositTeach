@@ -34,6 +34,7 @@ public class ClazzController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public int add(@RequestBody ClaReqBody cla) {
+        if (cla.cn == null || cla.rm == null || cla.ui == null) return 0;
         return clazzService.add(cla.cn, cla.rm, cla.ui);
     }
 

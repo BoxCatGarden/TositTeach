@@ -2,12 +2,13 @@ package com.tositteach.service.impl;
 
 import com.tositteach.service.FileService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.*;
 import java.util.UUID;
 
-@Service
+@Transactional
 public class FileServiceImpl implements FileService {
 
     private String realPath = "D:/Documents/TositTeachUploadFiles/";
@@ -25,7 +26,7 @@ public class FileServiceImpl implements FileService {
 
     public boolean removeFile(String url) {
         if (!url.startsWith(virPath)) return false;
-        String path = realPath + url.substring(5);
+        String path = realPath + url.substring(virPath.length());
         File file = new File(path);
         return file.exists() && file.delete();
     }

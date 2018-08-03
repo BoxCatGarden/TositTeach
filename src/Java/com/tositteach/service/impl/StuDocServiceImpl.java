@@ -11,6 +11,7 @@ import com.tositteach.util.PagingBody;
 import com.tositteach.util.YearIdBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
@@ -20,13 +21,14 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
+@Transactional
 public class StuDocServiceImpl implements StuDocService {
     @Resource
-    StuDocMapper stuDocMapper;
+    private StuDocMapper stuDocMapper;
     @Resource
-    FileService fileService;
+    private FileService fileService;
     @Resource
-    StudentService studentService;
+    private StudentService studentService;
 
     @Override
     public PagingBody query(String docName,

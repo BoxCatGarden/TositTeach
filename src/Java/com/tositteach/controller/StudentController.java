@@ -17,31 +17,33 @@ import java.util.List;
 @RequestMapping("/stu")
 public class StudentController {
     @Resource
-    StudentService studentService;
+    private StudentService studentService;
 
     //查询学生列表，分页，claId=班级id（班级学员）|"n"（未分班）|null全部
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public PagingBody query(@RequestParam(value = "ci", required = false, defaultValue = "")String claId,
+    public PagingBody query(@RequestParam(value = "ci", required = false)String claId,
                             @RequestParam(value = "st", required = false, defaultValue = "0")int st,
                             @RequestParam(value = "nm", required = false, defaultValue = "10")int nm){
-        if (claId.length() == 0) claId = null;
         if (st < 0) st = 0;
         if (nm < 0) nm = 10;
-        return null;
+        return studentService.query(claId, st, nm);
     }
 
     //添加单个学生
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public int add(@RequestBody StuReqBody stu){  //页面中填写的内容即可
-        return 0;
+        if (stu.school==null||stu.id==null||stu.name==null||stu.sex==null||stu.grade==null) return 0;
+        return studentService.add(stu.school, stu.id, stu.name, stu.sex, stu.grade);
     }
 
+    /*//目前不需要
     //删除单个学生
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public int del(@RequestBody StuReqBody stu){  //stu_id
+        if (stu.userId==null) return 0;
         return 0;
     }
 
@@ -50,7 +52,7 @@ public class StudentController {
     @ResponseBody
     public int mod(@RequestBody StuReqBody stu){
         return 0;
-    }
+    }*/
 }
 
 class StuReqBody {

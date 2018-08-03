@@ -7,15 +7,17 @@ import com.tositteach.util.PagingBody;
 import com.tositteach.util.YearIdBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 @Service
+@Transactional
 public class TaskServiceImpl implements TaskService{
     @Resource
-    TaskMapper taskMapper;
+    private TaskMapper taskMapper;
 
     @Override
     public PagingBody query(String engId, int st, int nm) {

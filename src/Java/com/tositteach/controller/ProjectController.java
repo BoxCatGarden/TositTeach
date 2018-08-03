@@ -20,17 +20,17 @@ import java.util.Properties;
 @RequestMapping("/pro")
 public class ProjectController {
     @Resource
-    ProjectService projectService;
+    private ProjectService projectService;
 
     //显示项目列表, state=0（待审批）|1（通过）|2（未通过）|3（全部）
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public PagingBody query(@RequestParam(value = "s", required = false, defaultValue = "1")int state,
-                            @RequestParam(value = "pn", required = false)String proName,
-                            @RequestParam(value = "en", required = false)String engName,
-                            @RequestParam(value = "ei", required = false)String engId,
-                            @RequestParam(value = "st", required = false, defaultValue = "0")int st,
-                            @RequestParam(value = "nm", required = false, defaultValue = "10")int nm){
+    public PagingBody query(@RequestParam(value = "s", required = false, defaultValue = "1") int state,
+                            @RequestParam(value = "pn", required = false) String proName,
+                            @RequestParam(value = "en", required = false) String engName,
+                            @RequestParam(value = "ei", required = false) String engId,
+                            @RequestParam(value = "st", required = false, defaultValue = "0") int st,
+                            @RequestParam(value = "nm", required = false, defaultValue = "10") int nm) {
         if (state < 0 || 3 < state) state = 1;
         if (st < 0) st = 0;
         if (nm < 0) nm = 10;
@@ -40,39 +40,33 @@ public class ProjectController {
     //获取项目详情
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
-    public Project get(@RequestParam(value = "pi")String proId){
-        /*Project project = projectService.queryById(id);
-        Engineer engineer = engineerService.queryByProId(id);
-        Doc_engineer doc_engineer = doc_engineerService.queryAllByProjId(id);
-        String res = project.getProName()+","
-                +engineer.getName()+","
-                +project.getStTime()+","
-                +project.getEdTime()+","
-                +project.getDisp()+","
-                +doc_engineer.getDoceUrl();
-*/
-        return projectService.get(proId);
+    public Project get(@RequestParam(value = "pi") String proId) {
+        Project pro = projectService.get(proId);
+        return pro != null ? pro : new Project();
     }
 
     //添加新项目，返回项目id
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody ProReqBody pro, HttpSession session) {
-       return projectService.add(pro.pn, pro.stt, pro.edt, pro.dp,
-               ((User) session.getAttribute("user")).getUserId());
+        if (pro.pn == null || pro.stt == null || pro.edt == null || pro.dp == null) return "";
+        String re = projectService.add(pro.pn, pro.stt, pro.edt, pro.dp,
+                ((User) session.getAttribute("user")).getUserId());
+        return re != null ? re : "";
     }
 
     //删除项目
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public int del(@RequestBody ProReqBody pro) { //proId
+        if (pro.pi == null || pro.pi.length() != 11) return 0;
         return projectService.del(pro.pi);
     }
 
     //审批项目
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
-    public int check(@RequestBody ProReqBody pro){ //pro_id,state
+    public int check(@RequestBody ProReqBody pro) { //pro_id,state
         if (pro.pi == null || pro.s < 1 || 2 < pro.s) return 0;
         return projectService.check(pro.pi, pro.s);
     }
@@ -81,6 +75,7 @@ public class ProjectController {
     @RequestMapping(value = "/mod", method = RequestMethod.POST)
     @ResponseBody
     public int mod(@RequestBody ProReqBody pro) {
+        if (pro.pi ==null || pro.pn == null || pro.edt == null || pro.dp == null) return 0;
         return projectService.mod(pro.pi, pro.pn, pro.edt, pro.dp);
     }
 
