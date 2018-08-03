@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tositteach.domain.mapper.DocCleanMapper">
+    <resultMap id="docMap" type="engDoc">
+        <id property="docId" column="doc_id"/>
+        <result property="url" column="url"/>
+    </resultMap>
+
+    <select id="getInvaliDoc" resultMap="docMap">
+        (select doc_id,url from doc_student where pro_id is null)
+        union
+        (select doc_id,url from doc_engineer where pro_id is null)
+    </select>
+
+    <delete id="delInvaliStuDoc">
+        delete from doc_student where pro_id is null
+    </delete>
+    <delete id="delInvaliEngDoc">
+        delete from doc_engineer where pro_id is null
+    </delete>
+</mapper>

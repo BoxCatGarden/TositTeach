@@ -47,6 +47,8 @@
     <!-- enable transaction demarcation with annotations -->
     <tx:annotation-driven/>
 
+    <task:annotation-driven/>
+
     <bean id="fileServiceImpl" class="com.tositteach.service.impl.FileServiceImpl">
         <property name="realPath" value="${doc.real}"/>
         <property name="virPath" value="${doc.virt}"/>
