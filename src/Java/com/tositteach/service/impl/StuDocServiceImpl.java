@@ -1,6 +1,7 @@
 package com.tositteach.service.impl;
 
 import com.tositteach.domain.entity.Gp;
+import com.tositteach.domain.entity.Project;
 import com.tositteach.domain.entity.StuDoc;
 import com.tositteach.domain.mapper.StuDocMapper;
 import com.tositteach.service.FileService;
@@ -69,10 +70,19 @@ public class StuDocServiceImpl implements StuDocService {
     }
 
     @Override
-    public int mod(String docId, CommonsMultipartFile file) {
-
+    public int mod(CommonsMultipartFile file,
+                   String docId, String stuId) {
+        //验证输入，后续版本可以考虑将它做成独立的方法给控制层调用
         StuDoc doc = stuDocMapper.get(docId);
         if (doc == null) return 0;
+        Gp stuGp = stuDocMapper.getStuGp(stuId);
+        if (stuGp == null || stuGp.getProId() == null)
+            return 0;
+        Project docPro = doc.getPro();
+        if (docPro == null || !stuGp.getProId().equals(docPro.getProId()))
+            return 0;
+
+        //正式处理输入
         String url;
         try {
             url = fileService.saveFile(file);

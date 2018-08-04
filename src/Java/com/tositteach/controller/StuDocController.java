@@ -58,10 +58,12 @@ public class StuDocController {
     //修改已上传文档
     @RequestMapping(value = "/mod", method = RequestMethod.POST)
     @ResponseBody
-    public int mod(@RequestParam("di")String docId,
-                   @RequestParam("file")CommonsMultipartFile file) {
+    public int mod(@RequestParam("file")CommonsMultipartFile file,
+                   @RequestParam("di")String docId,
+                   HttpSession session) {
         if (docId.length()!=11)return 0;
-        return stuDocService.mod(docId, file);
+        String stuId = ((User) session.getAttribute("user")).getUserId();
+        return stuDocService.mod(file, docId, stuId);
     }
 
     //删除文档
