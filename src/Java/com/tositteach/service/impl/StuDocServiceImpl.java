@@ -2,23 +2,17 @@ package com.tositteach.service.impl;
 
 import com.tositteach.domain.entity.Gp;
 import com.tositteach.domain.entity.StuDoc;
-import com.tositteach.domain.entity.Student;
 import com.tositteach.domain.mapper.StuDocMapper;
 import com.tositteach.service.FileService;
 import com.tositteach.service.StuDocService;
-import com.tositteach.service.StudentService;
 import com.tositteach.util.PagingBody;
 import com.tositteach.util.YearIdBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Service
 @Transactional
@@ -27,8 +21,6 @@ public class StuDocServiceImpl implements StuDocService {
     private StuDocMapper stuDocMapper;
     @Resource
     private FileService fileService;
-    @Resource
-    private StudentService studentService;
 
     @Override
     public PagingBody query(String docName,
@@ -50,6 +42,10 @@ public class StuDocServiceImpl implements StuDocService {
     public int add(CommonsMultipartFile file,
                    String docName, String disp,
                    String stuId) {
+        Gp stuGp = stuDocMapper.getStuGp(stuId);
+        if (stuGp == null || stuGp.getProId() == null)
+            return 0;
+
         String url;
         try {
             url = fileService.saveFile(file);
@@ -63,12 +59,9 @@ public class StuDocServiceImpl implements StuDocService {
         doc.setDocName(docName);
         doc.setDisp(disp);
         doc.setUrl(url);
-
-        Gp stuGp = studentService.get(stuId).getGp();
         doc.setClaId(stuGp.getClaId());
         doc.setGroId(stuGp.getGroId());
         doc.setProId(stuGp.getProId());
-
         synchronized (this) {
             doc.setDocId(YearIdBuilder.build(stuDocMapper.getMaxId()));
             return stuDocMapper.add(doc);

@@ -74,6 +74,11 @@
         where doc_id=#{di}
     </select>
 
+    <select id="getStuGp" resultType="gp">
+        select cla_id as "claId",gro_id as "groId",pro_id as "proId"
+        from student natural join gp
+        where user_id=#{si}
+    </select>
     <select id="getMaxId" resultType="string">
         select max(doc_id) from doc_student
     </select>

@@ -1,5 +1,6 @@
 package com.tositteach.domain.mapper;
 
+import com.tositteach.domain.entity.Gp;
 import com.tositteach.domain.entity.StuDoc;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,6 +18,7 @@ public interface StuDocMapper {
 
     StuDoc get(@Param("di") String docId);
 
+    Gp getStuGp(@Param("si")String stuId);
     String getMaxId();
     int add(StuDoc doc);
 
