@@ -15,10 +15,7 @@
             <id property="userId" column="user_id" jdbcType="VARCHAR"/>
             <result property="name" column="name"/>
         </association>
-        <association property="doc" javaType="engDoc">
-            <id property="docId" column="doc_id"/>
-            <result property="url" column="url"/>
-        </association>
+        <association property="doc" javaType="engDoc" column="doc_pro_id" select="getProDoc"/>
     </resultMap>
 
     <select id="total" resultType="_int">
@@ -68,8 +65,11 @@
     </select>
 
     <select id="get" resultMap="proMap">
-        select pro_id,pro_name,st_time,ed_time,disp,user_id,name,doc_id,url
-        from project natural left outer join engineer natural left outer join (select doc_id,url,pro_id from doc_engineer) as d where pro_id=#{pi}
+        select pro_id,pro_name,st_time,ed_time,disp,user_id,name,pro_id as doc_pro_id
+        from project natural left outer join engineer where pro_id=#{pi}
+    </select>
+    <select id="getProDoc" resultType="engDoc">
+        select doc_id as "docId",url from doc_engineer where pro_id=#{id}
     </select>
 
 

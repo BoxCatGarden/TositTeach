@@ -11,7 +11,7 @@ public interface StudentMapper {
     List<Student> query(@Param("ci")String claId,
                         @Param("st") int st, @Param("nm") int nm);
 
-    Student get(@Param("si")String stuId);
+    //Student get(@Param("si")String stuId);
 
     String getMaxId();
     int add(Student stu);

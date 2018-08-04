@@ -26,10 +26,10 @@ public class StudentServiceImpl implements StudentService{
         return body;
     }
 
-    @Override
+    /*@Override
     public Student get(String stuId) {
         return studentMapper.get(stuId);
-    }
+    }*/
 
     @Override
     public int add(String school, String id,
@@ -41,7 +41,7 @@ public class StudentServiceImpl implements StudentService{
         stu.setSex(sex);
         stu.setGrade(grade);
         synchronized (this) {
-            stu.setUserId(YearIdBuilder.build(studentMapper.getMaxId()));
+            stu.setUserId(YearIdBuilder.build(studentMapper.getMaxId(),"01","0000000"));
             return studentMapper.add(stu);
         }
     }

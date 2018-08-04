@@ -44,14 +44,14 @@
         </choose>
     </select>
 
-    <select id="get" resultMap="stuMap">
+    <!--<select id="get" resultMap="stuMap">
         select user_id,cla_id,gro_id,pro_id
         from student natural join gp
         where user_id=#{si}
-    </select>
+    </select>-->
 
     <select id="getMaxId" resultType="string">
-        select max(user_id) from user
+        select max(user_id) from student
     </select>
     <insert id="add">
         insert into student values (#{userId},#{school},#{id},#{name},#{sex},#{grade},null,null)

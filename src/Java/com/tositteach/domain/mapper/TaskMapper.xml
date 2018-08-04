@@ -20,7 +20,8 @@
     <select id="total" resultType="_int">
         select count(*) from task
         <if test="ei != null">
-            where user_id like #{"%"+ei+"%"}
+            <bind name="lei" value="'%'+ei+'%'"/>
+            where user_id like #{lei}
         </if>
     </select>
 
@@ -28,7 +29,8 @@
         select tas_id,tas_name,st_time,user_id,name
         from task natural left outer join engineer
         <if test="ei != null">
-            where user_id like #{"%"+ei+"%"}
+            <bind name="lei" value="'%'+ei+'%'"/>
+            where user_id like #{lei}
         </if>
         <if test="nm > 0">
             limit #{st},#{nm}

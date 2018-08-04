@@ -27,31 +27,41 @@
         from doc_student
           natural left outer join gp
           join project using (pro_id)
-        <if test="dn != null">
-            and doc_name like #{"%"+dn+"%}
-        </if>
-        <if test="gn!=null">
-            and gro_name like #{"%"+gn+"%}
-        </if>
-        <if test="pn!=null">
-            and pro_name like #{"%"+pn+"%}
-        </if>
+        <where>
+            <if test="dn != null">
+                <bind name="ldn" value="'%'+dn+'%'"/>
+                doc_name like #{ldn}
+            </if>
+            <if test="gn!=null">
+                <bind name="lgn" value="'%'+gn+'%'"/>
+                and gro_name like #{lgn}
+            </if>
+            <if test="pn!=null">
+                <bind name="lpn" value="'%'+pn+'%'"/>
+                and pro_name like #{lpn}
+            </if>
+        </where>
     </select>
 
     <select id="query" resultMap="stuDocMap">
         select doc_id,doc_name,cla_id,gro_id,gro_name,pro_id,pro_name
         from doc_student
-            natural left outer join gp
-            join project using (pro_id)
-        <if test="dn != null">
-            and doc_name like #{"%"+dn+"%}
-        </if>
-        <if test="gn!=null">
-            and gro_name like #{"%"+gn+"%}
-        </if>
-        <if test="pn!=null">
-            and pro_name like #{"%"+pn+"%}
-        </if>
+          natural left outer join gp
+          join project using (pro_id)
+        <where>
+            <if test="dn != null">
+                <bind name="ldn" value="'%'+dn+'%'"/>
+                doc_name like #{ldn}
+            </if>
+            <if test="gn!=null">
+                <bind name="lgn" value="'%'+gn+'%'"/>
+                and gro_name like #{lgn}
+            </if>
+            <if test="pn!=null">
+                <bind name="lpn" value="'%'+pn+'%'"/>
+                and pro_name like #{lpn}
+            </if>
+        </where>
         <if test="nm>0">
             limit #{st},#{nm}
         </if>
@@ -69,7 +79,7 @@
     </select>
     <insert id="add">
         insert into doc_student values (#{docId},#{docName},#{url},default,default,
-        #{disp},#{claId},#{groId},#{proId})
+          #{disp},#{claId},#{groId},#{proId})
     </insert>
 
     <update id="setUrl">
