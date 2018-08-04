@@ -5,6 +5,7 @@ import com.tositteach.domain.entity.Project;
 import com.tositteach.domain.entity.User;
 import com.tositteach.service.EngineerService;
 import com.tositteach.service.ProjectService;
+import com.tositteach.util.DateChecker;
 import com.tositteach.util.PagingBody;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class ProjectController {
     @ResponseBody
     public String add(@RequestBody ProReqBody pro, HttpSession session) {
         if (pro.pn == null || pro.stt == null || pro.edt == null || pro.dp == null) return "";
+        if (!DateChecker.valiDuration(pro.stt,pro.edt)) return "";
         String re = projectService.add(pro.pn, pro.stt, pro.edt, pro.dp,
                 ((User) session.getAttribute("user")).getUserId());
         return re != null ? re : "";
@@ -67,7 +69,7 @@ public class ProjectController {
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
     public int check(@RequestBody ProReqBody pro) { //pro_id,state
-        if (pro.pi == null || pro.s < 1 || 2 < pro.s) return 0;
+        if (pro.pi == null || pro.pi.length() != 11 || pro.s < 1 || 2 < pro.s) return 0;
         return projectService.check(pro.pi, pro.s);
     }
 
@@ -76,6 +78,7 @@ public class ProjectController {
     @ResponseBody
     public int mod(@RequestBody ProReqBody pro) {
         if (pro.pi ==null || pro.pn == null || pro.edt == null || pro.dp == null) return 0;
+        if (pro.pi.length()!=11)return 0;//pro.edt
         return projectService.mod(pro.pi, pro.pn, pro.edt, pro.dp);
     }
 

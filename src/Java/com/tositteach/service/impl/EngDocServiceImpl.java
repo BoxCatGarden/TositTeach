@@ -44,9 +44,12 @@ public class EngDocServiceImpl implements EngDocService {
     }
 
     @Override
-    public int reupload(String docId, CommonsMultipartFile file) {
+    public int reupload(CommonsMultipartFile file, String docId, String engId) {
         EngDoc doc = engDocMapper.get(docId);
         if (doc == null) return 0;
+        if (doc.getUserId() == null || !doc.getUserId().equals(engId))
+            return 0;
+
         String url;
         try {
             url = fileService.saveFile(file);

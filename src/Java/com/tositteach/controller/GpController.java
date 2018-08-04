@@ -29,8 +29,6 @@ public class GpController {
         String claId = list.get(1);
         String proId = list.get(2);
         List<String> stuIds = list.subList(3, list.size());
-        byte groId = gpService.create(groName, claId, proId);
-        if (groId < 0) return 0;
-        return gpService.addStuInto(claId, groId, stuIds);
+        return gpService.makeGroup(groName, claId, proId, stuIds);
     }
 }

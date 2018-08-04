@@ -2,6 +2,7 @@ package com.tositteach.controller;
 
 import com.tositteach.domain.entity.Task;
 import com.tositteach.service.TaskService;
+import com.tositteach.util.DateChecker;
 import com.tositteach.util.PagingBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,7 @@ public class TaskController {
     public String add(@RequestBody Task task){
         if (task.getTasName()==null||task.getStTime()==null||task.getEdTime()==null||task.getDisp()==null||task.getUserId()==null)
             return "";
+        if (!DateChecker.valiDuration(task.getStTime(),task.getEdTime())) return "";
         String re = taskService.add(task.getTasName(), task.getStTime(), task.getEdTime(), task.getDisp(), task.getUserId());
         return re!=null?re:"";
     }
@@ -47,7 +49,7 @@ public class TaskController {
     @RequestMapping(value = "/mod", method = RequestMethod.POST)
     @ResponseBody
     public int mod(@RequestBody Task task){  //该实体中需要ajax中传入data：taskId、taskPlan
-        if (task.getTasId()==null||task.getPlan()==null) return 0;
+        if (task.getTasId()==null||task.getTasId().length()!=11||task.getPlan()==null) return 0;
         return taskService.mod(task.getTasId(), task.getPlan());
     }
 

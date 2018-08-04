@@ -19,7 +19,9 @@ public class FileController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public String upload(@RequestParam("file")CommonsMultipartFile file) {
+    public String upload(@RequestParam("file")CommonsMultipartFile file,
+                         @RequestParam("t")int t) {
+        return ""+(file==null)+t;
         try {
             return up.saveFile(file);
         } catch (IOException e) {

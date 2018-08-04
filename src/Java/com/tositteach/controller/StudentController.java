@@ -35,6 +35,7 @@ public class StudentController {
     @ResponseBody
     public int add(@RequestBody StuReqBody stu){  //页面中填写的内容即可
         if (stu.school==null||stu.id==null||stu.name==null||stu.sex==null||stu.grade==null) return 0;
+        if (stu.sex < 0 || 2 < stu.sex) return 0;
         return studentService.add(stu.school, stu.id, stu.name, stu.sex, stu.grade);
     }
 

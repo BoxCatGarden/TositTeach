@@ -61,6 +61,7 @@ public class StuDocController {
     public int mod(@RequestParam("file")CommonsMultipartFile file,
                    @RequestParam("di")String docId,
                    HttpSession session) {
+        if (file.getSize()==0) return 0;
         if (docId.length()!=11)return 0;
         String stuId = ((User) session.getAttribute("user")).getUserId();
         return stuDocService.mod(file, docId, stuId);

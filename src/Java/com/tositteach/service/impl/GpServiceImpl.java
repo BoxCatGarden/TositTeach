@@ -17,7 +17,7 @@ public class GpServiceImpl implements GpService {
     @Resource
     private GpMapper gpMapper;
 
-    @Override
+    //@Override
     public byte create(String groName, String claId, String proId) {
         Gp gp = new Gp();
         gp.setClaId(claId);
@@ -31,9 +31,15 @@ public class GpServiceImpl implements GpService {
         return -1;
     }
 
-    @Override
+    //@Override
     public int addStuInto(String claId, byte groId, List<String> stuIds) {
         return gpMapper.addstu(claId, groId, stuIds);
     }
 
+    @Override
+    public int makeGroup(String groName, String claId, String proId, List<String> stuIds) {
+        byte groId = create(groName, claId, proId);
+        if (groId < 0) return 0;
+        return addStuInto(claId, groId, stuIds);
+    }
 }

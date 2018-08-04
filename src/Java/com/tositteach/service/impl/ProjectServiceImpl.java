@@ -5,6 +5,7 @@ import com.tositteach.domain.entity.Engineer;
 import com.tositteach.domain.entity.Project;
 import com.tositteach.service.EngineerService;
 import com.tositteach.service.ProjectService;
+import com.tositteach.util.DateChecker;
 import com.tositteach.util.PagingBody;
 import com.tositteach.util.YearIdBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,7 @@ public class ProjectServiceImpl implements ProjectService {
                    String edTime, String disp) {
         Project pro = projectMapper.get(proId);
         if (pro == null) return 0;
+        if (!DateChecker.valiDuration(pro.getStTime(),edTime)) return 0;
         pro.setProName(proName);
         pro.setEdTime(edTime);
         pro.setDisp(disp);

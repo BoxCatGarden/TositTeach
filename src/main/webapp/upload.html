@@ -15,11 +15,27 @@
 </head>
 <body>
 <div id="upload">
-    <button type="button" class="layui-btn" id="selectFilesDiv">
+   <!-- <button type="button" class="layui-btn" id="selectFilesDiv">
         <i class="layui-icon">&#xe67c;</i>选择文件
     </button>
-    <button type="button" class="layui-btn" id="cfmUploadBtn">确认上传</button>
+    <button type="button" class="layui-btn" id="cfmUploadBtn">确认上传</button>-->
+    <form>
+        <input type="file" id="file">
+        <button type="button" onclick="up()">提交</button>
+    </form>
 </div>
+
+<script type="application/javascript">
+    let filein = document.getElementById("file");
+    function up() {
+        var data = new FormData();
+        data.append('file',filein.files[0]);
+        data.append('t','2');
+        request200('POST','/in/upload',data,x=>{
+            alert(x);
+        });
+    }
+</script>
 
 <!--<div id="paging">
     <form>
@@ -38,8 +54,8 @@
     </ul>
 </div>-->
 
-<table id="doctable" lay-filter="doctable"></table>
+<!--<table id="doctable" lay-filter="doctable"></table>-->
 
-<script type="application/javascript" src="/script/upload.js"></script>
+<!--<script type="application/javascript" src="/script/upload.js"></script>-->
 </body>
 </html>

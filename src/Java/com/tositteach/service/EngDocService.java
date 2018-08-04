@@ -1,10 +1,6 @@
 package com.tositteach.service;
 
-import com.tositteach.domain.entity.EngDoc;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import java.io.IOException;
-import java.util.List;
 
 public interface EngDocService {
 
@@ -23,7 +19,7 @@ public interface EngDocService {
     *  of its corresponding record in the DB.
     *  return: 0, fail;
     *          1, succeed*/
-    int reupload(String docId, CommonsMultipartFile file);
+    int reupload(CommonsMultipartFile file, String docId, String engId);
 
     /* delete the document with the id of doc_id from the disk,
     *  which will also delete the record from the database.
