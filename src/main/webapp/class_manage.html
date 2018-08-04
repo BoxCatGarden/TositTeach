@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+	<meta charset="utf-8">
+    <title>Class Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Le styles -->
+    <link href="" rel="stylesheet" type="text/css">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/font-awesome.css" rel="stylesheet">
+    <link href="assets/css/admin.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="application/javascript" src="script/req.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>    
+<body>
+
+<div class="container" id = "app">
+		
+	<div class="row">
+		
+		<div class="span2">
+		
+		<div class="main-left-col">
+		
+			<h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
+			
+			<ul class="side-nav">
+				
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目 <b class="caret"></b></a>
+					<ul id="website-dropdown" class="collapse">
+						<li><a href="project_view.html">项目查看</a></li>
+						<li><a href="project_add.html">项目添加</a></li>
+						<li><a href="project_access.html">项目审批</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档 <b class="caret"></b></a>
+					<ul id="store-dropdown" class="collapse">
+						<li><a href="document_view.html">文档查看</a></li>
+						<li><a href="document_add.html">文档添加</a></li>
+					</ul>
+				</li>
+				<li class="dropdown active">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生 <b class="caret"></b></a>
+					<ul id="reports-dropdown">
+						<li><a href="student_add.html">学生添加</a></li>
+						<li><a href="student_manage.html">学生管理</a></li>
+						<li class="active"><a href="class_manage.html">班级管理</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划 <b class="caret"></b></a>
+					<ul id="members-dropdown" class="collapse">
+						<li><a href="task_view.html">任务查看</a></li>
+						<li><a href="task_add.html">任务添加</a></li>
+					</ul>
+				</li>
+			</ul>
+		
+		</div> <!-- end main-left-col -->
+	
+	</div> <!-- end span2 -->
+	
+	<div class="span10">
+		
+	<div class="secondary-masthead">
+	
+		<ul class="nav nav-pills pull-right">
+			<li>
+				<a href="home.html"><i class="icon-user"></i>  {{user.name}}</a>
+			</li>
+		</ul>
+
+		<ul class="breadcrumb">
+			<li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于学生/班级管理</li>
+		</ul>
+		
+	</div>
+	
+	<div class="main-area dashboard">
+		
+		<div class="alert alert-info">
+				<a class="close" data-dismiss="alert" href="#">x</a>
+				<h4 class="alert-heading">提示</h4>
+				点击增加班级可填写新增班级信息；<br/>删除班级需要先选中列表中的班级选择框。
+			</div>
+			
+			<div class="row">
+				
+				<div class="span10">
+				
+					<div class="slate">
+					
+						<div class="page-header">
+							<h2>班级列表</h2>
+						</div>
+					
+						<table class="orders-table table">
+						<thead>
+							<tr>
+								<th class="cid" style="width: 100px;">班级编号</th>
+								<th class="cmember" style="width: 200px;">班级人数</th>
+								<th class="croom" style="width: 200px;">所在教室</th>
+								<th class="cteacher" style="width: 200px;">负责工程师</th>
+								<th class="option" style="width: 50px;">选择</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="i in 10">
+								<td class="cid">{{cla[i].claId}}</td>
+								<td class="croom">{{cla[i].room}}</td>
+								<td class="cteacher">{{cla[i].eng.name}}</td>
+								<td class="option">
+									<label class="checkbox-inline">
+        								<input type="checkbox" v-bind:value = "cla[i].claId">
+									</label>
+								</td>
+							</tr>
+
+						</tbody>
+						</table>
+
+					</div>
+				
+				</div>
+				
+				<div class="span5">
+				
+					<div class="pagination pull-left">
+
+									<ul>
+										<li @click="prev"><a>Prev</a></li>
+										<li v-for="i in totalPage" :class="i===currPage?'active':''" @click="i===currPage?'':jump(i)">
+											<a>{{i}}</a>
+										</li>
+										<li @click="next"><a>Next</a></li>
+									</ul>
+
+					</div>
+				
+				</div>
+				
+				<div class="span5 listing-buttons pull-right" style="margin-left: -20px;">
+					
+					<button class="btn btn-primary" @click = "del()"><a href="class_manage.html" style="color: white;" >删除班级</a></button>
+				
+				</div>
+				
+				<div class="span5 listing-buttons pull-right" style="margin-left: -20px;">
+					<button class="btn btn-primary"><a href="class_add.html" style="color: white;">增加班级</button>
+				</div>
+
+				
+			</div>
+			
+		<div class="row">
+		
+			<div class="span10 footer">
+			
+				<p>&copy; TOSIT 2018</p>
+			
+			</div>
+		
+		</div>
+		
+	</div>
+	
+	</div> <!-- end span10 -->
+		
+	</div> <!-- end row -->
+		
+</div> <!-- end container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="script/class_manage.js" type="application/javascript"></script>
+
+
+</body>
+</html>

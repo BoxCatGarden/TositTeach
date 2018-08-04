@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+	<meta charset="utf-8">
+    <title>Task Add</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Le styles -->
+    <link href="" rel="stylesheet" type="text/css">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/font-awesome.css" rel="stylesheet">
+    <link href="assets/css/admin.css" rel="stylesheet">
+    <link href="assets/css/demo.css" rel="stylesheet">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>    
+<body>
+
+<div class="container">
+		
+	<div class="row">
+		
+		<div class="span2">
+		
+		<div class="main-left-col">
+		
+			<h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
+			
+			<ul class="side-nav">
+				
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目 <b class="caret"></b></a>
+					<ul id="website-dropdown" class="collapse">
+						<li><a href="project_view.html">项目查看</a></li>
+						<li><a href="project_add.html">项目添加</a></li>
+						<li><a href="project_access.html">项目审批</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档 <b class="caret"></b></a>
+					<ul id="store-dropdown" class="collapse">
+						<li><a href="document_view.html">文档查看</a></li>
+						<li><a href="document_add.html">文档添加</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生 <b class="caret"></b></a>
+					<ul id="reports-dropdown" class="collapse">
+						<li><a href="student_add.html">学生添加</a></li>
+						<li><a href="student_manage.html">学生管理</a></li>
+						<li><a href="class_manage.html">班级管理</a></li>
+					</ul>
+				</li>
+				<li class="dropdown active">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划 <b class="caret"></b></a>
+					<ul id="members-dropdown">
+						<li><a href="task_view.html">任务查看</a></li>
+						<li class="active"><a href="task_add.html">任务添加</a></li>
+					</ul>
+				</li>
+			</ul>
+		
+		</div> <!-- end main-left-col -->
+	
+	</div> <!-- end span2 -->
+	
+	<div class="span10">
+		
+		<div class="secondary-masthead">
+	
+			<ul class="nav nav-pills pull-right">
+				<li>
+					<a href="home.html"><i class="icon-user"></i> 用户名</a>
+				</li>
+			</ul>
+
+			<ul class="breadcrumb">
+				<li class="active"><i class="icon-home"></i> TOSIT实训管理系统/教学计划/任务添加</li>
+			</ul>
+		
+		</div>
+	
+		<div class="main-area dashboard" id = "app">
+		<center>
+		<form action="">
+			<table class = "inputtable">
+				<tr><td>&nbsp</td><td>&nbsp</td></tr>
+				<tr><td>&nbsp</td><td>&nbsp</td></tr>
+				<tr>
+					<td><label for="pname">任 务 名</label></td>
+					<td class = "inp"><p><input class = "inp" type="text"  name = "pname" id = "tname" /></p></td></tr>
+				<tr>
+					<td><label for="pperson">工  程  师</label></td>
+					<td class = "inp"><select name="engineer" id="engineer" style="width: 509px;" id = "eng">
+						<option value="" v-for = "eng in engs">{{eng.name}}</option>
+					</select></td></tr>
+				<tr>
+					<td><label for="st-ptime">起始时间</label></td>
+					<td class = "inp"><input class = "inp" type="date" name="st-ptime"/></td></tr>
+				<tr>
+					<td><label for="ed-ptime">结束时间</label></td>
+					<td class = "inp"><input class = "inp" type="date" name="ed-ptime"/></td></tr>
+				<tr>
+					<td><label for="pdescription">任务描述</label></td>
+					<td class = "inp"><textarea class = "inp mul" cols="25" rows = "15" id = "disp"></textarea></td></tr>
+				<tr><td>&nbsp</td><td>&nbsp</td></tr>
+				<tr><td>&nbsp</td><td>&nbsp</td></tr>
+				<tr>
+					<td>&nbsp</td>
+					<td class="tianjia">
+						<input type="button" name="pdescription" @click = "addt()" value="添加" class="btn btn-primary"/></td>
+				</tr>
+			</table>
+		</form></center>
+		</div>
+		
+		<div class="row">
+		
+			<div class="span10 footer">
+			
+				<p>&copy; TOSIT 2018</p>
+			</div>
+		</div>
+		
+	</div> <!-- end span10 -->
+		
+	</div> <!-- end row -->
+		
+</div> <!-- end container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+
+
+</body>
+</html>

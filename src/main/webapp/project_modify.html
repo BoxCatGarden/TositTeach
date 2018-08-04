@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+	<meta charset="utf-8">
+    <title>Project Modify</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Le styles -->
+    <link href="" rel="stylesheet" type="text/css">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/font-awesome.css" rel="stylesheet">
+    <link href="assets/css/admin.css" rel="stylesheet">
+    <link href="assets/css/demo.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="application/javascript" src="script/req.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>    
+<body>
+
+<div class="container" id="app">
+		
+	<div class="row">
+		
+		<div class="span2">
+		
+		<div class="main-left-col">
+		
+			<h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
+			
+			<ul class="side-nav">
+
+				<li class="dropdown active">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目 <b class="caret"></b></a>
+					<ul id="website-dropdown">
+						<li class="active"><a href="project_view.html">项目查看</a></li>
+						<li><a href="project_add.html">项目添加</a></li>
+						<li><a href="project_access.html">项目审批</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档 <b class="caret"></b></a>
+					<ul id="store-dropdown" class="collapse">
+						<li><a href="document_view.html">文档查看</a></li>
+						<li><a href="document_add.html">文档添加</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生 <b class="caret"></b></a>
+					<ul id="reports-dropdown" class="collapse">
+						<li><a href="student_add.html">学生添加</a></li>
+						<li><a href="student_manage.html">学生管理</a></li>
+						<li><a href="class_manage.html">班级管理</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划 <b class="caret"></b></a>
+					<ul id="members-dropdown" class="collapse">
+						<li><a href="task_view.html">任务查看</a></li>
+						<li><a href="task_add.html">任务添加</a></li>
+					</ul>
+				</li>
+			</ul>
+		
+		</div> <!-- end main-left-col -->
+	
+	</div> <!-- end span2 -->
+	
+	<div class="span10">
+		
+		<div class="secondary-masthead">
+		
+			<ul class="nav nav-pills pull-right">
+				<li>
+					<a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
+				</li>
+			</ul>
+	
+			<ul class="breadcrumb">
+				<li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于项目/项目查看/项目详情/项目修改</li>
+			</ul>
+			
+		</div>
+		
+		
+		<div class="main-area dashboard">
+		<center>
+		<form action="" enctype="multipart/form-data">
+			<table class = "inputtable" >
+				<tr>
+					<td><label for="pname">项 目 名</label></td>
+					<td class = "inp"><input class = "inp" type="text"  name = "pname" v-bind:value = "project.proName" id="pname" /></td></tr>
+				<tr>
+					<td><label for="pperson">发 起 人</label></td>
+					<td class = "inp"><input class = "inp" type="text" name="pperson" v-bind:value = "project.eng.name" disabled /></td></tr>
+				<tr>
+					<td><label for="st-ptime">起始时间</label></td>
+					<td class = "inp"><input class = "inp" type="date" name="st-ptime" v-bind:value = "project.stTime" disabled/></td></tr>
+				<tr>
+					<td><label for="ed-ptime">结束时间</label></td>
+					<td class = "inp"><input class = "inp" type="date" v-bind:value = "project.edTime" name="ed-ptime" id = "ed-ptime"/></td></tr>
+				
+				<tr>
+					<td><label for="pdescription">项目描述</label></td>
+					<td class = "inp"><textarea class = "inp" cols="25" rows = "15" v-bind:value = "project.disp" id = "pdescription"></textarea></td></tr>
+
+				<tr>
+					<td>项目文档</td>
+					<td class="">
+						<input type="file" name="fileUpload"  id = "file"/>
+					</td>
+				</tr>
+				<tr><td>&nbsp</td><td>&nbsp</td></tr>
+				<tr><td>&nbsp</td><td>&nbsp</td></tr>
+				<tr>
+					<td>&nbsp</td>
+					<td class="">
+						<button type="button"  class="btn btn-primary pull-left" @click="back">返回</button>
+						<input type="button"   data-toggle="modal" href="#ensureModify" value="确认修改" class="btn btn-primary pull-right"/></td>
+				</tr>
+			</table>
+		</form></center>
+		<div class="modal hide fade" id="ensureModify">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+						<h3>项目修改</h3>
+					</div>
+					<div class="modal-body">
+						<p>确定要修改此项目吗？</p>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn" data-dismiss="modal" ref="altBoxClose">取消</a>
+						<a href="#" class="btn btn-danger" @click = "modify">修改</a>
+					</div>
+				</div>
+		</div>
+		
+		<div class="row">
+		
+			<div class="span10 footer">
+			
+				<p>&copy; TOSIT 2018</p>
+			</div>
+		</div>
+	</div> <!-- end span10 -->
+	
+	</div> <!-- end row -->
+		
+</div> <!-- end container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="script/project_modify.js" type="application/javascript"></script>
+</body>
+</html>
