@@ -28,13 +28,13 @@ public class UserController {
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     @ResponseBody
-    public int signIn(@RequestBody UserReqBody req, HttpServletRequest request) { //ui,p
+    public int signIn(@RequestBody UserReqBody req, HttpSession se) { //ui,p
         if (req.ui==null||req.p==null) return 0;
         User user = userService.signIn(req.ui,req.p); //try to sign in
         if (user != null) { //succeed
             HttpSession session = userMap.get(user.getUserId());
             if (session != null) session.removeAttribute("user"); //remove the current signed session
-            session = request.getSession();
+            session = se;
             session.setAttribute("user", user); //sign in the session
             session.setAttribute("ui", user.getUserId());
             userMap.put(user.getUserId(),session);

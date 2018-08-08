@@ -1,17 +1,14 @@
 package com.tositteach.controller;
 
-import com.tositteach.domain.entity.Student;
-import com.tositteach.service.ClazzService;
-import com.tositteach.service.GpService;
 import com.tositteach.service.StudentService;
-import com.tositteach.service.UserService;
 import com.tositteach.util.PagingBody;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/stu")
@@ -30,12 +27,15 @@ public class StudentController {
         return studentService.query(claId, st, nm);
     }
 
+    private final Pattern idPattern = Pattern.compile("^[0-9]+$");
     //添加单个学生
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public int add(@RequestBody StuReqBody stu){  //页面中填写的内容即可
+    public int add(@RequestBody StuReqBody stu) {
         if (stu.school==null||stu.id==null||stu.name==null||stu.sex==null||stu.grade==null) return 0;
         if (stu.sex < 0 || 2 < stu.sex) return 0;
+        if (!idPattern.matcher(stu.id).matches()) return 0;
+        if (stu.grade < 0 || 3 < stu.grade) return 0;
         return studentService.add(stu.school, stu.id, stu.name, stu.sex, stu.grade);
     }
 
@@ -62,7 +62,7 @@ class StuReqBody {
     String id;
     String name;
     Byte sex;
-    String grade;
+    Integer grade;
 
     public void setUserId(String userId) {
         this.userId = userId;
@@ -84,7 +84,7 @@ class StuReqBody {
         this.sex = sex;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
     }
 }

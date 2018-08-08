@@ -35,7 +35,7 @@ public class ClazzController {
     @ResponseBody
     public int add(@RequestBody ClaReqBody cla) {
         if (cla.cn == null || cla.rm == null || cla.ui == null) return 0;
-        if (cla.ui.length()!=13) return 0;
+//        if (cla.ui.length()!=13) return 0;
         return clazzService.add(cla.cn, cla.rm, cla.ui);
     }
 

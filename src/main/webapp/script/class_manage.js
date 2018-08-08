@@ -1,38 +1,56 @@
 let app = new Vue({
     el: "#app",
     data: {
+        user: {},
         //data
         clas: [],
-        user:{},
         //paging
         currPage: 1,
         totalPage: 0,
         pageSize: 10,
+        jumpPage: '',
 
         //action
-        currDoc:0
+        claIds: [],
+        sall: false
     },
     //call on page loaded
     created() {
-        request200('GET', '/in/user', {}, x => {
+        request200('GET', '/in/user', null, x => {
             this.user = x;
         });
         this.update();
     },
+    watch: {
+        claIds() {
+            if (this.claIds.length == this.clas.length) this.sall = true;
+            else if (this.sall) this.sall = false;
+        }
+    },
     //other functions
     methods: {
-
         //paging
         update() {
-                 request200('GET', '/in/cla', {st: (this.currPage - 1) * this.pageSize, nm: this.pageSize}, x => {
+            request200('GET', '/in/cla', {st: (this.currPage - 1) * this.pageSize, nm: this.pageSize}, x => {
                 this.totalPage = this.pageSize * 1 && Math.ceil(x.total / this.pageSize);
                 if (this.currPage > this.totalPage) this.currPage = this.totalPage || 1;
-                this.clas = x;
+                for (let cla of x.data) if (!cla.eng) cla.eng={};
+                this.reset();
+                this.clas = x.data;
             });
         },
-        jump(i) {
-            this.currPage=i;
-            update();
+        reset() {
+            this.claIds.length = 0;
+            this.sall = false;
+        },
+
+        jump() {
+            var jump = this.jumpPage * 1;
+            if (jump && 0 < jump && jump <= this.totalPage) {
+                this.currPage = jump;
+                this.update();
+            }
+            this.jumpPage = '';
         },
         prev() {
             if (this.currPage > 1) {
@@ -48,32 +66,30 @@ let app = new Vue({
         },
 
         //action
-        select(i) {
-            this.currDoc = i;
-        },
-        del() {
-            //delete currDoc;
-            /* alert('delete '+this.currDoc);*/
-            var arr = [];
-            $("input[type='checkbox']:checked").each(
-                function () {
-                    arr.push($(this).val());
+        selectAll() {
+            this.claIds.length = 0;
+            if (this.sall) {
+                for (let s of this.clas) {
+                    this.claIds.push(s.claId);
                 }
-            );
-            if(arr==[]){
-                alert("请选择删除的班级！");
-                return;
             }
-            request200('POST', '/in/cla/del', {ids:[arr]}, x => {
-                if(x==1){
-                    alert("删除成功！");
-                }
-                else{
-                    alert("删除失败！");
-                }
-            });
-            this.update();
         },
 
+        del() {
+            if (!this.claIds.length) {
+                alert('请选择至少1个班级！');
+                return;
+            }
+
+            if (!confirm('确认删除这'+this.claIds.length+'个班级吗？')) return;
+            request200('POST','/in/cla/del',[...this.claIds],x=>{
+                if (x) {
+                    alert('成功删除'+x+'个班级！');
+                    this.update();
+                } else {
+                    alert('删除失败！');
+                }
+            });
+        }
     }
 });

@@ -1,23 +1,19 @@
-
 let app = new Vue({
     el: "#app",
     data: {
         //data
-        task:{},
-        id:'',
-        user:{}
-        //paging
-        /*       currPage: 1,
-               totalPage: 0,
-               pageSize: 4,*/
+        task: {eng: {}},
+        id: '',
+        user: {},
 
-        //action
-        /*currDoc:0*/
+        //mod
+        plan: '',
+        modFlag: 0
+
     },
     //call on page loaded
     created() {
         this.id = sessionStorage.getItem('param_task_detail_docId');
-        sessionStorage.removeItem('param_task_detail_docId');
         request200('GET', '/in/user', {}, x => {
             this.user = x;
         });
@@ -25,23 +21,34 @@ let app = new Vue({
     },
     //other functions
     methods: {
-        //paging
         update() {
-            request200('GET', '/in/task/get', {ti:this.id}, x => {
+            request200('GET', '/in/task/get', {ti: this.id}, x => {
                 this.task = x;
+                if (!this.task.eng) this.task.eng = {};
+                this.reset();
             });
         },
-        save(){
-            var disp = document.getElementById("schedule").value;
-            request200('POST', '/in/task/mod', {tasId:this.id}, x => {
-                if(x==1){
+        reset() {
+            this.plan = this.task.plan;
+        },
+        onreset() {
+            if (confirm('确认重置吗？'))
+                this.reset();
+        },
+        save() {
+            this.modFlag = 0;
+            var plan = this.plan;
+            if (plan == this.task.plan) alert("未做任何修改");
+            else if (confirm("确认修改吗?")) request200('POST', '/in/task/mod', {tasId: this.id, plan: plan}, x => {
+                if (x == 1) {
                     alert("修改成功！");
                 }
-                else{
+                else {
                     alert("修改失败！");
                 }
                 this.update();
             });
+            else this.update();
         }
 
     }

@@ -30,12 +30,14 @@ public class ProjectController {
                             @RequestParam(value = "pn", required = false) String proName,
                             @RequestParam(value = "en", required = false) String engName,
                             @RequestParam(value = "ei", required = false) String engId,
+                            @RequestParam(value = "hg", required = false, defaultValue = "2") int hasGroup,
                             @RequestParam(value = "st", required = false, defaultValue = "0") int st,
                             @RequestParam(value = "nm", required = false, defaultValue = "10") int nm) {
         if (state < 0 || 3 < state) state = 1;
+        if (hasGroup < 0 || 2 < hasGroup) hasGroup = 2;
         if (st < 0) st = 0;
         if (nm < 0) nm = 10;
-        return projectService.query(state, proName, engName, engId, st, nm);
+        return projectService.query(state, proName, engName, engId, hasGroup, st, nm);
     }
 
     //获取项目详情

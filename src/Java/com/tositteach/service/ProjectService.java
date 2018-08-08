@@ -3,13 +3,11 @@ package com.tositteach.service;
 import com.tositteach.domain.entity.Project;
 import com.tositteach.util.PagingBody;
 
-import java.util.List;
-
 public interface ProjectService {
     PagingBody query(int state,
                      String proName,
                      String engName, String engId,
-                     int st, int nm);
+                     int hasGroup, int st, int nm);
     Project get(String proId);
     String add(String proName,
                String stTime, String edTime, String disp,

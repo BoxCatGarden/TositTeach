@@ -2,142 +2,163 @@
 <html lang="zh">
 <head>
 
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Code Modify</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    
+
     <!-- Le styles -->
-    <link href="" rel="stylesheet" type="text/css">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="assets/css/admin.css" rel="stylesheet">
     <link href="assets/css/demo.css" rel="stylesheet">
 
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script type="application/javascript" src="script/req.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="application/javascript" src="script/req.js"></script>
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-</head>    
+</head>
 <body>
 
 <div class="container" id="app">
-		
-	<div class="row">
-		
-		<div class="span2">
-		
-		<div class="main-left-col">
-		
-			<h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
-			
-			<ul class="side-nav">
 
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目 <b class="caret"></b></a>
-					<ul id="website-dropdown" class="collapse">
-						<li><a href="project_view.html">项目查看</a></li>
-						<li><a href="project_add.html">项目添加</a></li>
-						<li><a href="project_access.html">项目审批</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档 <b class="caret"></b></a>
-					<ul id="store-dropdown" class="collapse">
-						<li><a href="document_view.html">文档查看</a></li>
-						<li><a href="document_add.html">文档添加</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生 <b class="caret"></b></a>
-					<ul id="reports-dropdown" class="collapse">
-						<li><a href="student_add.html">学生添加</a></li>
-						<li><a href="student_manage.html">学生管理</a></li>
-						<li><a href="class_manage.html">班级管理</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划 <b class="caret"></b></a>
-					<ul id="members-dropdown" class="collapse">
-						<li><a href="task_view.html">任务查看</a></li>
-						<li><a href="task_add.html">任务添加</a></li>
-					</ul>
-				</li>
-			</ul>
-		
-		</div> <!-- end main-left-col -->
-	
-	</div> <!-- end span2 -->
-	
-	<div class="span10">
-		
-		<div class="secondary-masthead">
-		
-			<ul class="nav nav-pills pull-right">
-				<li>
-					<a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
-				</li>
-			</ul>
-	
-			<ul class="breadcrumb">
-				<li class="active"><i class="icon-home"></i> TOSIT实训管理系统/用户中心/修改密码</li>
-			</ul>
-			
-		</div>
-		
-		
-		<div class="main-area dashboard">
-		<center>
-		<form action="">
-			<table class = "inputtable">
-				<tr><td>&nbsp</td><td>&nbsp</td></tr>
-				<tr><td>&nbsp</td><td>&nbsp</td></tr>
-				
-				<tr>
-					<td><label for="pcode">原始密码</label></td>
-					<td class = "inp"><input class = "inp" type="password"  name = "pcode" id = "pcode"/></td></tr>
-				<tr>
-					<td><label for="ncode">新密码</label></td>
-					<td class = "inp"><input class = "inp" type="password" name="ncode" id = "ncode"/></td></tr>
-				<tr>
-					<td><label for="ncodec">新密码确认</label></td>
-					<td class = "inp"><input class = "inp" type="password" name="ncodec" id = "ncodec"/></td></tr>
-				
-				
-				
-				<tr><td>&nbsp</td><td>&nbsp</td></tr>
-				<tr><td>&nbsp</td><td>&nbsp</td></tr>
-				<tr>
-					<td>&nbsp</td>
-					<td class="tianjia"><input type="button" name="pdescription" value="确认修改" class="btn btn-primary" @click="verify"/></td>
-				</tr>
-			</table>
-		</form></center>
-		</div>
-		
-		<div class="row">
-		
-			<div class="span10 footer">
-			
-				<p>&copy; TOSIT 2018</p>
-			</div>
-		</div>
-	</div> <!-- end span10 -->
-	
-	</div> <!-- end row -->
-		
+    <div class="row">
+
+        <div class="span2">
+
+            <div class="main-left-col">
+
+                <h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
+
+                <ul class="side-nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目
+                            <b class="caret"></b></a>
+                        <ul id="website-dropdown" class="collapse">
+                            <li><a href="project_view.html">项目查看</a></li>
+                            <li><a href="project_add.html">项目添加</a></li>
+                            <li><a href="project_access.html">项目审批</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档
+                            <b class="caret"></b></a>
+                        <ul id="store-dropdown" class="collapse">
+                            <li><a href="document_view.html">文档查看</a></li>
+                            <li><a href="document_add.html">文档添加</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生
+                            <b class="caret"></b></a>
+                        <ul id="reports-dropdown" class="collapse">
+                            <li><a href="student_add.html">学生添加</a></li>
+                            <li><a href="student_manage.html">学生管理</a></li>
+                            <li><a href="class_manage.html">班级管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划
+                            <b class="caret"></b></a>
+                        <ul id="members-dropdown" class="collapse">
+                            <li><a href="task_view.html">任务查看</a></li>
+                            <li><a href="task_add.html">任务添加</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div> <!-- end main-left-col -->
+
+        </div> <!-- end span2 -->
+
+        <div class="span10">
+
+            <div class="secondary-masthead">
+
+                <ul class="nav nav-pills pull-right">
+                    <li>
+                        <a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
+                    </li>
+                </ul>
+
+                <ul class="breadcrumb">
+                    <li class="active"><i class="icon-home"></i> TOSIT实训管理系统/用户中心/修改密码</li>
+                </ul>
+
+            </div>
+
+
+            <div class="main-area dashboard">
+                <center>
+                    <form>
+                        <table class="inputtable">
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row"><label for="pcode">原 始 密 码</label></th>
+                                <td><input class="inp" type="password" id="pcode" v-model="op"/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="ncode">新 密 码</label></th>
+                                <td><input class="inp" type="password" id="ncode" v-model="np"/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="ncodec">确 认 新 密 码</label></th>
+                                <td><input class="inp" type="password" id="ncodec" v-model="anp"/></td>
+                            </tr>
+
+
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td><a href="home.html" style="color:white;" class="btn btn-primary pull-left">取消</a>
+                                </td>
+                                <td class="tianjia">
+                                    <button type="button" class="btn btn-primary" @click="change">确认修改</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </center>
+            </div>
+
+            <div class="row">
+
+                <div class="span10 footer">
+
+                    <p>&copy; TOSIT 2018</p>
+                </div>
+            </div>
+        </div> <!-- end span10 -->
+
+    </div> <!-- end row -->
+
 </div> <!-- end container -->
 
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="script/code_modify.js" type="application/javascript"></script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.js"></script>
-<script src = "script/code_modify.js"></script>
 
 </body>
 </html>

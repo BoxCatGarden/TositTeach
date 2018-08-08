@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script type="application/javascript" src="script/req.js"></script>
+
     <!-- Le styles -->
     <link href="" rel="stylesheet" type="text/css">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="assets/css/admin.css" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="application/javascript" src="script/req.js"></script>
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -24,7 +24,7 @@
 </head>
 <body>
 
-<div class="container" id = "app">
+<div class="container" id="app">
 
     <div class="row">
 
@@ -82,7 +82,7 @@
 
                 <ul class="nav nav-pills pull-right">
                     <li>
-                        <a href="home.html"><i class="icon-user"></i> {{user.name}}</a>
+                        <a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
                     </li>
                 </ul>
 
@@ -92,7 +92,7 @@
 
             </div>
 
-            <div class="main-area dashboard" >
+            <div class="main-area dashboard">
 
                 <div class="row">
 
@@ -101,15 +101,17 @@
                         <div class="slate">
 
                             <form class="form-inline">
-                                <input type="text" class="input-large" placeholder="关键字..." id = "sousuo">
-                                <select class="span2" id = "sousuokey">
-                                    <option value=""> 关键字属性</option>
-                                    <option> 文档名称</option>
-                                    <option> 有关项目名称</option>
-                                    <option> 有关小组名称</option>
-                                </select>
+                                <label for="searchItem">
+                                    <label for="searchType">查询：</label>
+                                    <select class="span2" id="searchType" v-model="type">
+                                        <option value="0">文档名称</option>
+                                        <option value="1">项目名称</option>
+                                        <option value="2">小组名称</option>
+                                    </select>
+                                </label>
+                                <input type="text" class="input-large" id="searchItem" v-model="input">
 
-                                <button type="submit" class="btn btn-primary pull-right" @click = "updateByName()">搜索</button>
+                                <button type="button" class="btn btn-primary" @click="update">查询</button>
                             </form>
 
                         </div>
@@ -141,21 +143,27 @@
                                 <tbody>
                                 <tr v-if="docs[(i-1)*2+j-1]">
                                     <td>
-                                        <h2>文档名称：{{docs[(i-1)*2+j-1].docId+' '+docs[(i-1)*2+j-1].docName}}</h2><br/>
-                                        <h2>有关项目：{{docs[(i-1)*2+j-1].pro.proId+' '+docs[(i-1)*2+j-1].pro.proName}}</h2><br/>
+                                        <h2>编号：{{docs[(i-1)*2+j-1].docId}}</h2><br/>
+                                        <h2>名称：{{docs[(i-1)*2+j-1].docName}}</h2><br/>
+                                        <h2>所属项目：{{docs[(i-1)*2+j-1].pro.proName}}</h2><br/>
                                         <h2>编写小组：{{docs[(i-1)*2+j-1].gp.groName}}</h2><br/>
                                     </td>
                                     <td class="actions">
-                                        <button type="button" class="btn btn-large btn-primary" @click="detail((i-1)*2+j-1)">文档详情</button><br/><br/>
-                                        <a class="btn btn-small btn-danger" data-toggle="modal" @click="select((i-1)*2+j-1)"
-                                           href="#removeItem">删除</a>
+                                        <button type="button" class="btn btn-large btn-primary"
+                                                @click="detail((i-1)*2+j-1)">文档详情
+                                        </button>
+                                        <br/><br/>
+                                        <button class="btn btn-small btn-danger"
+                                                @click="del((i-1)*2+j-1)">删除
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr v-else>
                                     <td>
-                                        <h2>&nbsp</h2><br/>
-                                        <h2>&nbsp</h2><br/>
-                                        <h2>&nbsp</h2><br/>
+                                        <h2>&nbsp;</h2><br/>
+                                        <h2>&nbsp;</h2><br/>
+                                        <h2>&nbsp;</h2><br/>
+                                        <h2>&nbsp;</h2><br/>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -174,11 +182,11 @@
 
                         <div class="pagination pull-right">
                             <ul>
-                                <li @click="prev"><a>Prev</a></li>
-                                <li v-for="i in totalPage" :class="i===currPage?'active':''" @click="i===currPage?'':jump(i)">
-                                    <a>{{i}}</a>
-                                </li>
-                                <li @click="next"><a>Next</a></li>
+                                <li @click="prev"><a>上一页</a></li>
+                                <li><a>{{currPage}}/{{totalPage}}</a></li>
+                                <li @click="next"><a>下一页</a></li>
+                                <li><a style="padding:0 2px"><input type="number" style="margin: 0;width: 20px" v-model="jumpPage"></a></li>
+                                <li @click="jump"><a>跳转</a></li>
                             </ul>
                         </div>
 
@@ -197,22 +205,6 @@
 
                 </div>
 
-                <!--alert-->
-                <div class="row">
-                    <div class="modal hide fade" id="removeItem">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h3>文档删除</h3>
-                        </div>
-                        <div class="modal-body" v-if="docs[currDoc]">
-                            <p>确定要删除文档“{{docs[currDoc].docId+' '+docs[currDoc].docName}}”吗？</p>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" class="btn" data-dismiss="modal" ref="altBoxClose">取消</a>
-                            <button type="button" class="btn btn-danger" @click="del">删除</button>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </div> <!-- end span10 -->

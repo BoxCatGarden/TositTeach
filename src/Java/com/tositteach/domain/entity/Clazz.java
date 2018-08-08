@@ -8,6 +8,7 @@ public class Clazz {
     private String claName;
     private String room;
     private String userId;
+    private Integer stuNum;
 
     private Engineer eng;
 
@@ -49,5 +50,13 @@ public class Clazz {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Integer getStuNum() {
+        return stuNum;
+    }
+
+    public void setStuNum(Integer stuNum) {
+        this.stuNum = stuNum;
     }
 }

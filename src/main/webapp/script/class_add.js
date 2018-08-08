@@ -1,23 +1,20 @@
-
 let app = new Vue({
     el: "#app",
     data: {
-        //data
-        id:'',
-        user:{},
-        engs:[],
-        //paging
-        /*       currPage: 1,
-               totalPage: 0,
-               pageSize: 4,*/
+        user: {},
 
-        //action
-        /*currDoc:0*/
+        //data
+        engs: [],
+
+        cn: '',
+        rm: '',
+        ei: '',
+
+        //ctrl
+        dis: false
     },
     //call on page loaded
     created() {
-        this.id = sessionStorage.getItem('param_task_detail_docId');
-        sessionStorage.removeItem('param_task_detail_docId');
         request200('GET', '/in/user', {}, x => {
             this.user = x;
         });
@@ -27,24 +24,45 @@ let app = new Vue({
     methods: {
         //paging
         update() {
-            request200('GET', '/in/eng', {st:0,nm:0}, x => {
-                this.eng = x;
+            request200('GET', '/in/eng', {nm: 0}, x => {
+                this.engs = x.data;
             });
         },
-        add(){
-            var name = document.getElementById("cname").value;
-            var room = document.getElementById("croom").value;
-            var eng = document.getElementById("teacher");
-            var index = eng.selectedIndex;
-            var engid = eng.options[index].value;
-            request200('GET', '/in/cla/add', {cn:name,rm:room,ui:engid}, x => {
-                if(x==1){
-                    alert("添加小组成功！");
+        reset() {
+            this.cn = '';
+            this.rm = '';
+            this.ei = '';
+        },
+
+        add() {
+            if (!this.rm) {
+                alert('请输入班级的教室！');
+                return;
+            }
+            var vali = false, ui = this.ei;
+            for (let e of this.engs) {
+                if (ui == e.userId) {
+                    vali = true;
+                    break;
                 }
-                else{
-                    alert("添加小组失败！");
-                }
-            });
+            }
+            if (!vali) {
+                alert('请输入有效的工程师编号！');
+                return;
+            }
+
+            this.dis = true;
+            request200('POST', '/in/cla/add', {cn: this.cn, rm: this.rm, ui: ui},
+                x => {
+                    if (x) {
+                        alert('添加成功！');
+                        this.reset();
+                    } else {
+                        alert('添加失败！');
+                    }
+                    this.update();
+                    this.dis = false;
+                });
         }
     }
 });

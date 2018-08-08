@@ -1,46 +1,79 @@
 let app = new Vue({
     el: "#app",
     data: {
+        user: {},
         //data
         clas: [],
-        stus:[],
-        pros:[],
-        user:{},
+        stus: [],
+        pros: [],
+
         //paging
         currPage: 1,
         totalPage: 0,
         pageSize: 10,
+        jumpPage: '',
 
         //action
-        currDoc:0
+        type: 'n',
+        stuIds: [],
+        sall: false,
+
+        ci: '',
+        gn: '',
+        pi: ''
     },
     //call on page loaded
     created() {
         request200('GET', '/in/user', {}, x => {
             this.user = x;
         });
+        request200('GET', '/in/cla', {nm: 0}, x => {
+            this.clas = x.data;
+            this.ci = this.clas[0] ? this.clas[0].claId : '';
+        });
         this.update();
+    },
+    watch: {
+        stuIds() {
+            if (this.stuIds.length == this.stus.length) this.sall = true;
+            else if (this.sall) this.sall = false;
+        }
     },
     //other functions
     methods: {
         //paging
         update() {
             //所有的班级
-            request200('GET', '/in/cla', {st: 0, nm: 0}, x => {
-                this.clas = x;
-            });
-            request200('GET', '/in/pro', {st: 0, nm: 0}, x => {
-                this.pros = x;
-            });
-            request200('GET', '/in/stu', {st: (this.currPage - 1) * this.pageSize, nm: this.pageSize}, x => {
+            request200('GET', '/in/stu', {
+                st: (this.currPage - 1) * this.pageSize,
+                nm: this.pageSize,
+                ci: this.type || undefined
+            }, x => {
                 this.totalPage = this.pageSize * 1 && Math.ceil(x.total / this.pageSize);
                 if (this.currPage > this.totalPage) this.currPage = this.totalPage || 1;
-                this.stus = x;
+                for (let stu of x.data) if (!stu.gp) stu.gp = {};
+                this.reset();
+                this.stus = x.data;
             });
         },
-        jump(i) {
-            this.currPage = i;
-            update();
+        onupdate() {
+            this.currPage = 1;
+            if (this.type && this.type != 'n') this.updatePro();
+            this.update();
+        },
+        reset() {
+            this.stuIds.length = 0;
+            this.sall = false;
+            this.gn = '';
+        },
+
+        jump() {
+            var jump = this.jumpPage * 1;
+            if (jump && 0 < jump && jump <= this.totalPage) {
+                this.currPage = jump;
+                this.update();
+            }
+            this.jumpPage = '';
         },
         prev() {
             if (this.currPage > 1) {
@@ -56,94 +89,64 @@ let app = new Vue({
         },
 
         //action
-        select(i) {
-            this.currDoc = i;
+        selectAll() {
+            this.stuIds.length = 0;
+            if (this.sall) {
+                for (let s of this.stus) {
+                    this.stuIds.push(s.userId);
+                }
+            }
         },
-        pan() {
-            var type = document.getElementById("sousuokey").selectedIndex;
-            var ban = document.getElementById("suosou");
-            var index = ban.selectedIndex;
-            var claid = ban.options[index].value;
-            var can = {};
-            if (type == 1) {//分班
-                can = {st: (this.currPage - 1) * this.pageSize, nm: this.pageSize, ci: 'n'};
 
+        claAdd() {
+            if (!this.stuIds.length) {
+                alert('请选择至少1个学生！');
+                return;
             }
-            else if (type == 2) {//分组
-                can = {st: (this.currPage - 1) * this.pageSize, nm: this.pageSize, ci: claid}
-            }
-            request200('GET', '/in/stu', can, x => {
-                this.totalPage = this.pageSize * 1 && Math.ceil(x.total / this.pageSize);
-                if (this.currPage > this.totalPage) this.currPage = this.totalPage || 1;
-                this.stus = x;
+            var ci = this.ci;
+            request200('POST', '/in/cla/addstu', [ci, ...this.stuIds], x => {
+                if (x) {
+                    alert('成功添加' + x + '个学生到班级' + ci + '！');
+                    this.update();
+                } else {
+                    alert('添加失败！');
+                }
             });
         },
-        showDiv() {
-            var type = document.getElementById("sousuokey").selectedIndex;
-            var ban = document.getElementById("suosou");
-            var index = ban.selectedIndex;
-            var claid = ban.options[index].value;
-            var arr = [];//所有学生id
-            arr.push(claid);
-            $("input[type='checkbox']:checked").each(
-                function () {
-                    arr.push($(this).val());
-                }
-            );
-            if (type == 1) {
-                request200('POST', '/in/cla/addstu', {ids:arr}, x => {
-                    if(x==1){
-                        alert("添加成功！");
-                    }
-                    else{
-                        alert("添加失败！");
-                    }
-                    return;
-                });
 
+        updatePro() {
+            request200('GET', '/in/pro', {nm: 0, hg: 0}, x => {
+                this.pros = x.data;
+                this.pi = this.pros[0] ? this.pros[0].proId : '';
+            });
+        },
+        makeGp() {
+            if (!this.stuIds.length) {
+                alert('请选择至少1个学生！');
+                return;
             }
-            else if(type==2){//显示弹框
-                var x = document.getElementById("groupbox");
-                x.style.width = "600px";
-                x.style.background="gainsboro";
-                x.style.display = "block";
-                x.style.float = "left";
-                x.style.position = "absolute";
-                x.style.left = "400px";
-                x.style.top = "400px";
-                x.style.border = "solid 1px gainsboro";
-                x.style.borderRadius = "10%";
+            if (!this.gn) {
+                alert('请输入小组名称！');
+                return;
+            }
+            if (!this.pi) {
+                alert('必须要给小组选择一个项目！');
+                return;
+            }
 
-            }
-        },
-        hiddenDiv() {
-            var x = document.getElementById("groupbox");
-            x.style.display = "none";
-        },
-        fg(){
-                var name = document.getElementById("gpname");
-                var pro =  document.getElementById("fpro");
-                var index = pro.selectedIndex;
-                var proid = pro.options[index].value;
-                var arr = [];//所有学生id
-                arr.push(name);
-                arr.push(claid);
-                arr.push(proid);
-                $("input[type='checkbox']:checked").each(
-                    function () {
-                        arr.push($(this).val());
+            var ci = this.type;
+            request200('POST', '/in/gp/group',
+                [this.gn, ci, this.pi, ...this.stuIds],
+                x => {
+                    if (x) {
+                        alert('成功将' + x + '个学生分入新的小组！');
+                        this.updatePro();
+                        this.update();
+                    } else {
+                        alert('分组失败！');
+                        this.updatePro();
                     }
-                );
-                request200('POST', '/in/gp/group', {ids:arr}, x => {
-                    if(x==1){
-                        alert("添加成功！");
-                    }
-                    else{
-                        alert("添加失败！");
-                    }
-                    return;
                 });
         }
-
     }
 });

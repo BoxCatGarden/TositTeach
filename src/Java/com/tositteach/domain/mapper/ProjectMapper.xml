@@ -21,6 +21,9 @@
     <select id="total" resultType="_int">
         select count(*)
         from project natural left outer join engineer
+        <if test="hg!=2">
+            natural <if test="hg==0">left outer</if> join gp
+        </if>
         <where>
             <if test="s != 3">
                 state=#{s}
@@ -36,12 +39,18 @@
             <if test="ei!=null">
                 <bind name="lei" value="'%'+ei+'%'"/>
                 and user_id like #{lei}
+            </if>
+            <if test="hg==0">
+                and cla_id is null
             </if>
         </where>
     </select>
     <select id="query" resultMap="proMap">
         select pro_id,pro_name,st_time,user_id,name
         from project natural left outer join engineer
+        <if test="hg!=2">
+            natural <if test="hg==0">left outer</if> join gp
+        </if>
         <where>
             <if test="s != 3">
                 state=#{s}
@@ -57,6 +66,9 @@
             <if test="ei!=null">
                 <bind name="lei" value="'%'+ei+'%'"/>
                 and user_id like #{lei}
+            </if>
+            <if test="hg==0">
+                and cla_id is null
             </if>
         </where>
         <if test="nm>0">

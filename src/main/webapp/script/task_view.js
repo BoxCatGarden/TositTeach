@@ -8,6 +8,7 @@ let app = new Vue({
         currPage: 1,
         totalPage: 0,
         pageSize: 4,
+        jumpPage: '',
 
         //action
         currDoc:0
@@ -30,9 +31,13 @@ let app = new Vue({
             });
         },
 
-        jump(i) {
-            this.currPage=i;
-            update();
+        jump() {
+            var jump = this.jumpPage*1;
+            if (jump && 0 < jump && jump <= this.totalPage) {
+                this.currPage=jump;
+                this.update();
+            }
+            this.jumpPage = '';
         },
         prev() {
             if (this.currPage > 1) {

@@ -2,226 +2,229 @@
 <html lang="zh">
 <head>
 
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Student Manage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    
+
     <!-- Le styles -->
-    <link href="" rel="stylesheet" type="text/css">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="assets/css/admin.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/demo.css" />
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script type="application/javascript" src="script/req.js"></script>
+    <link rel="stylesheet" href="assets/css/demo.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="application/javascript" src="script/req.js"></script>
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-</head>    
+</head>
 <body>
 
-<div class="container" id = "app">
-		
-	<div class="row">
-		
-		<div class="span2">
-		
-		<div class="main-left-col">
-		
-			<h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
-			
-			<ul class="side-nav">
-				
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目 <b class="caret"></b></a>
-					<ul id="website-dropdown" class="collapse">
-						<li><a href="project_view.html">项目查看</a></li>
-						<li><a href="project_add.html">项目添加</a></li>
-						<li><a href="project_access.html">项目审批</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档 <b class="caret"></b></a>
-					<ul id="store-dropdown" class="collapse">
-						<li><a href="document_view.html">文档查看</a></li>
-						<li><a href="document_add.html">文档添加</a></li>
-					</ul>
-				</li>
-				<li class="dropdown active">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生 <b class="caret"></b></a>
-					<ul id="reports-dropdown">
-						<li><a href="student_add.html">学生添加</a></li>
-						<li class="active"><a href="student_manage.html">学生管理</a></li>
-						<li><a href="class_manage.html">班级管理</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划 <b class="caret"></b></a>
-					<ul id="members-dropdown" class="collapse">
-						<li><a href="task_view.html">任务查看</a></li>
-						<li><a href="task_add.html">任务添加</a></li>
-					</ul>
-				</li>
-			</ul>
-		
-		</div> <!-- end main-left-col -->
-	
-	</div> <!-- end span2 -->
-	
-	<div class="span10" id = "app">
-		
-	<div class="secondary-masthead">
-	
-		<ul class="nav nav-pills pull-right">
-			<li>
-				<a href="home.html"><i class="icon-user"></i> {{user.name}}</a>
-			</li>
-		</ul>
+<div class="container" id="app">
 
-		<ul class="breadcrumb">
-			<li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于学生/学生管理/分班分组</li>
-		</ul>
-		
-	</div>
-	
-	<div class="main-area dashboard">
-	
-			<div class="alert alert-info">
-				<a class="close" data-dismiss="alert" href="#">x</a>
-				<h4 class="alert-heading">提示</h4>
-				选择分班时，右侧下拉列表中可选择待分班级，将选中学生分入该班；<br/>选择分组时，右侧下拉列表中可选择已有班级，并在表中显示该班学生。
-			</div>
-			
-			<div class="row">
-			
-				<div class="span10">
-				
-					<div class="slate">
-					
-						<form class="form-inline">
-							<select class="span2" id = "sousuokey">
-								<option> -------- </option>
-								<option> 分班</option>
-								<option> 分组</option>
-							</select>
-							<select class="span2" id = "suosou">
-								<option v-for = "cla in clas" v-bind:value  = "cla.claId">{{cla[i].claName}}</option>
-							</select>
-							<button type="submit" class="btn btn-primary" @click = "pan()">确认</button>
-						</form>
-					
-					</div>
-				
-				</div>
-			
-			</div>
-			
-			<div class="row">
-				
-				<div class="span10">
-				
-					<div class="slate">
-					
-						<div class="page-header">
-							<h2>学生列表</h2>
-						</div>
-					
-						<table class="orders-table table">
-						<thead>
-							<tr>
-								<th>学号</th>
-								<th class="value">姓名</th>
-								<th class="actions">选择</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="stu in stus">
-								<td>{{stu[i].id}}</a> </td>
-								<td class="value">{{stu[i].name}}</td>
+    <div class="row">
 
-								<td class="actions">
-									<label class="checkbox-inline">
-        								<input type="checkbox" v-bind:value = "stu[i].userId">
-									</label>
-								</td>
-							</tr>
+        <div class="span2">
 
-						</tbody>
-						</table>
+            <div class="main-left-col">
 
-					</div>
-				
-				</div>
-				
-				<div class="span5">
-				
-					<div class="pagination pull-left">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li class="active">
-							  <a href="#">1</a>
-							</li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				
-				</div>
-				
-				<div class="span5 listing-buttons pull-right">
-				
-					<button class="btn btn-primary" onclick = "showDiv()">添加班/组</button>
-				
-				</div>
-				
-			</div>
-			
-			<div id="groupbox" class = "groupbox">
-				<center>
-					<h4 style="margin-top:20px ;">请输入组名</h4>
-					<span style="margin-top:25px ;">组名</span>
-					<input type="text"  style="margin-top:20px ;" style = "width:200px;" id = "gpname" name = "gpname"/><br/>
-					<span style="margin-top:25px ;">分配项目</span>
-					<select name="" id="fpro">
-						<option v-for="pro in pros" v-bind:value="pro.proId">{{pro.proName}}</option>
-					</select>
-					<br/>
-					<button style="margin-top:20px ;" onclick = "fg()" class="btn btn-primary" >确认</button>
-				</center>
-			</div>		
-			
-		<div class="row">
-		
-			<div class="span10 footer">
-			
-				<p>&copy; TOSIT 2018</p>
-			
-			</div>
-		
-		</div>
-		
-	</div>
-	
-	</div> <!-- end span10 -->
-		
-	</div> <!-- end row -->
-		
+                <h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
+
+                <ul class="side-nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目
+                            <b class="caret"></b></a>
+                        <ul id="website-dropdown" class="collapse">
+                            <li><a href="project_view.html">项目查看</a></li>
+                            <li><a href="project_add.html">项目添加</a></li>
+                            <li><a href="project_access.html">项目审批</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档
+                            <b class="caret"></b></a>
+                        <ul id="store-dropdown" class="collapse">
+                            <li><a href="document_view.html">文档查看</a></li>
+                            <li><a href="document_add.html">文档添加</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生
+                            <b class="caret"></b></a>
+                        <ul id="reports-dropdown">
+                            <li><a href="student_add.html">学生添加</a></li>
+                            <li class="active"><a href="student_manage.html">学生管理</a></li>
+                            <li><a href="class_manage.html">班级管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划
+                            <b class="caret"></b></a>
+                        <ul id="members-dropdown" class="collapse">
+                            <li><a href="task_view.html">任务查看</a></li>
+                            <li><a href="task_add.html">任务添加</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div> <!-- end main-left-col -->
+
+        </div> <!-- end span2 -->
+
+        <div class="span10">
+
+            <div class="secondary-masthead">
+
+                <ul class="nav nav-pills pull-right">
+                    <li>
+                        <a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
+                    </li>
+                </ul>
+
+                <ul class="breadcrumb">
+                    <li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于学生/学生管理/分班分组</li>
+                </ul>
+
+            </div>
+
+            <div class="main-area dashboard">
+
+                <div class="row">
+
+                    <div class="span10">
+
+                        <div class="slate">
+
+                            <form class="form-inline">
+                                <label for="searchType">班级：</label>
+                                <select class="span2" id="searchType" @change="onupdate" v-model="type">
+                                    <option value="">全部</option>
+                                    <option value="n">未分班</option>
+                                    <option v-for="cla in clas" :value="cla.claId">{{cla.claId+'('+cla.claName+')'}}
+                                    </option>
+                                </select>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="span10">
+
+                        <div class="slate">
+
+                            <div class="page-header">
+                                <h2>学生列表</h2>
+                            </div>
+
+                            <table v-if="stus.length" class="orders-table table" style="text-align: left">
+                                <colgroup>
+                                    <col width="30%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="30%">
+                                    <col width="10%">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">学号</th>
+                                    <th scope="col">班级</th>
+                                    <th scope="col">小组</th>
+                                    <th scope="col">姓名</th>
+                                    <th scope="col">
+                                        <label for="sAll">全选
+                                            <input type="checkbox" id="sAll"
+                                                   @change="selectAll"
+                                                   v-model="sall">
+                                        </label>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="stu in stus">
+                                    <td>{{stu.id}}</td>
+                                    <td>{{stu.gp.claId||'--'}}</td>
+                                    <td>{{stu.gp.groId!==undefined?stu.gp.groId:'--'}}</td>
+                                    <td><label class="checkbox-inline" :for="'s'+stu.userId">{{stu.name}}</label></td>
+                                    <td>
+                                        <input type="checkbox" :id="'s'+stu.userId" :value="stu.userId"
+                                               v-model="stuIds">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p v-else style="font-size: 150%">暂无学生</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="span5 pagination pull-left">
+                            <ul>
+                                <li @click="prev"><a>上一页</a></li>
+                                <li><a>{{currPage}}/{{totalPage}}</a></li>
+                                <li @click="next"><a>下一页</a></li>
+                                <li><a style="padding:0 2px"><input type="number" style="margin: 0;width: 20px"
+                                                                    v-model="jumpPage"></a></li>
+                                <li @click="jump"><a>跳转</a></li>
+                            </ul>
+                    </div>
+
+                    <div v-if="type" class="span5 listing-buttons pull-right">
+                        <form v-if="type=='n'" class="form-inline">
+                            <label for="ci">添加到班级：</label>
+                            <select class="span2" id="ci" v-model="ci">
+                                <option v-for="cla in clas" :value="cla.claId">{{cla.claId+'('+cla.claName+')'}}
+                                </option>
+                            </select>
+                            <button type="button" class="btn btn-primary" @click="claAdd">添加</button>
+                        </form>
+                        <form v-else class="form-inline">
+                            <label for="gn">组名</label>
+                            <input style="width: 100px" type="text" id="gn" v-model="gn">
+                            <label for="pi">项目</label>
+                            <select class="span2" id="pi" v-model="pi">
+                                <option v-for="pro in pros" :value="pro.proId">{{pro.proId+'('+pro.proName+')'}}</option>
+                            </select>
+                            <button type="button" class="btn btn-primary pull-right" @click="makeGp">创建小组</button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="span10 footer">
+
+                        <p>&copy; TOSIT 2018</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div> <!-- end span10 -->
+
+    </div> <!-- end row -->
+
 </div> <!-- end container -->
 
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="script/student_manage.js" type="application/javascript"></script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.js"></script>
-<script src="script/student_manage.js" type="application/javascript"></script>
-
-
 
 
 </body>

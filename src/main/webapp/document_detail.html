@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" xmlns="http://java.sun.com/jsf/facelets" xmlns="http://java.sun.com/jsf/html">
 <head>
 
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Document Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    
+
     <!-- Le styles -->
     <link href="" rel="stylesheet" type="text/css">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -15,164 +15,195 @@
     <link href="assets/css/admin.css" rel="stylesheet">
     <link href="assets/css/demo.css" rel="stylesheet">
 
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script type="application/javascript" src="script/req.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="application/javascript" src="script/req.js"></script>
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-</head>    
+</head>
 <body>
 
-<div class="container">
-		
-	<div class="row">
-		
-		<div class="span2">
-		
-		<div class="main-left-col">
-		
-			<h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
-			
-			<ul class="side-nav">
+<div class="container" id="app">
 
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目 <b class="caret"></b></a>
-					<ul id="website-dropdown" class="collapse">
-						<li><a href="project_view.html">项目查看</a></li>
-						<li><a href="project_add.html">项目添加</a></li>
-						<li><a href="project_access.html">项目审批</a></li>
-					</ul>
-				</li>
-				<li class="dropdown active">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档 <b class="caret"></b></a>
-					<ul id="store-dropdown">
-						<li class="active"><a href="document_view.html">文档查看</a></li>
-						<li><a href="document_add.html">文档添加</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生 <b class="caret"></b></a>
-					<ul id="reports-dropdown" class="collapse">
-						<li><a href="student_add.html">学生添加</a></li>
-						<li><a href="student_manage.html">学生管理</a></li>
-						<li><a href="class_manage.html">班级管理</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划 <b class="caret"></b></a>
-					<ul id="members-dropdown" class="collapse">
-						<li><a href="task_view.html">任务查看</a></li>
-						<li><a href="task_add.html">任务添加</a></li>
-					</ul>
-				</li>
-			</ul>
-		
-		</div> <!-- end main-left-col -->
-	
-	</div> <!-- end span2 -->
-	
-	<div class="span10">
-		
-		<div class="secondary-masthead">
-	
-			<ul class="nav nav-pills pull-right">
-				<li>
-					<a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
-				</li>
-			</ul>
+    <div class="row">
 
-			<ul class="breadcrumb">
-				<li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于文档/文档查看/文档详情</li>
-			</ul>
-		</div>
-	
-		<div class="main-area dashboard" id = "app">
-		<center>
-		<form action="">
-			<table class = "inputtable">
-				<tr>
-					<td><label for="dname">文 档 名</label></td>
-					<td class = "inp"><input class = "inp" type="text"  name = "dname" v-bind:value = "doc.docName" readonly="readonly"/></td></tr>
-				<tr>
-					<td><label for="dgroup">编写小组名称</label></td>
-					<td class = "inp"><input class = "inp" type="text" name="dgroup" v-bind:value = "doc.gp.groName" readonly="readonly" /></td></tr>
-				<tr>
-					<td><label for="time">提交时间</label></td>
-					<td class = "inp"><input class = "inp" type="date" name="time" v-bind:value = "doc.time" readonly="readonly"/></td></tr>
-				<tr>
-					<td><label for="scoren">文档分数</label></td>
-					<td class = "inp"><input class = "inp" type="text" name="score" v-bind:value = "doc.score==-1?'未打分':doc.score"  readonly="readonly"  id="schedule"/></td></tr>
-				
-				<tr>
-					<td><label for="pdescription">文档描述</label></td>
-					<td class = "inp"><textarea class = "inp" cols="25" rows = "15" v-bind:value = "doc.disp" readonly="readonly"></textarea></td></tr>
-				<tr><td>&nbsp</td><td>&nbsp</td></tr>
+        <div class="span2">
 
-				<tr>
-					<td>&nbsp</td>
-					
-					<td class="">
-						<button type="button"  class="btn btn-primary"><a href="document_view.html" style="color: white;">返回</a></button>
-						<button type="button"  class="btn btn-primary pull-right" id = "modifybutton">评分</button>
-						<button type="submit"  class="btn btn-primary pull-right" id = "savebutton" data-toggle="modal" href="#saveButton">保存</button>
-						<button class="btn btn-primary pull-right"><a v-bind:href = "doc.url" style = "text-decoration: none;color:white;">下载文档</a></button>
-							
-					</td>
-				</tr>
+            <div class="main-left-col">
 
-			</table>
-		</form></center>
-		
-		<div class="modal hide fade" id="saveButton">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">×</button>
-					<h3>保存评分</h3>
-				</div>
-				<div class="modal-body">
-					<p>确定要修改为此分数吗？</p>
-				</div>
-				<div class="modal-footer">
-					<a href="document_detail.html" class="btn btn-primary" @click = "score()">确定</a>
-					<a class="btn btn-primary" data-dismiss="modal" ref="altBoxClose" @click = "update()">取消</a>
-				</div>
-			</div>
-		
-		<div class="span10">
-			<center>
-			<hr style="width: 960px; margin-left: -75px;"/>
-			<span style = "font-size: large;">修改已上传文档</span>
-			<form action="" enctype="multipart/form-data" style = "margin-top: 30px;">
-				<input type = "file"  id = "fileid" style = "width:400px"/>
-				<input type = "button" class="btn btn-primary " value="上传" style="margin-left: 30px;" @click = "reup()"/>
-			</form>
-			</center>
-		</div>
-		
-		</div>
-				
-		<div class="row">
-		
-			<div class="span10 footer">
-			
-				<p>&copy; TOSIT 2018</p>
-			</div>
-		</div>
-		
-	</div> <!-- end span10 -->	
-		
-	</div> <!-- end row -->
-		
+                <h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
+
+                <ul class="side-nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目
+                            <b class="caret"></b></a>
+                        <ul id="website-dropdown" class="collapse">
+                            <li><a href="project_view.html">项目查看</a></li>
+                            <li><a href="project_add.html">项目添加</a></li>
+                            <li><a href="project_access.html">项目审批</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档
+                            <b class="caret"></b></a>
+                        <ul id="store-dropdown">
+                            <li class="active"><a href="document_view.html">文档查看</a></li>
+                            <li><a href="document_add.html">文档添加</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生
+                            <b class="caret"></b></a>
+                        <ul id="reports-dropdown" class="collapse">
+                            <li><a href="student_add.html">学生添加</a></li>
+                            <li><a href="student_manage.html">学生管理</a></li>
+                            <li><a href="class_manage.html">班级管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划
+                            <b class="caret"></b></a>
+                        <ul id="members-dropdown" class="collapse">
+                            <li><a href="task_view.html">任务查看</a></li>
+                            <li><a href="task_add.html">任务添加</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div> <!-- end main-left-col -->
+
+        </div> <!-- end span2 -->
+
+        <div class="span10">
+
+            <div class="secondary-masthead">
+
+                <ul class="nav nav-pills pull-right">
+                    <li>
+                        <a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
+                    </li>
+                </ul>
+
+                <ul class="breadcrumb">
+                    <li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于文档/文档查看/文档详情</li>
+                </ul>
+            </div>
+
+            <div class="main-area dashboard">
+                <center>
+                    <form action="">
+                        <table class="inputtable">
+                            <tr>
+                                <th scope="row"><label for="did">文 档 编 号</label></th>
+                                <td><input class="inp" type="text" id="did" :value="doc.docId"
+                                           readonly/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="dname">文 档 名</label></th>
+                                <td><input class="inp" type="text" id="dname" :value="doc.docName"
+                                           readonly/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="dgroup">编 写 小 组</label></th>
+                                <td><input class="inp" type="text" id="dgroup"
+                                           :value="doc.gp.claId+'-'+doc.gp.groId+' '+doc.gp.groName"
+                                           readonly/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="dpro">所 属 项 目</label></th>
+                                <td><input class="inp" type="text" id="dpro"
+                                           :value="doc.pro.proId+' '+doc.pro.proName"
+                                           readonly/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="disp">文 档 描 述</label></th>
+                                <td><textarea id="disp" class="inp" cols="25" rows="15" :value="doc.disp"
+                                              readonly></textarea></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="time">提 交 时 间</label></th>
+                                <td><input class="inp" type="text" id="time" :value="doc.time"
+                                           readonly/></td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row"><label for="score">文 档 分 数</label></th>
+                                <td><input class="inp" type="text" id="score"
+                                           v-model="score" :readonly="!scFlag" :disabled="dis" placeholder="未打分"/></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td>&nbsp;</td>
+
+                                <td v-if="!scFlag">
+                                    <a href="document_view.html" class="btn btn-primary" style="color: white;">返回</a>
+
+                                    <a :href="doc.url" style="text-decoration: none;color:white;"
+                                       class="btn btn-primary pull-right" target="_blank" title="文档下载">下载</a>
+
+                                    <button type="button" class="btn btn-primary pull-right" @click="scFlag=1">评分
+                                    </button>
+                                </td>
+                                <td v-else>
+                                    <a :disabled="dis" href="document_detail.html" class="btn btn-primary"
+                                       style="color: white;">取消</a>
+
+                                    <button :disabled="dis" type="button" class="btn btn-primary pull-right"
+                                            @click="doscore">保存
+                                    </button>
+                                    <button :disabled="dis" type="button" class="btn btn-primary pull-right"
+                                            @click="onreset">重置
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </form>
+                </center>
+            </div>
+
+            <div class="row">
+                <div class="span10">
+                    <div class="slate" style="text-align: center">
+                        <form class="form-inline">
+                            <input type="file" id="file" @change="setfile"/>
+                            <label for="file">
+                                <button type="button" class="btn btn-primary" @click="reupload">
+                                    重新上传
+                                </button>
+                            </label>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="span10 footer">
+
+                    <p>&copy; TOSIT 2018</p>
+                </div>
+            </div>
+
+        </div> <!-- end span10 -->
+
+    </div> <!-- end row -->
+
 </div> <!-- end container -->
 
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="script/document_detail.js" type="application/javascript"></script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.js"></script>
-<script src="assets/js/modify.js"></script>
-<script src="script/document_detail.js" type="application/javascript"></script>
 
 </body>
 </html>

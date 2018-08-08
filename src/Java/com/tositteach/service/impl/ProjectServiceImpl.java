@@ -1,21 +1,16 @@
 package com.tositteach.service.impl;
 
 import com.tositteach.domain.mapper.ProjectMapper;
-import com.tositteach.domain.entity.Engineer;
 import com.tositteach.domain.entity.Project;
-import com.tositteach.service.EngineerService;
 import com.tositteach.service.ProjectService;
 import com.tositteach.util.DateChecker;
 import com.tositteach.util.PagingBody;
 import com.tositteach.util.YearIdBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
 @Service
 @Transactional
 public class ProjectServiceImpl implements ProjectService {
@@ -27,10 +22,10 @@ public class ProjectServiceImpl implements ProjectService {
                             String proName,
                             String engName,
                             String engId,
-                            int st, int nm) {
+                            int hasGroup, int st, int nm) {
         PagingBody body = new PagingBody();
-        body.setTotal(projectMapper.total(state, proName, engName, engId));
-        body.setData(projectMapper.query(state, proName, engName, engId, st, nm));
+        body.setTotal(projectMapper.total(state, proName, engName, engId, hasGroup));
+        body.setData(projectMapper.query(state, proName, engName, engId, hasGroup, st, nm));
         return body;
     }
 

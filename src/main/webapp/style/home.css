@@ -1,0 +1,30 @@
+table.table-info {
+    table-layout: fixed;
+    width: 60%;
+    border-collapse: collapse;
+    border: 2px solid black;
+    font-size: 120%;
+    line-height: normal;
+    margin: 1% auto 5% auto;
+}
+
+table.table-info col:nth-child(1) {
+    width: 35%;
+}
+table.table-info col:nth-child(2) {
+    width: 65%;
+}
+
+table.table-info th,table.table-info td {
+    padding: 10px;
+}
+table.table-info th {
+    text-align: right;
+}
+
+table.table-info tr:nth-child(odd) {
+    background-color: #fcfcfc;
+}
+table.table-info tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

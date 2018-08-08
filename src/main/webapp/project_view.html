@@ -2,265 +2,222 @@
 <html lang="zh">
 <head>
 
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Project View</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    
+
     <!-- Le styles -->
-    <link href="" rel="stylesheet" type="text/css">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="assets/css/admin.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script type="application/javascript" src="script/req.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="application/javascript" src="script/req.js"></script>
+
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-</head>    
+</head>
 <body>
 
 <div class="container" id="app">
-		
-	<div class="row">
-		
-		<div class="span2">
-		
-		<div class="main-left-col">
-		
-			<h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
-			
-			<ul class="side-nav">
-				
-				<li class="dropdown active">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目 <b class="caret"></b></a>
-					<ul id="website-dropdown">
-						<li class="active"><a href="project_view.html">项目查看</a></li>
-						<li><a href="project_add.html">项目添加</a></li>
-						<li><a href="project_access.html">项目审批</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档 <b class="caret"></b></a>
-					<ul id="store-dropdown" class="collapse">
-						<li><a href="document_view.html">文档查看</a></li>
-						<li><a href="document_add.html">文档添加</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生 <b class="caret"></b></a>
-					<ul id="reports-dropdown" class="collapse">
-						<li><a href="student_add.html">学生添加</a></li>
-						<li><a href="student_manage.html">学生管理</a></li>
-						<li><a href="class_manage.html">班级管理</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划 <b class="caret"></b></a>
-					<ul id="members-dropdown" class="collapse">
-						<li><a href="task_view.html">任务查看</a></li>
-						<li><a href="task_add.html">任务添加</a></li>
-					</ul>
-				</li>
-			</ul>
-			
-		</div> <!-- end main-left-col -->
-	
-	</div> <!-- end span2 -->
-	
-	<div class="span10">
-		
-	<div class="secondary-masthead">
-	
-		<ul class="nav nav-pills pull-right">
-			<li>
-				<a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
-			</li>
-		</ul>
 
-		<ul class="breadcrumb">
-			<li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于项目/项目查看</li>
-		</ul>
-		
-	</div>
-	
-	<div class="main-area dashboard">
-			
-			<div class="row">
-			
-				<div class="span10">
-				
-					<div class="slate">
-					
-						<form class="form-inline">
-							<input type="text" class="input-large" v-model="input" id = "sousuo">
-							<select class="span2" id = "sousuokey" v-model="type">
-								<!--<option value=""> &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; </option>-->
-								<option value = "1" selected> 项目名称</option>
-								<option value = "2"> 发起人</option>
-							</select>
-		
-							<button type="button" class="btn btn-primary pull-right" @click = "updateByName">确定</button>
-						</form>
-					
-					</div>
-				
-				</div>
-			
-			</div>
-			
-			<div class="row">
-				
-				<div class="span10">
-				
-					<div class="slate">
-					
-						<div class="page-header">
-							<h2>项目列表</h2>
-						</div>
-					</div>
-		
-				</div>
-		
-			</div>
+    <div class="row">
 
-		<!--pro-->
-		<div class="row" v-for="i in 2">
+        <div class="span2">
 
-			<div class="span5" v-for="j in 2">
+            <div class="main-left-col">
 
-				<div class="slate">
-					<table class="orders-table table">
-						<tbody>
-						<tr v-if="docs[(i-1)*2+j-1]">
-							<td>
-								<h2>项目名称：{{docs[(i-1)*2+j-1].proName}}</h2><br/>
-								<h2>发起人：{{docs[(i-1)*2+j-1].eng.name}}</h2><br/>
-								<h2>开始时间：{{docs[(i-1)*2+j-1].stTime}}</h2><br/>
-							</td>
-							<td class="actions">
-								<button type="button" class="btn btn-large btn-primary" @click="detail((i-1)*2+j-1)">文档详情</button><br/><br/>
-								<a class="btn btn-small btn-danger" data-toggle="modal" @click="select((i-1)*2+j-1)"
-								   href="#removeItem">删除</a>
-							</td>
-						</tr>
-						<tr v-else>
-							<td>
-								<h2>&nbsp</h2><br/>
-								<h2>&nbsp</h2><br/>
-								<h2>&nbsp</h2><br/>
-							</td>
-						</tr>
-						</tbody>
-					</table>
+                <h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
 
-				</div>
+                <ul class="side-nav">
 
-			</div>
+                    <li class="dropdown active">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目
+                            <b class="caret"></b></a>
+                        <ul id="website-dropdown">
+                            <li class="active"><a href="project_view.html">项目查看</a></li>
+                            <li><a href="project_add.html">项目添加</a></li>
+                            <li><a href="project_access.html">项目审批</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档
+                            <b class="caret"></b></a>
+                        <ul id="store-dropdown" class="collapse">
+                            <li><a href="document_view.html">文档查看</a></li>
+                            <li><a href="document_add.html">文档添加</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生
+                            <b class="caret"></b></a>
+                        <ul id="reports-dropdown" class="collapse">
+                            <li><a href="student_add.html">学生添加</a></li>
+                            <li><a href="student_manage.html">学生管理</a></li>
+                            <li><a href="class_manage.html">班级管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划
+                            <b class="caret"></b></a>
+                        <ul id="members-dropdown" class="collapse">
+                            <li><a href="task_view.html">任务查看</a></li>
+                            <li><a href="task_add.html">任务添加</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-		</div>
+            </div> <!-- end main-left-col -->
 
+        </div> <!-- end span2 -->
 
-		<!--paging-->
-		<div class="row">
+        <div class="span10">
 
-			<div class="span10">
+            <div class="secondary-masthead">
 
-				<div class="pagination pull-right">
-					<ul>
-						<li @click="prev"><a>Prev</a></li>
-						<li v-for="i in totalPage" :class="i===currPage?'active':''" @click="i===currPage?'':jump(i)">
-							<a>{{i}}</a>
-						</li>
-						<li @click="next"><a>Next</a></li>
-					</ul>
-				</div>
+                <ul class="nav nav-pills pull-right">
+                    <li>
+                        <a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
+                    </li>
+                </ul>
 
-			</div>
+                <ul class="breadcrumb">
+                    <li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于项目/项目查看</li>
+                </ul>
 
-		</div>
+            </div>
+
+            <div class="main-area dashboard">
+
+                <div class="row">
+
+                    <div class="span10">
+
+                        <div class="slate">
+
+                            <form class="form-inline">
+                                <label for="searchItem">
+                                    <label for="search">查询：</label>
+                                    <select class="span2" id="search" v-model="type">
+                                        <!--<option value=""> &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; </option>-->
+                                        <option value="1" selected> 项目名称</option>
+                                        <option value="2"> 发起人</option>
+                                    </select>
+                                </label>
+                                <input type="text" class="input-large" v-model="input" id="searchItem">
+
+                                <button type="button" class="btn btn-primary" @click="update">查询
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="span10">
+
+                        <div class="slate">
+
+                            <div class="page-header">
+                                <h2>项目列表</h2>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--pro-->
+                <div class="row" v-for="i in 2">
+
+                    <div class="span5" v-for="j in 2">
+
+                        <div class="slate">
+                            <table class="orders-table table">
+                                <tbody>
+                                <tr v-if="docs[(i-1)*2+j-1]">
+                                    <td>
+                                        <h2>编号：{{docs[(i-1)*2+j-1].proId}}</h2><br/>
+                                        <h2>名称：{{docs[(i-1)*2+j-1].proName}}</h2><br/>
+                                        <h2>发起人：{{docs[(i-1)*2+j-1].eng.name}}</h2><br/>
+                                        <h2>开始时间：{{docs[(i-1)*2+j-1].stTime}}</h2><br/>
+                                    </td>
+                                    <td class="actions">
+                                        <button type="button" class="btn btn-large btn-primary"
+                                                @click="detail((i-1)*2+j-1)">项目详情
+                                        </button>
+                                        <br/><br/>
+                                        <button class="btn btn-small btn-danger"
+                                                @click="del((i-1)*2+j-1)">删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr v-else>
+                                    <td>
+                                        <h2>&nbsp;</h2><br/>
+                                        <h2>&nbsp;</h2><br/>
+                                        <h2>&nbsp;</h2><br/>
+                                        <h2>&nbsp;</h2><br/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
 
+                <!--paging-->
+                <div class="row">
 
-		<div class="row">
-		
-			<div class="span10 footer">
-			
-				<p>&copy; TOSIT 2018</p>
-			</div>
+                    <div class="span10">
 
-			<!--alert-->
-			<div class="row">
-				<div class="modal hide fade" id="removeItem">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">×</button>
-						<h3>文档项目</h3>
-					</div>
-					<div class="modal-body" v-if="docs[currDoc]">
-						<p>确定要删除项目“{{docs[currDoc].proId+' '+docs[currDoc].proName}}”吗？</p>
-					</div>
-					<div class="modal-footer">
-						<a href="#" class="btn" data-dismiss="modal" ref="altBoxClose">取消</a>
-						<button type="button" class="btn btn-danger" @click="del">删除</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	
-	</div> <!-- end span10 -->
-		
-	</div> <!-- end row -->
-		
-</div> <!-- end container -->
+                        <div class="pagination pull-right">
+                            <ul>
+                                <li @click="prev"><a>上一页</a></li>
+                                <li><a>{{currPage}}/{{totalPage}}</a></li>
+                                <li @click="next"><a>下一页</a></li>
+                                <li><a style="padding:0 2px"><input type="number" style="margin: 0;width: 20px" v-model="jumpPage"></a></li>
+                                <li @click="jump"><a>跳转</a></li>
+                            </ul>
+                        </div>
 
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="span10 footer">
+
+                        <p>&copy; TOSIT 2018</p>
+                    </div>
+                </div>
+
+            </div> <!-- end span10 -->
+
+        </div> <!-- end row -->
+
+    </div> <!-- end container -->
+</div>
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="script/project_view.js" type="application/javascript"></script>
-<!--<script type="text/javascript">
-	function sousuo(){
-	    var input_sousuo = document.getElementById("sousuo").value;
-	    var input_index = document.getElementById("sousuokey").selectedIndex;
-	    if(input_sousuo!=""){
-	        if(input_index == 0){//根据项目名字
-	             $.ajax({
-					 url:"/ShowByName.html",
-					 type:"POST",
-					 data:{
-					     "projName":input_sousuo
-					 },
-					 dataType:"JSON",
-					 success:function f(returndata) {
-
-                    }
-				});
-			}
-	        else{
-                $.ajax({
-                    url:"//ShowByEngineerId.html",
-                    type:"POST",
-                    data:{
-            			"projUserId":input_sousuo
-					},
-                    dataType:"JSON",
-                    success:function f(returndata) {
-
-                    }
-                });
-			}
-		}
-		else{
-	        alert("请输入！");
-		}
-	}
-</script>-->
-
 
 </body>
 </html>

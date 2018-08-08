@@ -5,12 +5,11 @@ import com.tositteach.domain.entity.Student;
 import com.tositteach.service.StudentService;
 import com.tositteach.util.PagingBody;
 import com.tositteach.util.YearIdBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Calendar;
 
 @Service
 @Transactional
@@ -33,17 +32,24 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public int add(String school, String id,
-                   String name, byte sex, String grade) {
+                   String name, byte sex, int grade) {
         Student stu = new Student();
         stu.setSchool(school);
         stu.setId(id);
         stu.setName(name);
         stu.setSex(sex);
-        stu.setGrade(grade);
+        stu.setGrade(grade2Year(grade));
         synchronized (this) {
             stu.setUserId(YearIdBuilder.build(studentMapper.getMaxId(),"01","0000000"));
             return studentMapper.add(stu);
         }
+    }
+
+    private String grade2Year(int grade) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        return ""+(month>7?year-grade:year-grade-1);
     }
 
 }

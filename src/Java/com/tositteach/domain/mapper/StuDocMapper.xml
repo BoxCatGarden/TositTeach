@@ -68,9 +68,10 @@
     </select>
 
     <select id="get" resultMap="stuDocMap">
-        select doc_id,doc_name,disp,score,time,cla_id,gro_id,gro_name
-        from doc_student
+        select doc_id,doc_name,d.disp as disp,score,d.time as time,cla_id,gro_id,gro_name,pro_id,pro_name,url
+        from doc_student as d
           natural left outer join gp
+          join project using (pro_id)
         where doc_id=#{di}
     </select>
 

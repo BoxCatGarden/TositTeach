@@ -1,34 +1,41 @@
 let app = new Vue({
-    el:"#app",
-    data:{
-            user:{}
+    el: "#app",
+    data: {
+        user: {},
+
+        op: '',
+        np: '',
+        anp: ''
     },
-    created(){
+    created() {
         request200('GET', '/in/user', {}, x => {
             this.user = x;
         });
     },
-    methods:{
-        verify() {
-            var np1 = document.getElementById("ncode").value;
-            var op = document.getElementById("pcode").value;
-            var npc = document.getElementById("ncodec").value;
-
-            if(np1==npc){
-                request200('POST', '/in/user/chgpwd', {p:op,np:np1}, x => {
-                    if(x==1){
-                        alert("修改密码成功！");
-                    }
-                    else{
-                        alert("修改密码失败！");
-                    }
-                    window.location = "/home.html";
-                });
+    methods: {
+        reset() {
+            this.op='';
+            this.np='';
+            this.anp='';
+        },
+        change() {
+            if (this.np != this.anp) {
+                alert('请确认两次输入的新密码相同！');
+                return;
             }
-            else{
-                alert("两次密码不一致！");
+
+            if (confirm(this.np ? '确认修改密码吗？' : '确认将密码设置为空值吗？')) {
+                request200('POST', '/in/user/chgpwd', {p: this.op, np: this.np},
+                    x => {
+                        if (x) {
+                            alert('修改成功！');
+                            window.location = 'home.html';
+                        } else {
+                            alert('修改失败！');
+                            this.reset();
+                        }
+                    });
             }
         }
     }
-
 });

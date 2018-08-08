@@ -2,210 +2,187 @@
 <html lang="zh">
 <head>
 
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Student Add</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    
+
     <!-- Le styles -->
-    <link href="" rel="stylesheet" type="text/css">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="assets/css/admin.css" rel="stylesheet">
     <link href="assets/css/fileinput.min.css" rel="stylesheet">
     <link href="assets/css/theme.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="assets/css/upfile.css"  rel="stylesheet" type="text/css"/>
-    <link href="assets/css/demo.css"  rel="stylesheet" type="text/css"/>
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script type="application/javascript" src="script/req.js"></script>
+    <link href="assets/css/demo.css" rel="stylesheet" type="text/css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="application/javascript" src="script/req.js"></script>
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-</head>    
+</head>
 <body>
 
-<div class="container">
-		
-	<div class="row">
-		
-		<div class="span2">
-		
-		<div class="main-left-col">
-		
-			<h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
-			
-			<ul class="side-nav">
-				
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目 <b class="caret"></b></a>
-					<ul id="website-dropdown" class="collapse">
-						<li><a href="project_view.html">项目查看</a></li>
-						<li><a href="project_add.html">项目添加</a></li>
-						<li><a href="project_access.html">项目审批</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档 <b class="caret"></b></a>
-					<ul id="store-dropdown" class="collapse">
-						<li><a href="document_view.html">文档查看</a></li>
-						<li><a href="document_add.html">文档添加</a></li>
-					</ul>
-				</li>
-				<li class="dropdown active">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生 <b class="caret"></b></a>
-					<ul id="reports-dropdown">
-						<li class="active"><a href="student_add.html">学生添加</a></li>
-						<li><a href="student_manage.html">学生管理</a></li>
-						<li><a href="class_manage.html">班级管理</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划 <b class="caret"></b></a>
-					<ul id="members-dropdown" class="collapse">
-						<li><a href="task_view.html">任务查看</a></li>
-						<li><a href="task_add.html">任务添加</a></li>
-					</ul>
-				</li>
-			</ul>
-		
-		</div> <!-- end main-left-col -->
-	
-	</div> <!-- end span2 -->
-	
-	<div class="span10">
-		
-		<div class="secondary-masthead">
-	
-			<ul class="nav nav-pills pull-right">
-				<li>
-					<a href="home.html"><i class="icon-user"></i> 用户名</a>
-				</li>
-			</ul>
+<div class="container" id="app">
 
-			<ul class="breadcrumb">
-				<li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于学生/学生添加</li>
-			</ul>
-		</div>
+    <div class="row">
 
-		<div class="main-area dashboard">
-		<center>
-		<form action="">
-			<table class = "inputtable">
-				<tr><td>&nbsp</td><td>&nbsp</td></tr>
-				<tr><td>&nbsp</td><td>&nbsp</td></tr>
-				<tr>
-					<td><label for="sname"> 姓  名 </label></td>
-					<td class = "inp"><input class = "inp" type="text"  name = "sname" id = "sname" /></td></tr>
-				<tr>
-					<td><label for="sex"> 性 别 </label></td>
-					<td class = "inp"><select name = "sex" style="width: 509px;" id = "sex">
-								<option>男</option>
-								<option>女</option>	
-							</select></td></tr>
-				<tr>
-					<td><label for="grade"> 年 级 </label></td>
-					<td class = "inp"><select style="width: 509px;" id="grade">
-								<option>大一</option>
-								<option>大二</option>
-								<option>大三</option>
-								<option>大四</option>
-							</select></td></tr>
-				<tr>
-					<td><label for="school">学校</label></td>
-					<td class = "inp"><input class = "inp" type="text" name="school"  id = "school"/></td></tr>
-				<tr>
-					<td><label for="xue">学号</label></td>
-					<td class = "inp"><input class = "inp" type="text" name="xue" id = "xue"/></td></tr>
-				<tr><td>&nbsp</td><td>&nbsp</td></tr>
-				<tr><td>&nbsp</td><td>&nbsp</td></tr>
-				<tr>
-					<td>&nbsp</td>
-					<td class="tianjia">
-						<button type="submit"  class="btn btn-primary"/><a data-toggle="modal" href="#addStu" onclick = "add1()">添加</a></button></td>
-				</tr>
-			</table>
-		</form></center>
-		
-		<!--<div class="modal hide fade" id="addStu">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">×</button>
-				</div>
-				<div class="modal-footer">
-					<a href="student_add.html" class="btn btn-primary">确定</a>
-				</div>
-			</div>-->
-		
-		<div class="span10">
-			<center>
-			<hr style="width: 960px; margin-left: -75px;"/>
-			<span style = "font-size: large;">Excel表批量导入学员</span>
-			<form action="" enctype="multipart/form-data" style = "margin-top: 30px;">
-				<input type = "file"  id = "fileid" style = "width:400px"/>
-				<input type = "button" class="btn btn-primary " value="上传" onclick = "pi()" style="margin-left: 30px;"/>
-			</form>
-			</center>
-		</div>
-		
-		</div>
-		
-		<div class="row">
-		
-			<div class="span10 footer">
-			
-				<p>&copy; TOSIT 2018</p>
-			</div>
-		</div>
-			
-	
-	</div> <!-- end span10 -->
-	</div> <!-- end row -->
-		
+        <div class="span2">
+
+            <div class="main-left-col">
+
+                <h1><i class="icon-thumbs-up icon-large"></i> TOSIT</h1>
+
+                <ul class="side-nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#website-dropdown" href="#"> 关于项目
+                            <b class="caret"></b></a>
+                        <ul id="website-dropdown" class="collapse">
+                            <li><a href="project_view.html">项目查看</a></li>
+                            <li><a href="project_add.html">项目添加</a></li>
+                            <li><a href="project_access.html">项目审批</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"> 关于文档
+                            <b class="caret"></b></a>
+                        <ul id="store-dropdown" class="collapse">
+                            <li><a href="document_view.html">文档查看</a></li>
+                            <li><a href="document_add.html">文档添加</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"> 关于学生
+                            <b class="caret"></b></a>
+                        <ul id="reports-dropdown">
+                            <li class="active"><a href="student_add.html">学生添加</a></li>
+                            <li><a href="student_manage.html">学生管理</a></li>
+                            <li><a href="class_manage.html">班级管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#members-dropdown" href="#"> 教学计划
+                            <b class="caret"></b></a>
+                        <ul id="members-dropdown" class="collapse">
+                            <li><a href="task_view.html">任务查看</a></li>
+                            <li><a href="task_add.html">任务添加</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div> <!-- end main-left-col -->
+
+        </div> <!-- end span2 -->
+
+        <div class="span10">
+
+            <div class="secondary-masthead">
+
+                <ul class="nav nav-pills pull-right">
+                    <li>
+                        <a href="home.html"><i class="icon-user"></i>{{user.name}}</a>
+                    </li>
+                </ul>
+
+                <ul class="breadcrumb">
+                    <li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于学生/学生添加</li>
+                </ul>
+            </div>
+
+            <div class="main-area dashboard">
+                <center>
+                    <form action="">
+                        <table class="inputtable">
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="sname">姓 名</label></th>
+                                <td><input class="inp" type="text" id="sname" v-model="n"/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="font-weight: normal">性 别</th>
+                                <td class="form-inline">
+                                    <input type="radio" name="sx" id="sx0" value="0" v-model="sx">
+                                    <label for="sx0">男</label>
+                                    <input type="radio" name="sx" id="sx1" value="1" v-model="sx">
+                                    <label for="sx1">女</label>
+                                    <input type="radio" name="sx" id="sx2" value="2" v-model="sx">
+                                    <label for="sx2">其他</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="font-weight: normal">年 级</th>
+                                <td class="form-inline">
+                                    <input type="radio" name="g" id="g0" value="0" v-model="g">
+                                    <label for="g0">大一</label>
+                                    <input type="radio" name="g" id="g1" value="1" v-model="g">
+                                    <label for="g1">大二</label>
+                                    <input type="radio" name="g" id="g2" value="2" v-model="g">
+                                    <label for="g2">大三</label>
+                                    <input type="radio" name="g" id="g3" value="3" v-model="g">
+                                    <label for="g3">大四</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="school">学 校</label></th>
+                                <td><input class="inp" type="text" id="school" v-model="sh"/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="id">学 号</label></th>
+                                <td><input class="inp" type="text" id="id" v-model="id" ref="id"/></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td class="tianjia">
+                                    <button type="button" class="btn btn-primary" @click="add">
+                                        添加
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </center>
+
+            </div>
+
+            <div class="row">
+
+                <div class="span10 footer">
+
+                    <p>&copy; TOSIT 2018</p>
+                </div>
+            </div>
+
+
+        </div> <!-- end span10 -->
+    </div> <!-- end row -->
+
 </div> <!-- end container -->
 
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script type="application/javascript" src="script/student_add.js"></script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.js"></script>
-
-<!--<script src="assets/js/excanvas.min.js"></script>
-<script src="assets/js/jquery.flot.min.js"></script>
-<script src="assets/js/jquery.flot.resize.js"></script>
-<script type="text/javascript">
-$(function () {
-    var d1 = [];
-        d1.push([0, 32]);
-        d1.push([1, 30]);
-        d1.push([2, 24]);
-        d1.push([3, 17]);
-        d1.push([4, 11]);
-        d1.push([5, 25]);
-        d1.push([6, 28]);
-        d1.push([7, 36]);
-        d1.push([8, 44]);
-        d1.push([9, 52]);
-        d1.push([10, 53]);
-        d1.push([11, 50]);
-        d1.push([12, 45]);
-        d1.push([13, 42]);
-        d1.push([14, 40]);
-        d1.push([15, 36]);
-        d1.push([16, 34]);
-        d1.push([17, 24]);
-        d1.push([18, 17]);
-        d1.push([19, 17]);
-        d1.push([20, 20]);
-        d1.push([21, 28]);
-        d1.push([22, 36]);
-        d1.push([23, 38]);
-
-    $.plot($("#placeholder"), [ d1 ], { grid: { backgroundColor: 'white', color: '#999', borderWidth: 1, borderColor: '#DDD' }, colors: ["#FC6B0A"], series: { lines: { show: true, fill: true, fillColor: "rgba(253,108,11,0.4)" } } });
-});
-</script>
--->
 
 </body>
 </html>

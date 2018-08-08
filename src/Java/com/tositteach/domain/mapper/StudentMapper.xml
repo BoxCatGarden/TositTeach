@@ -20,7 +20,7 @@
     <select id="total" resultType="_int">
         select count(*) from student
         <choose>
-            <when test="ci=='n'">
+            <when test='ci=="n"'>
                 where cla_id is null
             </when>
             <when test="ci!=null">
@@ -31,10 +31,10 @@
     </select>
 
     <select id="query" resultMap="stuMap">
-        select user_id,id,name
+        select user_id,id,name,cla_id,gro_id
         from student
         <choose>
-            <when test="ci=='n'">
+            <when test='ci=="n"'>
                 where cla_id is null
             </when>
             <when test="ci!=null">
@@ -42,6 +42,9 @@
             </when>
             <otherwise></otherwise>
         </choose>
+        <if test="nm>0">
+            limit #{st},#{nm}
+        </if>
     </select>
 
     <!--<select id="get" resultMap="stuMap">

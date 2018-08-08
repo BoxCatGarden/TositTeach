@@ -1,53 +1,64 @@
-.rightcols{
-	width:1170px;
-	position:absolute;
-	right:100px;
-	padding: 0px;
-}
-.mianbox{
-	width:1170px;
-	position: absolute;
-	right:50px;
-	top: 120px;
+.rightcols {
+    width: 1170px;
+    position: absolute;
+    right: 100px;
+    padding: 0px;
 }
 
-.mianbox label{
-	display:inline;
-	height: 23px;
-	margin-right:10px;
-	line-height: 23px;
+.mianbox {
+    width: 1170px;
+    position: absolute;
+    right: 50px;
+    top: 120px;
 }
 
-.inp{
-	
-	width:500px;
+.mianbox label {
+    display: inline;
+    height: 23px;
+    margin-right: 10px;
+    line-height: 23px;
 }
 
+.inp {
 
-
-.tianjia{
-	padding-left:450px;
-}
-.tianjia a{
-	text-decoration: none;
-	color:white;
+    width: 500px;
 }
 
-.footer1{
-	position:absolute;
-	bottom: 15px;
+.tianjia {
+    padding-left: 450px;
 }
 
-.mul{
-	height:200px;
+.tianjia a {
+    text-decoration: none;
+    color: white;
 }
-#savebutton {
+
+.footer1 {
+    position: absolute;
+    bottom: 15px;
+}
+
+.mul {
+    height: 200px;
+}
+
+/*#savebutton {
 	display: none;
+}*/
+.footer12 {
+    position: absolute;
+    bottom: 0px;
 }
-.footer12{
-	position:absolute;
-	bottom: 0px;
+
+#groupbox {
+    display: none;
 }
-#groupbox{
-	display: none;
+
+table.inputtable th[scope="row"] {
+    text-align: right;
+}
+
+table.inputtable input[type="radio"] {
+    margin-left: 8px;
+    vertical-align: top;
 }
