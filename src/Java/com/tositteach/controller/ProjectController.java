@@ -55,7 +55,7 @@ public class ProjectController {
         if (pro.pn == null || pro.stt == null || pro.edt == null || pro.dp == null) return "";
         if (!DateChecker.valiDuration(pro.stt,pro.edt)) return "";
         String re = projectService.add(pro.pn, pro.stt, pro.edt, pro.dp,
-                ((User) session.getAttribute("user")).getUserId());
+                ((User) session.getAttribute(UserController.USER)).getUserId());
         return re != null ? re : "";
     }
 

@@ -19,7 +19,7 @@ let app = new Vue({
             if (confirm('确定离开系统吗？')) {
                 request200('POST','/in/user/signout',{}, x=>{
                     if (x) {
-                        window.location='/';
+                        window.location='/signin.html';
                     } else {
                         alert('退出失败！请稍候尝试');
                     }

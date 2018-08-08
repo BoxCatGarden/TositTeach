@@ -21,23 +21,18 @@ import java.util.concurrent.ConcurrentHashMap;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    public static final String USER = "user";
+
     @Resource
     private UserService userService;
 
-    private Map<String,HttpSession> userMap = new ConcurrentHashMap<>(); //multi-thread!!!
-
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     @ResponseBody
-    public int signIn(@RequestBody UserReqBody req, HttpSession se) { //ui,p
+    public int signIn(@RequestBody UserReqBody req, HttpSession session) { //ui,p
         if (req.ui==null||req.p==null) return 0;
         User user = userService.signIn(req.ui,req.p); //try to sign in
         if (user != null) { //succeed
-            HttpSession session = userMap.get(user.getUserId());
-            if (session != null) session.removeAttribute("user"); //remove the current signed session
-            session = se;
-            session.setAttribute("user", user); //sign in the session
-            session.setAttribute("ui", user.getUserId());
-            userMap.put(user.getUserId(),session);
+            session.setAttribute(USER, user);
             return 1;
         }
         return 0;
@@ -46,9 +41,8 @@ public class UserController {
     @RequestMapping(value = "/signout", method = RequestMethod.POST)
     @ResponseBody
     public int signOut(HttpSession session) {
-        if (session.getAttribute("user") != null) {
-            userMap.remove((String)session.getAttribute("ui"));
-            session.removeAttribute("user");
+        if (session.getAttribute(USER) != null) {
+            session.setAttribute(USER, 0);
             return 1;
         }
         return 0;
@@ -58,7 +52,7 @@ public class UserController {
     @ResponseBody
     public int changePwd(@RequestBody UserReqBody req, HttpSession session) {
         if (req.p==null||req.np==null)return 0;
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute(USER);
         return userService.changePwd(user.getUserId(), req.p, req.np);
     }
 
@@ -66,14 +60,14 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public User head(HttpSession session) {
-        return (User) session.getAttribute("user");
+        return (User) session.getAttribute(USER);
     }
 
     //获取用户信息，智能接口，根据用户类型不同自动返回不同的用户信息
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public Object info(HttpSession session) {
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute(USER);
         byte type = user.getType();
         if (type == 1) {
             return userService.getStuUserInfo(user.getUserId());

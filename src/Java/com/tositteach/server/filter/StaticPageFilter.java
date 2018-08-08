@@ -1,5 +1,7 @@
 package com.tositteach.server.filter;
 
+import com.tositteach.controller.UserController;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +19,7 @@ public class StaticPageFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        Object user = session.getAttribute("user");
+        Object user = session.getAttribute(UserController.USER);
         String uri = request.getRequestURI();
         String suffix = uri.substring(uri.lastIndexOf(".")+1);
         if (suffix.equals("html") || uri.equals("/")) {

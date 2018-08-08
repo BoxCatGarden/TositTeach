@@ -23,7 +23,7 @@ let app = new Vue({
             request200('POST', '/in/user/signin', {ui: this.ui, p: this.p},
                 x => {
                     if (x) {
-                        window.location = '/';
+                        window.location = '/mainpage.html';
                     } else {
                         alert('登录失败！');
                         this.reset();

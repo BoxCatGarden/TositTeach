@@ -78,7 +78,7 @@
 
     <!-- 监听Session，完成单用户登录的记录释放 -->
     <listener>
-        <listener-class>com.tositteach.server.listener.SessionListener</listener-class>
+        <listener-class>com.tositteach.server.listener.UserSessionListener</listener-class>
     </listener>
 
 
@@ -105,6 +105,6 @@
 
     <!-- session配置 -->
     <session-config>
-        <session-timeout>1</session-timeout>
+        <session-timeout>180</session-timeout>
     </session-config>
 </web-app>

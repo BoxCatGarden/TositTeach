@@ -26,7 +26,7 @@ public class EngDocController {
                       HttpSession session) {
         if (file.getSize() == 0) return 0;
         if (proId.length() != 11) return 0;
-        String engId = ((User) session.getAttribute("user")).getUserId();
+        String engId = ((User) session.getAttribute(UserController.USER)).getUserId();
         return engDocService.upload(file, proId, engId);
     }
 
@@ -39,7 +39,7 @@ public class EngDocController {
                         HttpSession session) {
         if (file.getSize() == 0) return 0;
         if (docId.length() != 11) return 0;
-        String engId = ((User) session.getAttribute("user")).getUserId();
+        String engId = ((User) session.getAttribute(UserController.USER)).getUserId();
         return engDocService.reupload(file, docId, engId);
     }
 
