@@ -85,7 +85,7 @@ let app = new Vue({
                         window.location=window.location.pathname;
                     } else alert('上传失败！');
                 });
-            } else alert('未选择文件！')
+            } else alert('未选择文件！');
         }
 
     }

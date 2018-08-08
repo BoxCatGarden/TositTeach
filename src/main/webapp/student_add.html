@@ -107,39 +107,39 @@
                             </tr>
                             <tr>
                                 <th scope="row"><label for="sname">姓 名</label></th>
-                                <td><input class="inp" type="text" id="sname" v-model="n"/></td>
+                                <td><input :disabled="dis" class="inp" type="text" id="sname" v-model="n"/></td>
                             </tr>
                             <tr>
                                 <th scope="row" style="font-weight: normal">性 别</th>
                                 <td class="form-inline">
-                                    <input type="radio" name="sx" id="sx0" value="0" v-model="sx">
+                                    <input :disabled="dis" type="radio" name="sx" id="sx0" value="0" v-model="sx">
                                     <label for="sx0">男</label>
-                                    <input type="radio" name="sx" id="sx1" value="1" v-model="sx">
+                                    <input :disabled="dis" type="radio" name="sx" id="sx1" value="1" v-model="sx">
                                     <label for="sx1">女</label>
-                                    <input type="radio" name="sx" id="sx2" value="2" v-model="sx">
+                                    <input :disabled="dis" type="radio" name="sx" id="sx2" value="2" v-model="sx">
                                     <label for="sx2">其他</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" style="font-weight: normal">年 级</th>
                                 <td class="form-inline">
-                                    <input type="radio" name="g" id="g0" value="0" v-model="g">
+                                    <input :disabled="dis" type="radio" name="g" id="g0" value="0" v-model="g">
                                     <label for="g0">大一</label>
-                                    <input type="radio" name="g" id="g1" value="1" v-model="g">
+                                    <input :disabled="dis" type="radio" name="g" id="g1" value="1" v-model="g">
                                     <label for="g1">大二</label>
-                                    <input type="radio" name="g" id="g2" value="2" v-model="g">
+                                    <input :disabled="dis" type="radio" name="g" id="g2" value="2" v-model="g">
                                     <label for="g2">大三</label>
-                                    <input type="radio" name="g" id="g3" value="3" v-model="g">
+                                    <input :disabled="dis" type="radio" name="g" id="g3" value="3" v-model="g">
                                     <label for="g3">大四</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row"><label for="school">学 校</label></th>
-                                <td><input class="inp" type="text" id="school" v-model="sh"/></td>
+                                <td><input :disabled="dis" class="inp" type="text" id="school" v-model="sh"/></td>
                             </tr>
                             <tr>
                                 <th scope="row"><label for="id">学 号</label></th>
-                                <td><input class="inp" type="text" id="id" v-model="id" ref="id"/></td>
+                                <td><input :disabled="dis" class="inp" type="text" id="id" v-model="id" ref="id"/></td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
@@ -152,7 +152,7 @@
                             <tr>
                                 <td>&nbsp;</td>
                                 <td class="tianjia">
-                                    <button type="button" class="btn btn-primary" @click="add">
+                                    <button :disabled="dis" type="button" class="btn btn-primary" @click="add">
                                         添加
                                     </button>
                                 </td>
@@ -160,7 +160,28 @@
                         </table>
                     </form>
                 </center>
+            </div>
 
+            <div class="row">
+                <div class="span10">
+                    <div class="slate" style="text-align: center">
+                        <form class="form-inline">
+                            <input :disabled="dis" type="file" id="file" accept=".xls,.xlsx"
+                                   @change="setfile"/>
+                            <label for="file">
+                                <button :disabled="dis" type="button" class="btn btn-primary" @click="batch">
+                                    批量导入
+                                </button>
+                            </label>
+                        </form>
+                        <div class="alert alert-info">
+                            <a class="close" data-dismiss="alert" href="#">x</a>
+                            <h4 class="alert-heading">提示</h4>
+                            只接受.xls或.xlsx表格文件。<br>表头要包含（学校，学号，姓名，性别，年级）（顺序可以不同）。
+                            <br>所有的表格内容都要是文本格式！
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="row">

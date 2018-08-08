@@ -9,6 +9,7 @@ let app = new Vue({
         sh: '',
         id: '',
 
+        file: '',
         //ctrl
         dis: false
     },
@@ -61,6 +62,26 @@ let app = new Vue({
                         this.dis = false;
                     }
                 });
+        },
+
+        setfile(event) {
+            this.file = event.target.files[0];
+        },
+        batch() {
+            if (this.file && /\.xls$|\.xlsx$/.test(this.file.name)) {
+                this.dis = true;
+                var data = new FormData();
+                data.append('file', this.file);
+                request200('POST', '/in/stu/bat', data, x => {
+                    if (x) {
+                        alert('成功导入'+x+'个学生！');
+                        window.location = window.location.pathname;
+                    } else {
+                        alert('导入失败！');
+                        this.dis = false;
+                    }
+                });
+            } else alert('请选择Excel表格文件！');
         }
     }
 });

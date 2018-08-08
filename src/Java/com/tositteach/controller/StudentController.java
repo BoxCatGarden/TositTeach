@@ -4,6 +4,7 @@ import com.tositteach.service.StudentService;
 import com.tositteach.util.PagingBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Calendar;
@@ -37,6 +38,15 @@ public class StudentController {
         if (!idPattern.matcher(stu.id).matches()) return 0;
         if (stu.grade < 0 || 3 < stu.grade) return 0;
         return studentService.add(stu.school, stu.id, stu.name, stu.sex, stu.grade);
+    }
+
+    //从.xls|.xlsx文件批量导入学生
+    @RequestMapping(value = "/bat", method = RequestMethod.POST)
+    @ResponseBody
+    public int bat(@RequestParam("file")CommonsMultipartFile file) {
+        if (file.getSize()==0) return 0;
+        if (!file.getOriginalFilename().matches(".*\\.xls$|.*\\.xlsx$")) return 0;
+        return studentService.batch(file);
     }
 
     /*//目前不需要
