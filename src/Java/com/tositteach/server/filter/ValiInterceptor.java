@@ -26,7 +26,7 @@ public class ValiInterceptor extends HandlerInterceptorAdapter {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(399);
         try {
-            response.getOutputStream().write(("\""+location+"\"").getBytes("UTF-8"));
+            response.getOutputStream().write(location.getBytes("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
