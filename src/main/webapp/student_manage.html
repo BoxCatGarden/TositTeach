@@ -128,17 +128,23 @@
 
                             <table v-if="stus.length" class="orders-table table" style="text-align: left">
                                 <colgroup>
-                                    <col width="30%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                    <col width="30%">
+                                    <col width="12%">
+                                    <col width="18%">
+                                    <col width="20%">
+                                    <col width="10%">
+                                    <col width="6%">
+                                    <col width="6%">
+                                    <col width="18%">
                                     <col width="10%">
                                 </colgroup>
                                 <thead>
                                 <tr>
+                                    <th scope="col">帐号</th>
+                                    <th scope="col">学校</th>
                                     <th scope="col">学号</th>
                                     <th scope="col">班级</th>
                                     <th scope="col">小组</th>
+                                    <th scope="col">年级</th>
                                     <th scope="col">姓名</th>
                                     <th scope="col">
                                         <label for="sAll">全选
@@ -151,9 +157,12 @@
                                 </thead>
                                 <tbody>
                                 <tr v-for="stu in stus">
+                                    <td>{{stu.userId}}</td>
+                                    <td>{{stu.school}}</td>
                                     <td>{{stu.id}}</td>
                                     <td>{{stu.gp.claId||'--'}}</td>
                                     <td>{{stu.gp.groId!==undefined?stu.gp.groId:'--'}}</td>
+                                    <td>{{stu.grade}}</td>
                                     <td><label class="checkbox-inline" :for="'s'+stu.userId">{{stu.name}}</label></td>
                                     <td>
                                         <input type="checkbox" :id="'s'+stu.userId" :value="stu.userId"
