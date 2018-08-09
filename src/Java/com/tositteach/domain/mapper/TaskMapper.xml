@@ -32,6 +32,7 @@
             <bind name="lei" value="'%'+ei+'%'"/>
             where user_id like #{lei}
         </if>
+        order by tas_id desc
         <if test="nm > 0">
             limit #{st},#{nm}
         </if>

@@ -71,6 +71,7 @@
                 and cla_id is null
             </if>
         </where>
+        order by pro_id desc
         <if test="nm>0">
             limit #{st},#{nm}
         </if>

@@ -62,6 +62,7 @@
                 and pro_name like #{lpn}
             </if>
         </where>
+        order by doc_id desc
         <if test="nm>0">
             limit #{st},#{nm}
         </if>

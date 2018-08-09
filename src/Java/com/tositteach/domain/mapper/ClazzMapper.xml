@@ -23,6 +23,7 @@
         select cla_id,cla_name,room,e.user_id as user_id,e.name as name,count(s.user_id) as stu_num
         from clazz as c natural left outer join engineer as e left outer join student as s using (cla_id)
         group by cla_id,cla_name,room,user_id,name
+        order by stu_num asc,cla_id desc
         <if test="nm>0">
             limit #{st},#{nm}
         </if>
