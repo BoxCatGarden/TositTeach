@@ -1,0 +1,209 @@
+﻿CREATE DATABASE IF NOT EXISTS tosit_teach_1_8
+DEFAULT CHARSET utf8
+COLLATE utf8_general_ci;
+
+USE tosit_teach_1_8;
+
+DROP TABLE IF EXISTS doc_student;
+DROP TABLE IF EXISTS doc_engineer;
+DROP TABLE IF EXISTS student;
+DROP TABLE IF EXISTS gp;
+DROP TABLE IF EXISTS clazz;
+DROP TABLE IF EXISTS project;
+DROP TABLE IF EXISTS task;
+DROP TABLE IF EXISTS engineer;
+DROP TABLE IF EXISTS user;
+
+CREATE TABLE user(
+user_id VARCHAR(24),
+pwd VARCHAR(32) NOT NULL,
+type TINYINT NOT NULL,
+PRIMARY KEY (user_id)
+);
+
+CREATE TABLE engineer(
+user_id VARCHAR(24),
+name VARCHAR(6) NOT NULL,
+sex TINYINT(1) NOT NULL,
+PRIMARY KEY (user_id),
+FOREIGN KEY (user_id) REFERENCES user(user_id)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
+);
+
+CREATE TABLE task(
+tas_id VARCHAR(11),
+tas_name VARCHAR(16) NOT NULL,
+st_time DATE NOT NULL,
+ed_time DATE NOT NULL,
+disp TEXT NOT NULL,
+plan TEXT NOT NULL,
+time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+user_id VARCHAR(24),
+PRIMARY KEY (tas_id),
+FOREIGN KEY (user_id) REFERENCES engineer(user_id)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
+);
+
+CREATE TABLE project(
+pro_id VARCHAR(11),
+pro_name VARCHAR(16) NOT NULL,
+st_time DATE NOT NULL,
+ed_time DATE NOT NULL,
+disp TEXT NOT NULL,
+state TINYINT(1) NOT NULL DEFAULT 0,
+time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+user_id VARCHAR(24),
+PRIMARY KEY (pro_id),
+FOREIGN KEY (user_id) REFERENCES engineer(user_id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
+);
+
+CREATE TABLE clazz(
+cla_id VARCHAR(11),
+cla_name VARCHAR(16) NOT NULL,
+room VARCHAR(24) NOT NULL,
+user_id VARCHAR(24),
+PRIMARY KEY (cla_id),
+FOREIGN KEY (user_id) REFERENCES engineer(user_id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
+);
+
+CREATE TABLE gp(
+cla_id VARCHAR(11),
+gro_id TINYINT,
+gro_name VARCHAR(16) NOT NULL,
+pro_id VARCHAR(11),
+PRIMARY KEY (cla_id,gro_id),
+FOREIGN KEY (cla_id) REFERENCES clazz(cla_id)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE,
+FOREIGN KEY (pro_id) REFERENCES project(pro_id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
+);
+
+CREATE TABLE student(
+user_id VARCHAR(24),
+school VARCHAR(16) NOT NULL,
+id VARCHAR(24) NOT NULL,
+name VARCHAR(6) NOT NULL,
+sex TINYINT(1) NOT NULL,
+grade YEAR NOT NULL,
+cla_id VARCHAR(11),
+gro_id TINYINT,
+PRIMARY KEY (user_id),
+FOREIGN KEY (user_id) REFERENCES user(user_id)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE,
+FOREIGN KEY (cla_id) REFERENCES clazz(cla_id)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
+);
+
+CREATE TABLE doc_student(
+doc_id VARCHAR(11),
+doc_name VARCHAR(254) NOT NULL,
+url VARCHAR(1022) NOT NULL,
+score TINYINT NOT NULL DEFAULT -1,#no score
+time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+disp TEXT NOT NULL,
+cla_id VARCHAR(11),
+gro_id TINYINT,
+pro_id VARCHAR(11),
+PRIMARY KEY (doc_id),
+FOREIGN KEY (cla_id,gro_id) REFERENCES gp(cla_id,gro_id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL,
+FOREIGN KEY (pro_id) REFERENCES project(pro_id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
+);
+
+CREATE TABLE doc_engineer(
+doc_id VARCHAR(11),
+url VARCHAR(1022) NOT NULL,
+pro_id VARCHAR(11),
+user_id VARCHAR(24),
+PRIMARY KEY (doc_id),
+FOREIGN KEY (user_id) REFERENCES engineer(user_id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL,
+FOREIGN KEY (pro_id) REFERENCES project(pro_id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
+);
+
+#逆向创建
+CREATE TRIGGER in_enguser BEFORE INSERT
+ON engineer FOR EACH ROW
+BEGIN
+	INSERT INTO user VALUES (new.user_id,'e10adc3949ba59abbe56e057f20f883e',2);
+END;
+#逆向删除
+CREATE TRIGGER del_enguser AFTER DELETE
+ON engineer FOR EACH ROW
+BEGIN
+	DELETE FROM user WHERE user_id=old.user_id;
+END;
+#逆向创建
+CREATE TRIGGER in_stuuser BEFORE INSERT
+ON student FOR EACH ROW
+BEGIN
+	INSERT INTO user VALUES (new.user_id,'e10adc3949ba59abbe56e057f20f883e',1);
+END;
+#逆向删除
+CREATE TRIGGER del_stuuser AFTER DELETE
+ON student FOR EACH ROW
+BEGIN
+	DELETE FROM user WHERE user_id=old.user_id;
+END;
+
+#解决触发器不被级联触发的问题
+CREATE TRIGGER del_clacastrans BEFORE DELETE
+ON clazz FOR EACH ROW
+BEGIN
+	DELETE FROM student WHERE cla_id=old.cla_id;
+END;
+
+# FOREIGN KEY
+CREATE TRIGGER up_stugro BEFORE UPDATE
+ON student FOR EACH ROW
+BEGIN
+	IF (new.cla_id IS NULL AND new.gro_id IS NOT NULL)
+		OR (new.cla_id IS NOT NULL AND new.gro_id IS NOT NULL AND
+			NOT EXISTS (SELECT * FROM gp WHERE cla_id=new.cla_id AND gro_id=new.gro_id))
+	THEN DELETE FROM student;
+	END IF;
+END;
+# FOREIGN KEY
+CREATE TRIGGER in_stugro BEFORE INSERT
+ON student FOR EACH ROW
+BEGIN
+	IF (new.cla_id IS NULL AND new.gro_id IS NOT NULL)
+		OR (new.cla_id IS NOT NULL AND new.gro_id IS NOT NULL AND
+			NOT EXISTS (SELECT * FROM gp WHERE cla_id=new.cla_id AND gro_id=new.gro_id))
+	THEN DELETE FROM student;
+	END IF;
+END;
+
+# ON DELETE partial CASCADE
+CREATE TRIGGER del_groforstu AFTER DELETE
+ON gp FOR EACH ROW
+BEGIN
+	UPDATE student SET gro_id=NULL WHERE cla_id=old.cla_id AND gro_id=old.gro_id;
+END;
+
+# ON UPDATE partial CASCADE
+CREATE TRIGGER up_groforstu AFTER UPDATE
+ON gp FOR EACH ROW
+BEGIN
+	IF new.gro_id!=old.gro_id THEN
+		UPDATE student SET gro_id=new.gro_id WHERE cla_id=old.cla_id AND gro_id=old.gro_id;
+	END IF;
+END;
+
+INSERT INTO engineer VALUES ('101','en',0);
