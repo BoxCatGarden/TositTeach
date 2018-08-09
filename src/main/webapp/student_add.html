@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <title>Student Add</title>
+    <title>学生添加</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
 
     <!-- Le styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -15,6 +17,8 @@
     <link href="assets/css/fileinput.min.css" rel="stylesheet">
     <link href="assets/css/theme.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="assets/css/demo.css" rel="stylesheet" type="text/css"/>
+
+    <link href="style/student_add.css" type="text/css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script type="application/javascript" src="script/req.js"></script>
@@ -165,6 +169,13 @@
             <div class="row">
                 <div class="span10">
                     <div class="slate" style="text-align: center">
+                        <div :hidden="!prog">
+                            正在处理，请稍候...
+                            <div class="progress progress-bar2">
+                                <div class="progress-innerbar" ref="innerbar"></div>
+                            </div>
+                        </div>
+
                         <form class="form-inline">
                             <input :disabled="dis" type="file" id="file" accept=".xls,.xlsx"
                                    @change="setfile"/>
@@ -178,7 +189,6 @@
                             <a class="close" data-dismiss="alert" href="#">x</a>
                             <h4 class="alert-heading">提示</h4>
                             只接受.xls或.xlsx表格文件。<br>表头要包含（学校，学号，姓名，性别，年级）（顺序可以不同）。
-                            <br>所有的表格内容都要是文本格式！
                         </div>
                     </div>
                 </div>

@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <title>Class Management</title>
+    <title>班级管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
 
     <!-- Le styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="assets/css/admin.css" rel="stylesheet">
+
+    <link href="style/class_manage.css" type="text/css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script type="application/javascript" src="script/req.js"></script>
@@ -117,11 +121,11 @@
 
                                 <table v-if="clas.length" class="orders-table table">
                                     <colgroup>
-                                        <col width="30%">
-                                        <col width="15%">
-                                        <col width="15%">
-                                        <col width="30%">
-                                        <col width="10%">
+                                        <col>
+                                        <col>
+                                        <col>
+                                        <col>
+                                        <col>
                                     </colgroup>
                                     <thead>
                                     <tr>

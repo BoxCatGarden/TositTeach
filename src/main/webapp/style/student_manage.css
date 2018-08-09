@@ -1,0 +1,39 @@
+table {
+    table-layout: fixed;
+}
+
+table col:nth-child(1) {
+    width: 12%;
+}
+
+table col:nth-child(2) {
+    width: 18%;
+}
+
+table col:nth-child(3) {
+    width: 20%;
+}
+
+table col:nth-child(4) {
+    width: 10%;
+}
+
+table col:nth-child(5) {
+    width: 6%;
+}
+
+table col:nth-child(6) {
+    width: 6%;
+}
+
+table col:nth-child(7) {
+    width: 18%;
+}
+
+table col:nth-child(8) {
+    width: 10%;
+}
+
+table th input {
+    vertical-align: top;
+}

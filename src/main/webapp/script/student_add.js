@@ -11,7 +11,9 @@ let app = new Vue({
 
         file: '',
         //ctrl
-        dis: false
+        dis: false,
+        prog: false,
+        intv:''
     },
     created() {
         request200('GET', '/in/user', {}, x => {
@@ -72,7 +74,9 @@ let app = new Vue({
                 this.dis = true;
                 var data = new FormData();
                 data.append('file', this.file);
+                this.startProg();
                 request200('POST', '/in/stu/bat', data, x => {
+                    this.stopProg();
                     if (x) {
                         alert('成功导入'+x+'个学生！');
                         window.location = window.location.pathname;
@@ -82,6 +86,21 @@ let app = new Vue({
                     }
                 });
             } else alert('请选择Excel表格文件！');
+        },
+
+        startProg() {
+            var e = this.$refs.innerbar.style,
+                x = 0;
+            this.intv = setInterval(()=>{
+                e["margin-left"] = x+'%';
+                x+=0.2;
+                if (x>100) x=-10;
+            }, 10);
+            this.prog = true;
+        },
+        stopProg() {
+            clearInterval(this.intv);
+            this.prog=false;
         }
     }
 });

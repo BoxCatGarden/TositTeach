@@ -1,0 +1,13 @@
+.progress-bar2 {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    text-align: left;
+}
+
+.progress-innerbar {
+    display: inline-block;
+    width: 10%;
+    height: 110%;
+    background-color: green;
+}

@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <title>Student Manage</title>
+    <title>学生管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
 
     <!-- Le styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="assets/css/admin.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/demo.css"/>
+
+    <link href="style/student_manage.css" type="text/css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script type="application/javascript" src="script/req.js"></script>
@@ -87,7 +91,7 @@
                 </ul>
 
                 <ul class="breadcrumb">
-                    <li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于学生/学生管理/分班分组</li>
+                    <li class="active"><i class="icon-home"></i> TOSIT实训管理系统/关于学生/学生管理</li>
                 </ul>
 
             </div>
@@ -128,14 +132,14 @@
 
                             <table v-if="stus.length" class="orders-table table" style="text-align: left">
                                 <colgroup>
-                                    <col width="12%">
-                                    <col width="18%">
-                                    <col width="20%">
-                                    <col width="10%">
-                                    <col width="6%">
-                                    <col width="6%">
-                                    <col width="18%">
-                                    <col width="10%">
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
                                 </colgroup>
                                 <thead>
                                 <tr>
